@@ -33,10 +33,6 @@ gem 'bootstrap-sass'
 # Utilizando gem responders para responder automaticamente em diferentes formatos
 gem 'responders'
 
-# Gems do heroku
-    group :production do
-      gem 'rails_12factor'
-    end
 
 # ------------- End custom gems
 
