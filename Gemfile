@@ -34,7 +34,9 @@ gem 'bootstrap-sass'
 gem 'responders'
 
 # Gems do heroku
-gem 'rails_12factor', group: :production
+    group :production do
+      gem 'rails_12factor'
+    end
 
 # ------------- End custom gems
 
