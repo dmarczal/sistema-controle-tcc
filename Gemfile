@@ -33,7 +33,6 @@ gem 'bootstrap-sass'
 # Utilizando gem responders para responder automaticamente em diferentes formatos
 gem 'responders'
 
-
 # ------------- End custom gems
 
 # Use ActiveModel has_secure_password
