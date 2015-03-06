@@ -1,0 +1,2 @@
+module Api::BaseTimelineHelper
+end

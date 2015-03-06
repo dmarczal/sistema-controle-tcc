@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: O acadêmico de TSI deve frequentar a disciplina de Metodologia Ciêntifica de TSI (Tópicos Especiais em Computação).
+  title: Metodologia Científica de TSI
+  _type: document
+  date: 2015-05-05
+  link: http://tcc.tsi.gp.utfpr.edu.br/
+
+two:
+  description: O acadêmico deve procurar os professores de TSI para conhecer suas linhas de pesquisas, projeto que estão trabalhando, áreas de interesse, etc. Com o intuito de encontrar um orientador e tema para o TCC
+  title: Buscar por um orientador e tema
+  _type: warning
+  date: 2015-07-05
+  link: http://tcc.tsi.gp.utfpr.edu.br/

@@ -1,0 +1,142 @@
+<div class="labels" style="display: none;">
+  <img src="/assets/timeline/icons/presentation.png" id="label-presentation">
+  <img src="/assets/timeline/icons/warning.png" id="label-important">
+  <img src="/assets/timeline/icons/document.svg" id="label-document">
+</div>
+<script type="text/javascript" src="/assets/timeline/fabric.min.js"></script>
+<script type="text/javascript" src="/assets/timeline/helpers.js"></script>
+<script type="text/javascript" src="/assets/timeline/view/pattern.js"> </script>
+<script type="text/javascript" src="/assets/timeline/header.js"></script>
+<script type="text/javascript" src="/assets/timeline/view/body.js"> </script>
+<script type="text/javascript" src="/assets/timeline/view/events.js"> </script>
+<div class="row" ng-controller="TimelineController as ctrl">
+    <div class="table" ng-hide="ctrl._ctrlForm">
+        <form class="form-horizontal">
+          <fieldset>
+
+            <!-- Form Name -->
+            <legend>TCC's</legend>
+            <div class="row">
+                <div class="col-md-12 text-center"><button class="btn btn-primary" ng-click="ctrl._ctrlForm = true">Novo TCC</button><br><br></div>
+            </div>
+
+            <!-- Select Basic -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="year">Ano</label>
+              <div class="col-md-4">
+                <select id="year" name="year" class="form-control" ng-model="ctrl.year" ng-options="year as year for year in ctrl.years" ng-change="ctrl.updateStudents()">
+                  <option value="">Selecione o ano</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Select Basic -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="half">Semestre</label>
+              <div class="col-md-4">
+                <select id="half" name="half" class="form-control" ng-model="ctrl.half" ng-options="half as half for half in ctrl.halfs" ng-change="ctrl.updateStudents()">
+                  <option value="">Selecione o semestre</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Select Basic -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="tcc">TCC</label>
+              <div class="col-md-4">
+                <select id="tcc" name="tcc" class="form-control" ng-model="ctrl.tcc" ng-options="tcc as tcc for tcc in ctrl.tccs" ng-change="ctrl.updateStudents()">
+                  <option value="">Selecione TCC 1 ou TCC 2</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Select Basic -->
+            <div class="form-group" ng-show="ctrl.timelines">
+              <label class="col-md-4 control-label" for="student">Aluno</label>
+              <div class="col-md-4">
+                <select id="student" name="student" class="form-control" ng-model="ctrl.timeline" ng-options="timeline as timeline.student_name for timeline in ctrl.timelines" ng-change="ctrl.updateTimeline()">
+                  <option value="">Selecione o acadêmico</option>
+                </select>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+        <br><br><br>
+        <div class="row col-md-12 text-center" ng-show="ctrl._ctrlTimeline">
+          <div style="overflow: scroll;">
+            <canvas id="c" width="1600" height="500"></canvas>
+          </div>
+          <br><br><br>
+          <button class="btn btn-success">Marcar defesa</button>
+        </div>
+    </div>
+    <div class="container" ng-show="ctrl._ctrlForm">
+      <form class="form-horizontal">
+        <fieldset>
+
+          <!-- Form Name -->
+          <div class="row">
+            <div class="col-md-12 text-center"><h2>Novo TCC</h2></div>
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="year">Ano</label>
+            <div class="col-md-4">
+              <select id="year" name="year" class="form-control" ng-model="ctrl.newTimeline.year" ng-options="year as year for year in ctrl.years" ng-change="ctrl.updateStudents()">
+                <option value="">Selecione o ano</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="half">Semestre</label>
+            <div class="col-md-4">
+              <select id="half" name="half" class="form-control" ng-model="ctrl.newTimeline.half" ng-options="half as half for half in ctrl.halfs" ng-change="ctrl.updateStudents()">
+                <option value="">Selecione o semestre</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="tcc">TCC</label>
+            <div class="col-md-4">
+              <select id="tcc" name="tcc" class="form-control" ng-model="ctrl.newTimeline.tcc" ng-options="tcc as tcc for tcc in ctrl.tccs" ng-change="ctrl.updateStudents()">
+                <option value="">Selecione TCC 1 ou TCC 2</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group" ng-show="ctrl.allStudents">
+            <label class="col-md-4 control-label" for="student">Aluno</label>
+            <div class="col-md-4">
+              <select id="student" name="student" class="form-control" ng-model="ctrl.newTimeline.student" ng-options="student.id as student.name for student in ctrl.allStudents" ng-change="ctrl.updateTimeline()">
+                <option value="">Selecione o acadêmico</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Select Basic -->
+          <div class="form-group" ng-show="ctrl.allTeachers">
+            <label class="col-md-4 control-label" for="teacher">Orientador</label>
+            <div class="col-md-4">
+              <select id="teacher" name="teacher" class="form-control" ng-model="ctrl.newTimeline.teacher" ng-options="teacher.id as teacher.name for teacher in ctrl.allTeachers" ng-change="ctrl.updateTimeline()">
+                <option value="">Selecione o professor orientador</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <button class="btn btn-success" ng-click="ctrl.saveTimeline();">Salvar</button>
+              <button class="btn btn-warning" ng-click="ctrl._ctrlForm = false;">Voltar</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+</div>

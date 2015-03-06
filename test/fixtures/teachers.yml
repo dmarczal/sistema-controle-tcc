@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: João da Silva
+  access: responsavel
+  lattes: http://www.google.com.br
+  atuacao: programação web
+
+two:
+  name: Marcos Silveira
+  access: professor
+  lattes: http://www.google.com.br
+  atuacao: banco de dados
+
+three:
+  name: Adriano Pimenta
+  access: tcc1
+  lattes: http://www.google.com.br
+  atuacao: engenharia de software

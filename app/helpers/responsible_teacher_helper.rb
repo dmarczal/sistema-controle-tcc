@@ -1,0 +1,2 @@
+module ResponsibleTeacherHelper
+end

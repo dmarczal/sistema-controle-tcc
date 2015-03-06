@@ -1,0 +1,99 @@
+<div class="labels" style="display: none;">
+  <img src="/assets/timeline/icons/presentation.png" id="label-presentation">
+  <img src="/assets/timeline/icons/warning.png" id="label-important">
+  <img src="/assets/timeline/icons/document.svg" id="label-document">
+</div>
+<script type="text/javascript" src="/assets/timeline/fabric.min.js"></script>
+<script type="text/javascript" src="/assets/timeline/helpers.js"></script>
+<script type="text/javascript" src="/assets/timeline/admin/pattern.js"> </script>
+<script type="text/javascript" src="/assets/timeline/header.js"></script>
+<script type="text/javascript" src="/assets/timeline/admin/body.js"> </script>
+<div class="row" ng-controller="CalendarController as ctrl">
+  <div class="col-md-10 col-md-offset-1">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend>Calendários</legend>
+
+      <!-- Select Basic -->
+      <div class="form-group row">
+        <label class="col-md-4 control-label text-right" for="year">Ano</label>
+        <div class="col-md-4">
+          <select id="year" name="year" class="form-control" ng-model="ctrl.calendar.year" ng-options="year as year for year in ctrl.years" ng-change="ctrl.updateTable()">
+            <option value="">Selecione o ano</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group row">
+        <label class="col-md-4 control-label text-right" for="half">Semestre</label>
+        <div class="col-md-4">
+          <select id="half" name="half" class="form-control" ng-model="ctrl.calendar.half" ng-options="half as half for half in ctrl.halfs" ng-change="ctrl.updateTable()">
+            <option value="">Selecione o semestre</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group row">
+        <label class="col-md-4 control-label text-right" for="tcc">TCC</label>
+        <div class="col-md-4">
+          <select id="tcc" name="tcc" class="form-control" ng-model="ctrl.calendar.tcc" ng-options="tcc as tcc for tcc in ctrl.tccs" ng-change="ctrl.updateTable()">
+            <option value="">Selecione TCC 1 ou TCC 2</option>
+          </select>
+        </div>
+      </div>
+
+    </fieldset>
+    </form>
+
+    <br><br><br>
+
+    <div class="content" ng-show="ctrl._ctrlContent == 1">
+        <table class="table table-bordered">
+          <tr>
+            <th>Título</th>
+            <th>Tipo</th>
+            <th>Data</th>
+            <th>Link</th>
+            <th>Descrição</th>
+            <th>Excluir</th>
+          </tr>
+          <form action="#" name="ctrl.formCalendar">
+              <tr ng-repeat="item in ctrl.items track by $index">
+                <td><input type="text" ng-model="item.title" class="form-control" placeholder="Título" required></td>
+                <td>
+                  <select id="type" ng-model="item._type" name="type" class="form-control">
+                    <option value="document">Documento</option>
+                    <option value="presentation">Apresentação</option>
+                    <option value="important">Importante</option>
+                  </select>
+                </td>
+                <td><input type="date" ng-model="item.date" class="form-control" placeholder="Data" required></td>
+                <td><input type="url" ng-model="item.link" class="form-control" placeholder="Link" ng-model-options="{ updateOn: 'blur' }" required></td>
+                <td><textarea class="form-control" ng-model="item.description" rows="1">Descrição</textarea></td>
+                <td><a ng-click="ctrl.deleteItem(item.id)" href="#"><span class="glyphicon glyphicon-remove"></a></span></td>
+              </tr>
+            </table>
+            <div class="col-md-12 text-center">
+              <button class="btn btn-success" ng-click="ctrl.save();" ng-disabled="ctrl.formCalendar.$invalid">Salvar</button>
+              <button class="btn btn-primary" ng-click="ctrl.items.push(that._baseItem);">Adicionar item</button>
+            </div>
+            <div class="col-md-12 text-center" ng-show="ctrl.calendar.id">
+              <br>
+              <button class="btn btn-primary" ng-click="ctrl.editTimeline()">Editar timeline</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row" ng-show="ctrl._ctrlContent == 2">
+      <div style="overflow: scroll;">
+        <canvas id="c" width="1600" height="500"></canvas>
+      </div>
+      <div class="col-md-12 text-center">
+        <button class="btn btn-primary" ng-click="ctrl.saveTimeline();">Salvar timeline</button>
+      </div>
+    </div>
+  </div>
+</div>

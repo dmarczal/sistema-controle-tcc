@@ -1,0 +1,27 @@
+// Place all the styles related to the responsible_teacher controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'bootstrap-sprockets';
+@import "bootstrap";
+
+//  page
+.right{float: right;}
+.left{float: left;}
+table tr td, table tr th{text-align: center;}
+html, body {margin:0;padding:0;height:100%;}
+.cssFade {transition: 0.5s linear all;opacity: 1;}
+.cssFade.ng-hide {opacity: 0;}
+.container {height: 100%;min-height:100%;position:relative;}
+.header {padding:10px;}
+.page{padding:10px;padding-bottom:60px;   /* Height of the footer */  }
+.footer {position:absolute;bottom:0;width:100%;}
+.page{margin-top: 50px;}
+
+//  header
+ul.nav.navbar-nav.navbar-right{margin-right: 10px;}
+
+//  application
+.container .messages{margin-top: 50px;}
+
+//  footer
+.footer{margin-top: 30px; padding: 10px 20px; color: #9d9d9d;}
