@@ -70,6 +70,15 @@
           </div>
         </div>
 
+        <!-- Text input-->
+        <div class="form-group" ng-hide="ctrl.inEditing">
+          <label class="col-md-4 control-label" for="login">Login</label>
+          <div class="col-md-6">
+            <input id="login" name="login" ng-model="ctrl.currentTeacher.login" type="text" placeholder="Login" class="form-control input-md" required="">
+            <span class="help-block">Digite o login do professor</span>
+          </div>
+        </div>
+
         <!-- Button (Double) -->
         <div class="form-group">
           <label class="col-md-4 control-label" for="save"></label>

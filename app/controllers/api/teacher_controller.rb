@@ -12,7 +12,18 @@ class Api::TeacherController < ApiController
       teacher = Teacher.new name: t[:name], access: t[:access], lattes: t[:lattes], atuacao: t[:atuacao]
 
       if teacher.save
-        status[:success] = true
+        access = case teacher.access
+                      when 'responsible' then 1
+                      when 'tcc1' then 2
+                      when 'teacher' then 3
+                    end
+        l = Login.new login: t[:login], password: t[:password], :access => access, :entity_id => teacher.id
+        if l.save
+          status[:success] = true
+        else
+          teacher.delete
+          status[:errors] = l.errors
+        end
       else
         status[:errors] = teacher.errors
       end
@@ -50,6 +61,9 @@ class Api::TeacherController < ApiController
       t = Teacher.find params[:id]
       if t.delete
         status[:success] = true
+        if Teacher.exists? :entity_id => params[:id]
+          teacher.destroy_all :entity_id => params[:id]
+        end
       else
         status[:errors] = t.errors
       end

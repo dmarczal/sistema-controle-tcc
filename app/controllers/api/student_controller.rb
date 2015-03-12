@@ -5,14 +5,24 @@ class Api::StudentController < ApiController
   end
 
   def new
-    s = params[:student]
-    student = Student.new ra: s[:ra], name: s[:name]
-
     status = Hash.new
-    if student.save
-      status[:success] = true
-    else
-      status[:errors] = student.errors
+
+    begin
+      s = params[:student]
+      student = Student.new ra: s[:ra], name: s[:name]
+      if student.save
+        l = Login.new login: s[:login], password: s[:password], :access => 4, :entity_id => student.id
+        if l.save
+          status[:success] = true
+        else
+          student.delete
+          status[:errors] = l.errors
+        end
+      else
+        status[:errors] = student.errors
+      end
+    rescue
+      status[:errors] = [['Ops, algo errado aconteceu!']]
     end
 
     render :inline => status.to_json

@@ -34,9 +34,10 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="half">Semestre</label>
               <div class="col-md-4">
-                <select id="half" name="half" class="form-control" ng-model="ctrl.half" ng-options="half as half for half in ctrl.halfs" ng-change="ctrl.updateStudents()">
-                  <option value="">Selecione o semestre</option>
-                </select>
+                <div ng-repeat="half in ctrl.halfs" class="box-radio">
+                  <label for="half">{{half}}</label>
+                  <input type="radio" ng-model="ctrl.half" name="half" id="half" ng-value="half" ng-change="ctrl.updateStudents()">
+                </div>
               </div>
             </div>
 
@@ -44,9 +45,10 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="tcc">TCC</label>
               <div class="col-md-4">
-                <select id="tcc" name="tcc" class="form-control" ng-model="ctrl.tcc" ng-options="tcc as tcc for tcc in ctrl.tccs" ng-change="ctrl.updateStudents()">
-                  <option value="">Selecione TCC 1 ou TCC 2</option>
-                </select>
+                <div ng-repeat="tcc in ctrl.tccs" class="box-radio">
+                  <label for="tcc">{{tcc}}</label>
+                  <input type="radio" ng-model="ctrl.tcc" name="tcc" id="tcc" ng-value="tcc" ng-change="ctrl.updateStudents()">
+                </div>
               </div>
             </div>
 

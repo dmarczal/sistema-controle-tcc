@@ -44,117 +44,80 @@ class Api::BaseTimelineController < ApiController
     render :inline => status.to_json
   end
 
-  def editBase
+  def editItemBase
     status = Hash.new
-    if BaseTimeline.exists?(:id => params[:base]['id'])
-      base = BaseTimeline.find(params[:base]['id'])
-      new_base = params[:base]
-
-      base.year = new_base['year']
-      base.half = new_base['half']
-      base.tcc = new_base['tcc']
-      base.json = new_base['json'] ? new_base['json'] : ''
-
-      if new_base['items']
-        if base.item_base_timeline.ids.length > new_base['items'].length
-          old_ids = base.item_base_timeline.ids
-          new_ids = Array.new
-          new_base['items'].each { |item| new_ids.push(item['id'])}
-          delete_ids = old_ids - new_ids
-          base.item_base_timeline.where(:id => delete_ids).destroy_all
-        end
-        new_base['items'].each do |new_item|
-          if base.item_base_timeline.exists?(new_item['id'])
-            item = base.item_base_timeline.find(new_item['id'])
-            item.description = new_item['description']
-            item.link = new_item['link']
-            item.title = new_item['title']
-            item._type = new_item['_type']
-            new_item['date'] = Date.strptime(new_item['date'], '%d-%m-%Y')
-            item.date = new_item['date']
-            unless item.save
-              status[:errors] = item.errors
-              break
-            end
-          else
-            unless new_item['date'] =~ /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]|(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2]|(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)(?:0?2|(?:Feb))\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9]|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/
-              status[:errors] = [['Especifique uma data válida.']]
-              break
-            end
-            new_item['date'] = Date.strptime(new_item['date'], '%d-%m-%Y')
-            item_timeline = ItemBaseTimeline.new :description => new_item['description'], :title => new_item['title'], :_type => new_item['_type'], :date => new_item['date'], :link => new_item['link']
-            unless item_timeline.save
-              status[:errors] = item_timeline.errors
-              break
-            else
-              base.item_base_timeline.push item_timeline
-            end
-          end
-        end
-      else
-        base.item_base_timeline.delete_all
-      end
-
-      if base.save
+    item = params[:item]
+    begin
+      i = ItemBaseTimeline.find item['id']
+      i.title = item['title']
+      i._type = item['_type']
+      i.date = item['date'].to_date
+      i.link = item['link']
+      i.description = item['description']
+      if i.save
         status[:success] = true
       else
-        status[:errors] = base.errors
+        status[:errors] = i.errors
       end
-    else
-      status[:errors] = [['Erro ao encontrar base.']]
+    rescue ActiveRecord::RecordNotFound => e
+      status[:errors] = [['Item de calendário não foi encontrado.']]
+    rescue Exception => e
+      status[:errors] = [[e.message]]
     end
     render :inline => status.to_json
   end
 
-  def deleteBase
+  def deleteItemBase
     status = Hash.new
-    if BaseTimeline.exists?(:id => params[:id])
-      if BaseTimeline.delete(params[:id])
-        status[:success] = [['Base excluída com sucesso.']]
+    begin
+      item = ItemBaseTimeline.find params[:id]
+      if item.delete
+        status[:success] = true
       else
-        status[:errors] = [['Erro ao encontrar base.']]
+        status[:errors] = item.errors
       end
-    else
-      status[:errors] = [['Erro ao encontrar base.']]
+    rescue ActiveRecord::RecordNotFound => e
+      status[:errors] = [['Item não encontrado']]
     end
     render :inline => status.to_json
   end
 
-  def newBase
-    base_param = params[:base]
-    items_timeline = base_param['items']
-    base = BaseTimeline.new :year => base_param['year'], :half => base_param['half'], :tcc => base_param['tcc'], :json => base_param['json'] ? base_param['json'] : ''
+  def newItemBase
+    params[:item].delete('id')
+    item = params[:item]
+    base = params[:base]
 
     response = Hash.new
-    response[:errors] = []
-
-    items_timeline.each do |item|
-      date = item['date'].split '-'
-      item['date'] = Date.strptime(item['date'], '%d-%m-%Y')
-      item_timeline = ItemBaseTimeline.new :description => item['description'], :title => item['title'], :_type => item['_type'], :date => item['date'], :link => item['link']
-      if item_timeline.save
-        base.item_base_timeline.push item_timeline
+    begin
+      _base = BaseTimeline.where base.to_hash
+      if _base.first
+        base = _base.first
       else
-        response[:errors].push item_timeline.errors
+        base = BaseTimeline.new base.to_hash
+        unless base.save
+          raise base.errors
+        end
       end
-    end
-
-    if response[:errors].length == 0
-      if base.save
+      i = ItemBaseTimeline.new item.to_hash
+      if i.save
+        base.item_base_timeline.push i
         response[:success] = true
       else
-        response[:errors] = base.errors
+        raise i.errors
       end
+    rescue Exception => e
+      response[:errors] = [[e.message ? e.message : 'Ops, algo aconteceu errado, tente novamente.']]
     end
     render :inline => response.to_json
   end
 
   def setJson
-    if params[:id]
-      response = Hash.new
+    response = Hash.new
+    begin
       base = BaseTimeline.find params[:id]
       if params[:json]
         base.json = params[:json]
+        puts params[:json]
         if base.save
           response[:success] = true
         else
@@ -163,7 +126,9 @@ class Api::BaseTimelineController < ApiController
       else
         response[:errors] = [['Envie um JSON.']]
       end
-      render :inline => response.to_json
+    rescue ActiveRecord::RecordNotFound => e
+      response[:errors] = [['Calendário não encontrado']]
     end
+    render :inline => response.to_json
   end
 end

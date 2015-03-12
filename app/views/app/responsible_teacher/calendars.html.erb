@@ -20,7 +20,7 @@
         <label class="col-md-4 control-label text-right" for="year">Ano</label>
         <div class="col-md-4">
           <select id="year" name="year" class="form-control" ng-model="ctrl.calendar.year" ng-options="year as year for year in ctrl.years" ng-change="ctrl.updateTable()">
-            <option value="">Selecione o ano</option>
+            <option value="2015" selected>2015</option>
           </select>
         </div>
       </div>
@@ -29,9 +29,10 @@
       <div class="form-group row">
         <label class="col-md-4 control-label text-right" for="half">Semestre</label>
         <div class="col-md-4">
-          <select id="half" name="half" class="form-control" ng-model="ctrl.calendar.half" ng-options="half as half for half in ctrl.halfs" ng-change="ctrl.updateTable()">
-            <option value="">Selecione o semestre</option>
-          </select>
+          <div ng-repeat="half in ctrl.halfs" class="box-radio">
+            <label for="half">{{half}}</label>
+            <input type="radio" ng-model="ctrl.calendar.half" name="half" id="half" ng-value="half" ng-change="ctrl.updateTable()">
+          </div>
         </div>
       </div>
 
@@ -39,9 +40,10 @@
       <div class="form-group row">
         <label class="col-md-4 control-label text-right" for="tcc">TCC</label>
         <div class="col-md-4">
-          <select id="tcc" name="tcc" class="form-control" ng-model="ctrl.calendar.tcc" ng-options="tcc as tcc for tcc in ctrl.tccs" ng-change="ctrl.updateTable()">
-            <option value="">Selecione TCC 1 ou TCC 2</option>
-          </select>
+          <div ng-repeat="tcc in ctrl.tccs" class="box-radio">
+            <label for="tcc">{{tcc}}</label>
+            <input type="radio" ng-model="ctrl.calendar.tcc" name="tcc" id="tcc" ng-value="tcc" ng-change="ctrl.updateTable()">
+          </div>
         </div>
       </div>
 
@@ -58,6 +60,7 @@
             <th>Data</th>
             <th>Link</th>
             <th>Descrição</th>
+            <th>Salvar</th>
             <th>Excluir</th>
           </tr>
           <form action="#" name="ctrl.formCalendar">
@@ -71,13 +74,13 @@
                   </select>
                 </td>
                 <td><input type="date" ng-model="item.date" class="form-control" placeholder="Data" required></td>
-                <td><input type="url" ng-model="item.link" class="form-control" placeholder="Link" ng-model-options="{ updateOn: 'blur' }" required></td>
+                <td><input type="text" ng-model="item.link" class="form-control" placeholder="Link" ng-model-options="{ updateOn: 'blur' }" required></td>
                 <td><textarea class="form-control" ng-model="item.description" rows="1">Descrição</textarea></td>
-                <td><a ng-click="ctrl.deleteItem(item.id)" href="#"><span class="glyphicon glyphicon-remove"></a></span></td>
+                <td><button class="btn btn-success" ng-click="ctrl.save(item);">Salvar</button></td>
+                <td><a ng-click="ctrl.deleteItem(item)" href="#"><span class="glyphicon glyphicon-remove"></a></span></td>
               </tr>
             </table>
             <div class="col-md-12 text-center">
-              <button class="btn btn-success" ng-click="ctrl.save();" ng-disabled="ctrl.formCalendar.$invalid">Salvar</button>
               <button class="btn btn-primary" ng-click="ctrl.items.push(that._baseItem);">Adicionar item</button>
             </div>
             <div class="col-md-12 text-center" ng-show="ctrl.calendar.id">

@@ -49,6 +49,14 @@
             </div>
           </div>
 
+          <div class="form-group" ng-hide="ctrl.inEditing">
+            <label class="col-md-4 control-label" for="ra">Login</label>
+            <div class="col-md-5">
+              <input id="login" name="login" type="text" placeholder="Login" ng-model="ctrl.currentStudent.login" class="form-control input-md" required="">
+              <span class="help-block">Digite o login do aluno</span>
+            </div>
+          </div>
+
           <!-- Button -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="submit"></label>

@@ -29,9 +29,9 @@ Rails.application.routes.draw do
         get 'timeline/base/search/:year/:half/:tcc' => 'base_timeline#searchBase'
         get 'timeline/base/:id' => 'base_timeline#getBase'
         get 'timeline/base' => 'base_timeline#getBase'
-        post 'timeline/base/new' => 'base_timeline#newBase'
-        put 'timeline/base/edit' => 'base_timeline#editBase'
-        delete 'timeline/base/delete/:id' => 'base_timeline#deleteBase'
+        post 'timeline/base/item/new' => 'base_timeline#newItemBase'
+        put 'timeline/base/item/edit' => 'base_timeline#editItemBase'
+        delete 'timeline/base/item/delete/:id' => 'base_timeline#deleteItemBase'
         post 'timeline/base/json/:id' => 'base_timeline#setJson'
 
         #rotas da api para timeline
