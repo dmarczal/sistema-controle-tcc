@@ -22,14 +22,14 @@ var patternLegendBox = {
 }
 
 var patternLegendText = {
-	originX: 'center', 
+	originX: 'center',
 	originY: 'center',
 	fontFamily: 'Arial',
 	fontSize: 12
 }
 
 var patternEventText = {
-	originX: 'center', 
+	originX: 'center',
 	originY: 'center',
 	fontFamily: 'Arial',
 	fontSize: 15
@@ -39,7 +39,8 @@ var patternStatusColor = {
 	none: '#DCDCDC',
 	success: '#00FF7F',
 	warning: '#FFD700',
-	danger: '#8B0000'
+	danger: '#8B0000',
+	pending: '#B0E0E6'
 }
 
 var iconsType = [];

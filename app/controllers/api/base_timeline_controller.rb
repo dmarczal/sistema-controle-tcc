@@ -52,7 +52,8 @@ class Api::BaseTimelineController < ApiController
       i.title = item['title']
       i._type = item['_type']
       i.date = item['date'].to_date
-      i.link = item['link']
+      i.link = item['link'] != '#' ? item['link'] : 'http://'+request.env["HTTP_HOST"]+'/academico/item#'+i.id.to_s
+      puts i.link
       i.description = item['description']
       if i.save
         status[:success] = true
@@ -100,6 +101,8 @@ class Api::BaseTimelineController < ApiController
       end
       i = ItemBaseTimeline.new item.to_hash
       if i.save
+        i.link = i.link != '#' ? i.link : 'http://'+request.env["HTTP_HOST"]+'/academico/item#'+i.id.to_s
+        puts i.link
         base.item_base_timeline.push i
         response[:success] = true
       else

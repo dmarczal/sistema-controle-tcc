@@ -138,7 +138,7 @@
         for(var i=2015; i < 2025; i++) that.years.push(i);
         that.tccs = [1, 2];
         that.halfs = [1, 2];
-        that.calendar = {year: 2015, half: 1, tcc: 1};
+        that.calendar = {year: new Date().getFullYear(), half: 1, tcc: 1};
 
         that._baseItem = {
             id: '#',

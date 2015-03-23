@@ -1,0 +1,46 @@
+<div ng-controller="TeacherController as ctrl">
+    <legend>Entrega de documentos</legend>
+    <table class="table table-hovered">
+        <tr>
+            <th>Aluno</th>
+            <th>Título</th>
+            <th>Anexo</th>
+            <th>Aprovar</th>
+            <th>Reprovar</th>
+        </tr>
+        <tr ng-repeat="item in ctrl.items">
+            <td>{{item.name}}</td>
+            <td>{{item.title}}</td>
+            <td><a ng-href="/{{item.file}}">Aqui</a></td>
+            <td><a class="label label-success" ng-click="ctrl.approve(item.id)">Aprovar</a></td>
+            <td><a class="label label-danger" ng-click="ctrl.reprove(item.id)">Reprovar</a></td>
+        </tr>
+    </table>
+    <!--
+    <h3>Gostaria de entregar o seguinte documento:</h3>
+    <table class="table table-bordered">
+        <tr>
+            <td>Aluno:</td>
+            <td>{{ctrl.student}}</td>
+        </tr>
+        <tr>
+            <td>Documento:</td>
+            <td>{{ctrl.item.base.title}}</td>
+        </tr>
+        <tr>
+            <td>Descrição:</td>
+            <td>{{ctrl.item.base.description}}</td>
+        </tr>
+        <tr>
+            <td>Anexo:</td>
+            <td><input id="file" name="file" file-model="ctrl.itemFile" class="input-file" type="file"></td>
+        </tr>
+    </table>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="save"></label>
+      <div class="col-md-4 col-md-offset-1">
+        <button id="save" name="save" class="btn btn-primary" ng-click="ctrl.sendFile();">Enviar</button>
+      </div>
+    </div> -->
+</div>

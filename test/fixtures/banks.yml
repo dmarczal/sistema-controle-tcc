@@ -1,11 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: 1
-  name: Érico Dias
-  ra: 1462563
+  date: 2015-03-23
+  note: 1.5
 
 two:
-  id: 2
-  name: Outro aluno
-  ra: 123123
+  date: 2015-03-23
+  note: 1.5

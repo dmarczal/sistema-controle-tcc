@@ -1,12 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   year: 2015
   half: 1
   tcc: 1
   json: aqui um json
 
 two:
+  id: 2
   year: 2015
   half: 2
   tcc: 2

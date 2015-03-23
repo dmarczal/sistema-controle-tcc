@@ -1,8 +1,20 @@
 class Api::PageController < ApiController
   respond_to :html
   def messages
-    msgs = flash
-    flash.discard
+    msgs = Hash.new
+    if session.has_key?(:error)
+      msgs = [['error', session[:error]]]
+      session.delete :error
+    elsif session.has_key?(:success)
+      msgs = [['success', session[:success]]]
+      session.delete :success
+    elsif session.has_key?(:warning)
+      msgs = [['warning', session[:warning]]]
+      session.delete :warning
+    elsif session.has_key?(:notice)
+      msgs = [['notice', session[:notice]]]
+      session.delete :notice
+    end
     render :inline => msgs.to_json
   end
 
@@ -11,7 +23,7 @@ class Api::PageController < ApiController
     status = Hash.new
     if login
       session[:user] = login.getData
-      status[:success] = [[session[:user][:homeUrl]]]
+      status[:success] = session[:user]
     else
       status[:errors] = ['As informações não coincidem, por favor tente novamente.']
     end

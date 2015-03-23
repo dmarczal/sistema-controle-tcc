@@ -73,4 +73,62 @@ class Api::TeacherController < ApiController
 
     render :inline => status.to_json
   end
+
+  def getPendingDocuments
+    status = Hash.new
+    begin
+      teacher = Teacher.find params[:id]
+      status = Array.new
+      timelines = teacher.timeline
+      timelines.each do |timeline|
+        student = timeline.student
+        _items = timeline.item_timelines.where :status => 'pending'
+        _items.each do |item|
+          base_item = item.item_base_timeline
+          item = item.to_json
+          item = JSON.parse item
+          item['name'] = student.name
+          item['title'] = base_item.title
+          status.push item
+        end
+      end
+    rescue ActiveRecord::RecordNotFound => e
+      status[:errors] = [['Professor não encontrado']]
+    end
+
+    render :inline => status.to_json
+  end
+
+  def approveDocument
+    status = Hash.new
+    begin
+      item = ItemTimeline.find params[:id]
+      item.status = "success"
+      item.save
+      status[:success] = true
+      # send mail and save log
+    rescue ActiveRecord::RecordNotFound => e
+      status[:errors] = [['Item não encontrado']]
+    rescue Exception => e
+      status[:errors] = [[e.message]]
+    end
+    render :inline => status.to_json
+  end
+
+  def reproveDocument
+    status = Hash.new
+    begin
+      item = ItemTimeline.find params[:id]
+      item.status = "repproved"
+      item.file = nil
+      item.save
+      status[:success] = true
+      # send mail and save log
+    rescue ActiveRecord::RecordNotFound => e
+      status[:errors] = [['Item não encontrado']]
+    rescue Exception => e
+      status[:errors] = [[e.message]]
+    end
+    render :inline => status.to_json
+  end
 end

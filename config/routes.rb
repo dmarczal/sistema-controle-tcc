@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
     # rotas gerais da aplicação
     get 'login' => 'application#login'
+    get 'logout' => 'application#logout'
 
     # rotas do módulo do professor responsável
     scope 'responsavel', module: 'app', as: 'responsible_teacher' do
@@ -9,6 +10,18 @@ Rails.application.routes.draw do
         get 'professores' => 'responsible_teacher#teachers'
         get 'calendarios' => 'responsible_teacher#calendars'
         get 'timelines' => 'responsible_teacher#timelines'
+    end
+
+    # rotas do módulo do acadêmico
+    scope 'academico', module: 'app', as: 'student' do
+        get '/' => 'student#item'
+        get '/item' => 'student#item'
+    end
+
+    # rotas do módulo do professor orientador / membro de banca
+    scope 'professor', module: 'app', as: 'teacher' do
+        get '/' => 'teacher#entregas'
+        get '/entregas' => 'teacher#entregas'
     end
 
     # rotas da api
@@ -24,6 +37,9 @@ Rails.application.routes.draw do
         post 'teacher/new' => 'teacher#new'
         put 'teacher/edit/:id' => 'teacher#edit'
         delete 'teacher/delete/:id' => 'teacher#delete'
+        get 'teacher/pending/:id' => 'teacher#getPendingDocuments'
+        get 'teacher/document/reprove/:id' => 'teacher#reproveDocument'
+        get 'teacher/document/approve/:id' => 'teacher#approveDocument'
 
         # rotas da api para base timeline
         get 'timeline/base/search/:year/:half/:tcc' => 'base_timeline#searchBase'
@@ -37,6 +53,8 @@ Rails.application.routes.draw do
         #rotas da api para timeline
         post 'timeline/new' => 'timeline#new'
         get 'timeline/find/:year/:half/:tcc' => 'timeline#find'
+        get 'timeline/item/get/:id' => 'timeline#getItem'
+        post 'timeline/item/send/:id' => 'timeline#sendFile'
 
         # rotas da api para os métodos de controle do angularJS
         get 'messages' => 'page#messages'

@@ -3,7 +3,7 @@ class Timeline < ActiveRecord::Base
   belongs_to :teacher
   belongs_to :student
   belongs_to :base_timeline
-  
+
   validates :base_timeline, :presence => {message: 'Ainda não foi referenciado um calendário para esse TCC.'}
   validates :teacher, :presence => {message: 'Uma timeline precisa de um professor orientador.'}
   validates :student, :presence => {message: 'Uma timeline precisa de um acadêmico.'}
