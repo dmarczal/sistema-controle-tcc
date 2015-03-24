@@ -7,4 +7,13 @@ class BaseTimeline < ActiveRecord::Base
             :length => {maximum: 1, message: 'Digite um semestre válido (1 ou 2).'}
   validates :tcc, :presence => {message: 'O TCC é um valor obrigatório.'},
             :length => {maximum: 1, message: 'Digite um valor válido para o TCC (1 ou 2)'}
+  validate :calendar_is_unique, on: :create
+
+  def calendar_is_unique
+    timelines = BaseTimeline.where :year => self.year, :half => self.half, :tcc => self.tcc
+    puts timelines.inspect
+    if timelines.length > 0
+        errors.add(:tcc, 'Calendário já especificado.')
+    end
+  end
 end

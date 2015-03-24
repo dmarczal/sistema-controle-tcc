@@ -13,13 +13,18 @@ class Login < ActiveRecord::Base
                       when 1 then '/responsavel'
                       when 2 then '/tcc1'
                       when 3 then '/professor'
-                      when 4 then '/aluno'
+                      when 4 then '/academico'
                     end
     user = case self.access
              when 1..3 then Teacher.find self.entity_id
              when 4 then Student.find self.entity_id
            end
-    json[:user] = user.attributes.to_json
+    json[:user] = user.attributes.to_hash
+    puts json.inspect
+    if self.access == 4
+      puts json[:user].inspect
+      json[:user][:access] = 'student'
+    end
     json
   end
 end
