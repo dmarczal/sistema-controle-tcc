@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  timeline_id: 1
+  date: 2015-03-23
+  note: 1.5
+
+two:
+  id: 1
+  timeline_id: 1
+  date: 2015-03-23
+  note: 1.5
