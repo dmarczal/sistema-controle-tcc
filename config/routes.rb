@@ -11,18 +11,21 @@ Rails.application.routes.draw do
         get 'calendarios' => 'responsible_teacher#calendars'
         get 'timelines' => 'responsible_teacher#timelines'
         get 'bancas' => 'responsible_teacher#banks'
+        get 'perfil' => 'responsible_teacher#profile'
     end
 
     # rotas do módulo do acadêmico
     scope 'academico', module: 'app', as: 'student' do
         get '/' => 'student#item'
-        get '/item' => 'student#item'
+        get 'item' => 'student#item'
+        get 'perfil' => 'student#profile'
     end
 
     # rotas do módulo do professor orientador / membro de banca
     scope 'professor', module: 'app', as: 'teacher' do
         get '/' => 'teacher#entregas'
-        get '/entregas' => 'teacher#entregas'
+        get 'entregas' => 'teacher#entregas'
+        get 'perfil' => 'teacher#profile'
     end
 
     # rotas da api
@@ -32,6 +35,7 @@ Rails.application.routes.draw do
         post 'student/new' => 'student#new'
         put 'student/edit/:id' => 'student#edit'
         delete 'student/delete/:id' => 'student#delete'
+        put 'student/profile/:id' => 'student#editProfile'
 
         # rotas da api para professores
         get 'teacher/all' => 'teacher#all'
@@ -41,6 +45,7 @@ Rails.application.routes.draw do
         get 'teacher/pending/:id' => 'teacher#getPendingDocuments'
         get 'teacher/document/reprove/:id' => 'teacher#reproveDocument'
         get 'teacher/document/approve/:id' => 'teacher#approveDocument'
+        put 'teacher/profile/:id' => 'teacher#editProfile'
 
         # rotas da api para base timeline
         get 'timeline/base/search/:year/:half/:tcc' => 'base_timeline#searchBase'

@@ -132,4 +132,28 @@ class Api::TeacherController < ApiController
     end
     render :inline => status.to_json
   end
+
+  def editProfile
+    begin
+      teacher = Teacher.find params[:id]
+      teacher.email = params[:email]
+      login = Login.where('entity_id = ? AND (access = 1 OR access = 2 OR access = 3)', params[:id]).first
+      login.password = params[:password]
+      if teacher.save
+        if login.save
+          session[:user] = login.getData
+          flash[:success] = ['', "Dados alterados com sucesso."]
+        else
+          flash[:danger] = login.errors.first
+        end
+      else
+        flash[:danger] = teacher.errors.first
+      end
+    rescue Exception => e
+      flash[:danger] = ['', e.message]
+    end
+
+    controller = login.access == 1 ? 'responsavel' : 'professor'
+    redirect_to '/'+controller+'/perfil'
+  end
 end

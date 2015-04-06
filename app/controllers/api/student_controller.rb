@@ -63,4 +63,27 @@ class Api::StudentController < ApiController
 
     render :inline => status.to_json
   end
+
+  def editProfile
+    begin
+      student = Student.find params[:id]
+      student.email = params[:email]
+      login = Login.where('entity_id = ? AND access = 4', params[:id]).first
+      login.password = params[:password]
+      if student.save
+        if login.save
+          session[:user] = login.getData
+          flash[:success] = ['', "Dados alterados com sucesso."]
+        else
+          flash[:danger] = login.errors.first
+        end
+      else
+        flash[:danger] = student.errors.first
+      end
+    rescue Exception => e
+      flash[:danger] = ['', e.message]
+    end
+
+    redirect_to '/academico/perfil'
+  end
 end

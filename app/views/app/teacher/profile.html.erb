@@ -1,0 +1,39 @@
+<% @user = session[:user]['user'] %>
+<%= form_tag('/api/teacher/profile/'+@user['id'].to_s, method: 'put') do %>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <% flash.each do |key, value| %>
+                        <%= content_tag :div, value[1], class: "alert alert-#{key}" %>
+                    <% end %>
+                </div>
+            </div>
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Edição de dados</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="email">E-mail</label>
+                  <div class="col-md-6">
+                    <%= text_field_tag(:email, @user['email'], class: 'form-control') %>
+                  </div>
+                </div><br><br>
+
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="password">Senha</label>
+                  <div class="col-md-6">
+                    <%= password_field_tag(:password, @user['password'], class: 'form-control') %>
+                  </div>
+                </div><br><br>
+            </fieldset>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+    </div>
+<% end %>
