@@ -1,7 +1,9 @@
 class Timeline < ActiveRecord::Base
   has_many :item_timelines
+  has_one :bank
   belongs_to :teacher
   belongs_to :student
+  belongs_to :bank
   belongs_to :base_timeline
 
   validates :base_timeline, :presence => {message: 'Ainda não foi referenciado um calendário para esse TCC.'}

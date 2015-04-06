@@ -9,7 +9,7 @@ class Api::StudentController < ApiController
 
     begin
       s = params[:student]
-      student = Student.new ra: s[:ra], name: s[:name]
+      student = Student.new ra: s[:ra], name: s[:name], email: s[:email]
       if student.save
         l = Login.new login: s[:login], password: s[:password], :access => 4, :entity_id => student.id
         if l.save
@@ -34,6 +34,7 @@ class Api::StudentController < ApiController
     begin
       s = Student.find params[:id]
       s.name = params[:student][:name]
+      s.email = params[:student][:email]
       if s.save
         status[:success] = true
       else

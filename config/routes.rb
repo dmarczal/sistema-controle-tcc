@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         get 'professores' => 'responsible_teacher#teachers'
         get 'calendarios' => 'responsible_teacher#calendars'
         get 'timelines' => 'responsible_teacher#timelines'
+        get 'bancas' => 'responsible_teacher#banks'
     end
 
     # rotas do módulo do acadêmico
@@ -55,6 +56,14 @@ Rails.application.routes.draw do
         get 'timeline/find/:year/:half/:tcc' => 'timeline#find'
         get 'timeline/item/get/:id' => 'timeline#getItem'
         post 'timeline/item/send/:id' => 'timeline#sendFile'
+
+        # rotas da api para bancas
+        post 'banks/new' => 'banks#new'
+        get 'banks/all' => 'banks#all'
+        get 'banks/get/:id' => 'banks#get'
+        get 'banks/find/:timeline' => 'banks#find_by_timeline'
+        put 'banks/edit/:id' => 'banks#edit'
+        delete 'banks/delete/:timeline' => 'banks#delete'
 
         # rotas da api para os métodos de controle do angularJS
         get 'messages' => 'page#messages'

@@ -100,7 +100,6 @@
 
         that.newTeacher = function(){
             if(that.inEditing){
-                //that.currentTeacher.id = '1231287164783925';
                 var url = '/api/teacher/edit/'+that.currentTeacher.id;
                 $http.put(url, that.currentTeacher).success(that.successMethod);
             }else{
@@ -290,5 +289,72 @@
                 });
             });
         }
+    }]);
+
+    app.controller('BankController', ['$http', '$location', 'messageCenterService', function($http, $location, messageCenterService){
+        var that = this;
+        that.bank = {}
+
+        $http.get('/api/teacher/all').success(function(data){
+            that.teachers = data;
+        });
+
+        that.updateTable = function(){
+            $http.get('/api/banks/find/'+$location.path().replace('/', '')).success(function(data){
+                if(!data.errors){
+                    var data = data.data
+                    date = new Date(data.date);
+                    date.setDate(date.getDate()+1);
+                    data.date = date;
+                    that.bank = {
+                        id: data.id,
+                        date: data.date,
+                        timeline_id: data.timeline_id
+                    }
+                    that.currentTeachers = data.teacher_ids;
+                    that._form = true;
+                    that._newBank = false;
+                }else{
+                    that._newBank = true;
+                    that._form = true;
+                }
+            });
+        }
+
+        that.saveBank = function(){
+            if(that.currentTeachers[0] && that.currentTeachers[1] && that.currentTeachers[2] && that.bank.date){
+                var currentTeachers = [];
+                for(i in that.currentTeachers){
+                    currentTeachers.push(that.currentTeachers[i]);
+                }
+                var date = that.bank.date;
+                that.bank.date = date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
+                if(that._newBank){
+                    that.bank.timeline_id = $location.path().replace('/', '');
+                    $http.post('/api/banks/new', {bank: that.bank, teachers: currentTeachers}).success(that.successMethod);
+                }else{
+                    $http.put('/api/banks/edit/'+that.bank.id, {bank: that.bank, teachers: that.currentTeachers}).success(that.successMethod);
+                }
+            }else{
+                messageCenterService.add('danger', 'Por favor selecione 3 professores para participar da banca, e a data da mesma.', {timeout: 3000});
+            }
+        }
+
+        that.clearBank = function(){
+            $http.delete('/api/banks/delete/'+$location.path().replace('/', '')).success(that.successMethod);
+        }
+
+        that.successMethod = function(data){
+            if(!data.errors){
+                messageCenterService.add('success', 'Operação realizada com sucesso.', {timeout: 5000});
+                setInterval(function(){window.location.reload(true);}, 3000);
+            }else{
+                for(var i in data.errors){
+                    messageCenterService.add('danger', data.errors[i][0], {timeout: 5000});
+                }
+            }
+            that.updateTable();
+        }
+        that.updateTable();
     }]);
 })();

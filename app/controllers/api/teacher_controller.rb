@@ -9,7 +9,7 @@ class Api::TeacherController < ApiController
 
     begin
       t = params[:teacher]
-      teacher = Teacher.new name: t[:name], access: t[:access], lattes: t[:lattes], atuacao: t[:atuacao]
+      teacher = Teacher.new name: t[:name], access: t[:access], lattes: t[:lattes], atuacao: t[:atuacao], email: t[:email]
 
       if teacher.save
         access = case teacher.access
@@ -42,6 +42,7 @@ class Api::TeacherController < ApiController
       t.access = params[:teacher][:access]
       t.lattes = params[:teacher][:lattes]
       t.atuacao = params[:teacher][:atuacao]
+      t.email = params[:teacher][:email]
       if t.save
         status[:success] = true
       else
