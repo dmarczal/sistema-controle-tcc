@@ -29,7 +29,6 @@ function header(serialization, events, half, callback){
     if(serialization && serialization != ''){
         json = serialization;
     }
-    console.log(json);
 	canvas.loadFromJSON(json, function(){
         var objects = canvas.getObjects();
         objects.forEach(function(item){

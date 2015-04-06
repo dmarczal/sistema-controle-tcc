@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
             redirect_to session[:user]['homeUrl']
         else
             if params[:controller] == 'app/responsible_teacher' && user['access'] != 'responsible' || params[:controller] == 'app/tcc1' && user['access'] != 'tcc1' || params[:controller] == 'app/teacher' && user['access'] != 'teacher' || params[:controller] == 'app/student' && user['access'] != 'student'
-                session[:error] = 'Você não tem permissão para acessar esta página, contate o administrador.'
-                redirect_to '/login'
+              session[:error] = 'Você não tem permissão para acessar esta página, contate o administrador.'
+              redirect_to '/login'
             end
         end
     end

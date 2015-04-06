@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 20150323222934) do
     t.integer  "timeline_id"
   end
 
+  create_table "banks_teachers", id: false, force: true do |t|
+    t.integer "bank_id"
+    t.integer "teacher_id"
+  end
+
+  add_index "banks_teachers", ["bank_id", "teacher_id"], name: "index_banks_teachers_on_bank_id_and_teacher_id", using: :btree
+
   create_table "base_timelines", force: true do |t|
     t.integer  "year"
     t.string   "half",       limit: 1
@@ -67,6 +74,7 @@ ActiveRecord::Schema.define(version: 20150323222934) do
     t.string   "ra"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "email"
   end
 
   create_table "teachers", force: true do |t|
@@ -76,6 +84,7 @@ ActiveRecord::Schema.define(version: 20150323222934) do
     t.string   "atuacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "email"
   end
 
   create_table "timelines", force: true do |t|
@@ -84,6 +93,7 @@ ActiveRecord::Schema.define(version: 20150323222934) do
     t.integer  "student_id"
     t.integer  "teacher_id"
     t.integer  "base_timeline_id"
+    t.integer  "bank_id"
   end
 
 end

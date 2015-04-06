@@ -23,7 +23,7 @@ class Login < ActiveRecord::Base
     puts json.inspect
     if self.access == 4
       puts json[:user].inspect
-      json[:user][:access] = 'student'
+      json[:user]['access'] = 'student'
     end
     json
   end
