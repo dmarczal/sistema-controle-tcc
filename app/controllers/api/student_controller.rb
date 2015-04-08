@@ -13,6 +13,7 @@ class Api::StudentController < ApiController
       if student.save
         l = Login.new login: s[:login], password: s[:password], :access => 4, :entity_id => student.id
         if l.save
+          UsersMailer.newUser(student).deliver_now
           status[:success] = true
         else
           student.delete
@@ -21,7 +22,8 @@ class Api::StudentController < ApiController
       else
         status[:errors] = student.errors
       end
-    rescue
+    rescue Exception => e
+      puts e.message
       status[:errors] = [['Ops, algo errado aconteceu!']]
     end
 

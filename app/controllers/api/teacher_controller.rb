@@ -19,6 +19,7 @@ class Api::TeacherController < ApiController
                     end
         l = Login.new login: t[:login], password: t[:password], :access => access, :entity_id => teacher.id
         if l.save
+          UsersMailer.newUser(teacher).deliver_now
           status[:success] = true
         else
           teacher.delete
