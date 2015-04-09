@@ -42,7 +42,8 @@ class Api::TimelineController < ApiController
   def getItem
     status = Hash.new
     begin
-      item = ItemTimeline.find params[:id]
+      userId = session[:user]['user']['id']
+      item = ItemTimeline.where(item_base_timeline_id: params[:id], timeline_id: Student.find(userId).timeline_ids).first
       status = item.attributes
       status[:base] = item.item_base_timeline.attributes
     rescue ActiveRecord::RecordNotFound => e

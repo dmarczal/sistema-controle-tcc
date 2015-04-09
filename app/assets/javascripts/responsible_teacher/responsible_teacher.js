@@ -282,11 +282,13 @@
         that.updateTimeline = function(){
             $http.get('/api/timeline/base/search/'+ that.year+'/'+ that.half+'/'+ that.tcc).success(function(data){
                 base_calendar = data.data;
-                header(base_calendar.json, that.timeline.items, that.half, function(){
-                    body(that.timeline.items);
-                    events(that.timeline.items);
-                    that._ctrlTimeline = true;
-                });
+                if(that.timeline){
+                    header(base_calendar.json, that.timeline.items, that.half, function(){
+                        body(that.timeline.items);
+                        events(that.timeline.items);
+                        that._ctrlTimeline = true;
+                    });
+                }
             });
         }
     }]);

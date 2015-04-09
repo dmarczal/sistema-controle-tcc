@@ -12,7 +12,7 @@
 
         that.sendFile = function(){
             var file = that.itemFile;
-            fileUpload.uploadFileToUrl(file, '/api/timeline/item/send/'+$location.path().replace('/', ''), function(data){
+            fileUpload.uploadFileToUrl(file, '/api/timeline/item/send/'+that.item.id, function(data){
                 if(data.success){
                     messageCenterService.add('success', 'Operação realizada com sucesso.', {timeout: 3000});
                 }else{

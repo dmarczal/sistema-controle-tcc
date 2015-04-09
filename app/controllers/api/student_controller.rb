@@ -55,6 +55,7 @@ class Api::StudentController < ApiController
     begin
       s = Student.find params[:id]
       if s.delete
+        Timeline.where(student_id: params[:id]).destroy_all
         status[:success] = true
       else
         status[:errors] = s.errors

@@ -11,13 +11,20 @@ class Timeline < ActiveRecord::Base
   validates :student, :presence => {message: 'Uma timeline precisa de um acadêmico.'}
   validate :tcc_is_valid
 
+  def delete
+    ItemTimeline.where(timeline_id: self.id).destroy_all
+    super
+  end
+
   def tcc_is_valid
     s = self.student
     exist = false
     if s.timeline.length
       s.timeline.each do |t|
         base = t.base_timeline
-        if base.tcc == self.base_timeline.tcc
+        puts self.inspect
+        selfBase = self.base_timeline
+        if selfBase && (base.tcc == selfBase.tcc)
           exist = true
         end
       end
