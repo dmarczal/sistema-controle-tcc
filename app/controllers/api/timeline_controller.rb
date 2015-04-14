@@ -39,6 +39,22 @@ class Api::TimelineController < ApiController
     render :inline => status.to_json
   end
 
+  def findByTeacher
+    base = BaseTimeline.find_by :year => params[:year], :half => params[:half], :tcc => params[:tcc]
+    status = Hash.new
+    if base
+      _timelines = Timeline.where(:base_timeline_id => base.id, :teacher_id => params[:teacher])
+      timelines = Array.new
+      _timelines.each do |timeline|
+        timelines.push timeline.serialize
+      end
+      status[:timelines] = timelines
+    else
+      status[:errors] = [['Nenhum TCC encontrado.']]
+    end
+    render :inline => status.to_json
+  end
+
   def getItem
     status = Hash.new
     begin
@@ -58,6 +74,7 @@ class Api::TimelineController < ApiController
     status = Hash.new
     begin
       item = ItemTimeline.find params[:id]
+
       if params[:file].content_type != 'image/jpeg' && params[:file].content_type != 'application/pdf'
         raise 'Formato não suportado.'
       end
@@ -65,12 +82,19 @@ class Api::TimelineController < ApiController
       directory = "public/uploads"
       path = File.join(directory, name)
       File.open(path, "wb") { |f| f.write(params['file'].read) }
-      item.file = directory+'/'+name
+      item.file = 'uploads/'+name
       item.status = 'pending'
       item.save
+
       # notify teacher and save log
+      teacher = item.timeline.teacher
+      student = item.timeline.student
+      itemBase = item.item_base_timeline
+      UsersMailer.notificateTeacher(student, teacher, itemBase).deliver_now
+
       status[:success] = true
     rescue Exception => e
+      puts e.message
       status[:errors] = [[e.message]]
     end
     render :inline => status.to_json

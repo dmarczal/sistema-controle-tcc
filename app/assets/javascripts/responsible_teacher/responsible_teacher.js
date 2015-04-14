@@ -195,6 +195,7 @@
                 $http.put('/api/timeline/base/item/edit', {item: item}).success(that.successMethod);
             }else{
                 // criar
+                that.calendar.json = '';
                 $http.post('/api/timeline/base/item/new', {item: item, base: that.calendar}).success(that.successMethod);
             }
         }
@@ -238,7 +239,8 @@
 
     app.controller('TimelineController', ['$http', 'messageCenterService', function($http, messageCenterService){
         var that = this;
-        that.years = [2010, 2011, 2012, 2013, 2014, 2015];
+        that.years = [];
+        for(var i=2015; i < 2025; i++) that.years.push(i);
         that.tccs = [1, 2];
         that.halfs = [1, 2];
         that.year = 2015;

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Olá <%= @teacher.name %>, você tem um novo arquivo para aprovar:</h1>
+    <p>
+      Seguem as informações do item:<br>
+      Aluno: <%= @student.name %><br>
+      Item: <%= @item.title %><br>
+    </p>
+    <p>
+      Para realizar o login no sistema para aprovar ou reprovar o envio. <br>
+      Basta acessar a seguinte URL: <%= @baseUrl %>.
+    </p>
+  </body>
+</html>

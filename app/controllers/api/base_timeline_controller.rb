@@ -94,6 +94,9 @@ class Api::BaseTimelineController < ApiController
       if _base.first
         base = _base.first
       else
+        base = base.to_hash
+        base[:id] = nil
+        base[:json] = ''
         base = BaseTimeline.new base.to_hash
         unless base.save
           raise base.errors
@@ -102,11 +105,10 @@ class Api::BaseTimelineController < ApiController
       i = ItemBaseTimeline.new item.to_hash
       if i.save
         i.link = i.link != '#' ? i.link : 'http://'+request.env["HTTP_HOST"]+'/academico/item#'+i.id.to_s
-        puts i.link
         base.item_base_timeline.push i
         response[:success] = true
       else
-        raise i.errors
+        response[:errors] = i.errors
       end
     rescue Exception => e
       response[:errors] = [[e.message ? e.message : 'Ops, algo aconteceu errado, tente novamente.']]

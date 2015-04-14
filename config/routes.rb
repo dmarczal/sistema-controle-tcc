@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     # rotas do módulo do professor orientador / membro de banca
     scope 'professor', module: 'app', as: 'teacher' do
         get '/' => 'teacher#entregas'
+        get 'timelines' => 'teacher#timelines'
         get 'entregas' => 'teacher#entregas'
         get 'perfil' => 'teacher#profile'
     end
@@ -59,6 +60,7 @@ Rails.application.routes.draw do
         #rotas da api para timeline
         post 'timeline/new' => 'timeline#new'
         get 'timeline/find/:year/:half/:tcc' => 'timeline#find'
+        get 'timeline/find/teacher/:teacher/:year/:half/:tcc' => 'timeline#findByTeacher'
         get 'timeline/item/get/:id' => 'timeline#getItem'
         post 'timeline/item/send/:id' => 'timeline#sendFile'
 
