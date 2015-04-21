@@ -6,6 +6,6 @@ class BankTest < ActiveSupport::TestCase
     b.date = Date.new 2015, 04, 20
     b.timeline = Timeline.first
     b.teachers.push Teacher.first
-    assert b.save, 'Não salvou'
+    assert b.save, 'Não salvou '+b.inspect
   end
 end

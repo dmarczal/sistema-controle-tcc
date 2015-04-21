@@ -20,12 +20,12 @@ class Api::BanksControllerTest < ActionController::TestCase
     assert_response :success
     resp = JSON.parse response.body
     puts resp
-    assert resp['data'], 'Erro ao buscar: '+resp.inspect
+    assert resp['errors'].length > 0, 'Erro ao buscar: '+resp.inspect
 
     get 'get', {:controller => 'api/banks', :id => 1}
     assert_response :success
     resp = JSON.parse response.body
-    assert resp['errors'].length > 0, 'Não apresentou erros com id inválido: '+resp.inspect
+    assert resp['errors'] == nil, 'Apresentou erros: '+resp.inspect
   end
 
   test "edit" do
@@ -35,7 +35,7 @@ class Api::BanksControllerTest < ActionController::TestCase
     }
     teachers = [1, 2, 3]
 
-    put 'edit', {:controller => 'api/banks', :id => 298486374, :bank => data, :teachers => teachers}
+    put 'edit', {:controller => 'api/banks', :id => 1, :bank => data, :teachers => teachers}
     assert_response :success
     resp = JSON.parse response.body
     assert resp['success'], 'Erro ao editar: '+resp.inspect

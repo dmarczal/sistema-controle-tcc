@@ -23,10 +23,12 @@ Rails.application.routes.draw do
 
     # rotas do módulo do professor orientador / membro de banca
     scope 'professor', module: 'app', as: 'teacher' do
-        get '/' => 'teacher#entregas'
+        get '/' => 'teacher#timelines'
         get 'timelines' => 'teacher#timelines'
-        get 'entregas' => 'teacher#entregas'
+        get 'entregas' => 'teacher#deliveries'
         get 'perfil' => 'teacher#profile'
+        resources :orientacoes, :controller => 'orientations'
+        post 'orientacoes/:id/edit' => 'orientations#editPost'
     end
 
     # rotas da api

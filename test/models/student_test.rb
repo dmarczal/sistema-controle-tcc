@@ -9,9 +9,10 @@ class StudentTest < ActiveSupport::TestCase
     msg = 'student not save for equal ra'
     assert_not student.save, msg
 
-    student.ra = SecureRandom.hex(6)
+    student.ra = 111111
+    student.email = 'aluno@utfpr.edu.br'
     msg = 'student save for uniqueness ra'
-    assert student.save, msg
+    assert student.save, msg+student.errors.inspect
 
     student.name = nil
     msg = 'student not save with empty name'

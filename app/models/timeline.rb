@@ -1,6 +1,7 @@
 class Timeline < ActiveRecord::Base
   has_many :item_timelines
   has_one :bank
+  has_many :orientations
   belongs_to :teacher
   belongs_to :student
   belongs_to :bank

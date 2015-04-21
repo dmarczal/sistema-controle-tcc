@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TCC UTFPR</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'app/application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'app/message-center', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'app/app', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'teacher/teacher', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="container" ng-app="Application">
+  <%= render :partial => 'layouts/admin/header_teacher' %>
+  <div class="messages" ng-controller="FlashController as ctrl" mc-messages></div>
+<%= yield %>
+<%= render :partial => 'layouts/admin/footer' %>
+</div>
+</body>
+</html>
