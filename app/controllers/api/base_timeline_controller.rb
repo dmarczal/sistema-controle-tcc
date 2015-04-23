@@ -53,7 +53,6 @@ class Api::BaseTimelineController < ApiController
       i._type = item['_type']
       i.date = item['date'].to_date
       i.link = item['link'] != '#' ? item['link'] : 'http://'+request.env["HTTP_HOST"]+'/academico/item#'+i.id.to_s
-      puts i.link
       i.description = item['description']
       if i.save
         status[:success] = true
@@ -122,7 +121,6 @@ class Api::BaseTimelineController < ApiController
       base = BaseTimeline.find params[:id]
       if params[:json]
         base.json = params[:json]
-        puts params[:json]
         if base.save
           response[:success] = true
         else

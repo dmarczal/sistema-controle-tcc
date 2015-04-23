@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
     # rotas do módulo do acadêmico
     scope 'academico', module: 'app', as: 'student' do
-        get '/' => 'student#item'
+        get '/' => 'student#timeline'
         get 'item' => 'student#item'
         get 'perfil' => 'student#profile'
     end
@@ -29,6 +29,11 @@ Rails.application.routes.draw do
         get 'perfil' => 'teacher#profile'
         resources :orientacoes, :controller => 'orientations'
         post 'orientacoes/:id/edit' => 'orientations#editPost'
+    end
+
+    # rotas do módulo do professor de TCC 1
+    scope 'tcc1', module: 'app', as: 'tcc1' do
+        get '/' => 'tcc1#timelines'
     end
 
     # rotas da api
@@ -62,6 +67,7 @@ Rails.application.routes.draw do
         #rotas da api para timeline
         post 'timeline/new' => 'timeline#new'
         get 'timeline/find/:year/:half/:tcc' => 'timeline#find'
+        get 'timeline/find/:student/:tcc' => 'timeline#findByStudent'
         get 'timeline/find/teacher/:teacher/:year/:half/:tcc' => 'timeline#findByTeacher'
         get 'timeline/item/get/:id' => 'timeline#getItem'
         post 'timeline/item/send/:id' => 'timeline#sendFile'

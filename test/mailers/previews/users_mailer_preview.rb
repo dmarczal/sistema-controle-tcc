@@ -11,4 +11,11 @@ class UsersMailerPreview < ActionMailer::Preview
         itemBase = item.item_base_timeline
         UsersMailer.notificateTeacher(student, teacher, itemBase)
     end
+
+    def approve_reprove
+        item = ItemTimeline.find(8)
+        itemBase = item.item_base_timeline
+        student = item.timeline.student
+        UsersMailer.approveRepproveItem(student, itemBase, item)
+    end
 end

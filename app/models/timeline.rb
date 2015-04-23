@@ -23,7 +23,6 @@ class Timeline < ActiveRecord::Base
     if s.timeline.length
       s.timeline.each do |t|
         base = t.base_timeline
-        puts self.inspect
         selfBase = self.base_timeline
         if selfBase && (base.tcc == selfBase.tcc)
           exist = true
@@ -39,6 +38,7 @@ class Timeline < ActiveRecord::Base
     s = self.attributes
     student = Student.find self.student_id
     s[:student_name] = student.name
+    s[:base_timeline] = self.base_timeline
     _items = ItemTimeline.where :timeline_id => self.id
     items = Array.new
     _items.each do |i|

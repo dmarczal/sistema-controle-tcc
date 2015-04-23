@@ -39,18 +39,36 @@ class Api::TeacherController < ApiController
     status = Hash.new
     begin
       t = Teacher.find params[:id]
+      beforeAccess = case t.access
+                      when 'responsible' then 1
+                      when 'tcc1' then 2
+                      when 'teacher' then 3
+                    end
       t.name = params[:teacher][:name]
       t.access = params[:teacher][:access]
       t.lattes = params[:teacher][:lattes]
       t.atuacao = params[:teacher][:atuacao]
       t.email = params[:teacher][:email]
+
       if t.save
-        status[:success] = true
+        access = case t.access
+                      when 'responsible' then 1
+                      when 'tcc1' then 2
+                      when 'teacher' then 3
+                    end
+        login = Login.find_by(:entity_id => t.id, :access => beforeAccess)
+        login.access = access
+        if login.save
+          status[:success] = true
+        else
+          status[:errors] = login.errors
+        end
       else
         status[:errors] = t.errors
       end
     rescue ActiveRecord::RecordNotFound => e
-      status[:errors] = [['Professor não encontrado']]
+      puts "ERROR: "+e.message
+      status[:errors] = [['Ops, algum erro ocorreu!']]
     end
 
     render :inline => status.to_json
@@ -63,8 +81,8 @@ class Api::TeacherController < ApiController
       t = Teacher.find params[:id]
       if t.delete
         status[:success] = true
-        if Teacher.exists? :entity_id => params[:id]
-          teacher.destroy_all :entity_id => params[:id]
+        if Login.exists? :entity_id => params[:id]
+          Login.destroy_all :entity_id => params[:id]
         end
       else
         status[:errors] = t.errors
@@ -108,7 +126,9 @@ class Api::TeacherController < ApiController
       item.status = "success"
       item.save
       status[:success] = true
-      # send mail and save log
+      itemBase = item.item_base_timeline
+      UsersMailer.approveRepproveItem(item.timeline.student, itemBase, item).deliver_now
+      # save log
     rescue ActiveRecord::RecordNotFound => e
       status[:errors] = [['Item não encontrado']]
     rescue Exception => e
@@ -125,7 +145,8 @@ class Api::TeacherController < ApiController
       item.file = nil
       item.save
       status[:success] = true
-      # send mail and save log
+      UsersMailer.approveRepproveItem(item.timeline.student, itemBase, item).deliver_now
+      # save log
     rescue ActiveRecord::RecordNotFound => e
       status[:errors] = [['Item não encontrado']]
     rescue Exception => e

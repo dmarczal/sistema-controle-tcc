@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Olá <%= @student.name %>, você tem uma nova atualização:</h1>
+    <p>
+      Seguem as informações do item:<br>
+      Item: <%= @itemBase.title %><br>
+      Status: <%= @item.status %><br>
+    </p>
+    <p>
+      Para realizar o login no sistema para visualizar seu processo de TCC. <br>
+      Basta acessar a seguinte URL: <%= @baseUrl %>.
+    </p>
+  </body>
+</html>

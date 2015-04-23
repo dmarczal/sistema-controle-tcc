@@ -55,6 +55,21 @@ class Api::TimelineController < ApiController
     render :inline => status.to_json
   end
 
+  def findByStudent
+    status = Hash.new
+    begin
+      base_timelines = BaseTimeline.where(:tcc => params[:tcc]).to_a
+      timeline = Timeline.find_by(:student_id => params[:student], :base_timeline => base_timelines)
+      status[:timeline] = timeline.serialize
+    rescue ActiveRecord::RecordNotFound => e
+      status[:errors] = [['Ops, TCC para este aluno ainda não foi cadastrado.']]
+    rescue Exception => e
+      puts e.message
+      status[:errors] = [['Ops, algo errado aconteceu!']]
+    end
+    render :inline => status.to_json
+  end
+
   def getItem
     status = Hash.new
     begin

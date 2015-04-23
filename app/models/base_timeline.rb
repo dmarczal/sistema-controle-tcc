@@ -11,7 +11,6 @@ class BaseTimeline < ActiveRecord::Base
 
   def calendar_is_unique
     timelines = BaseTimeline.where :year => self.year, :half => self.half, :tcc => self.tcc
-    puts timelines.inspect
     if timelines.length > 0
         errors.add(:tcc, 'Calendário já especificado.')
     end
