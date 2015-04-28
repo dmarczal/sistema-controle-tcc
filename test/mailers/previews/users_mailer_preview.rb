@@ -18,4 +18,12 @@ class UsersMailerPreview < ActionMailer::Preview
         student = item.timeline.student
         UsersMailer.approveRepproveItem(student, itemBase, item)
     end
+
+    def notifyStudentItNewBank
+       UsersMailer.notifyStudentItNewBank(Bank.first)
+    end
+
+    def notifyTeacherItNewBank
+       UsersMailer.notifyTeacherItNewBank(Bank.first)
+    end
 end

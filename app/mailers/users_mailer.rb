@@ -25,4 +25,25 @@ class UsersMailer < ApplicationMailer
         subject = '[SGTCC] Olá, '+student.name+'. Você tem uma nova atualização'
         mail(to: @student.email, subject: subject)
     end
+
+    def notifyStudentItNewBank(bank)
+        @student = bank.timeline.student
+        @bank = bank
+        @calendar = bank.timeline.base_timeline
+        @teachers = bank.teachers
+        subject = '[SGTCC] Sua banca de TCC foi marcada'
+        mail(to: @student.email, subject: subject)
+    end
+
+    def notifyTeacherItNewBank(bank)
+        @student = bank.timeline.student
+        @bank = bank
+        @calendar = bank.timeline.base_timeline
+        @teachers = bank.teachers
+        subject = '[SGTCC] Sua banca de TCC foi marcada'
+        @teachers.each do |teacher|
+            @teacher = teacher
+            mail(to: @teacher.email, subject: subject)
+        end
+    end
 end

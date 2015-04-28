@@ -18,7 +18,7 @@ class Api::BanksController < ApiController
                 bank.teachers.push Teacher.find t
             end
             if bank.save
-                # notificar professores e aluno da banca
+                bank.notify
                 status[:success] = true
             else
                 status[:errors] = bank.errors
@@ -72,6 +72,24 @@ class Api::BanksController < ApiController
         render :inline => status.to_json
     end
 
+    def findByTeacher
+        status = Array.new
+        begin
+            banks = Teacher.find(params[:teacher_id]).banks
+            banks.each do |bank|
+                _bank = bank.serialize
+                if(BankNote.where(:teacher_id => params[:teacher_id], :bank_id => bank.id).size > 0)
+                    _bank['note'] = BankNote.find_by(:teacher_id => params[:teacher_id], :bank_id => bank.id).note
+                end
+                status.push(_bank)
+            end
+        rescue Exception => e
+            puts e.message
+            status[:errors] = [['Desculpe, ocorreram erros na tentativa.']]
+        end
+        render :inline => status.to_json
+    end
+
     def edit
         status = Hash.new
         begin
@@ -80,12 +98,31 @@ class Api::BanksController < ApiController
             b.date = Date.parse bank['date']
             b.teacher_ids = params[:teachers]
             if b.save
-                # notificar professores e aluno da banca
+                b.notify
                 status[:success] = true
             else
                 status[:errors] = b.errors
             end
         rescue Exception => e
+            status[:errors] = [['Desculpe, ocorreram erros na tentativa.']]
+        end
+        render :inline => status.to_json
+    end
+
+    def setNote
+        status = Hash.new
+        begin
+            bankNote = BankNote.new
+            bankNote.teacher = Teacher.find params[:teacher_id]
+            bankNote.bank = Bank.find params[:bank_id]
+            bankNote.note = params[:note].to_f
+            if bankNote.save
+                status[:success] = true
+            else
+                status[:errors] = bankNote.errors
+            end
+        rescue Exception => e
+            puts e.message
             status[:errors] = [['Desculpe, ocorreram erros na tentativa.']]
         end
         render :inline => status.to_json

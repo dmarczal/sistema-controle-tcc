@@ -1,6 +1,8 @@
 class Teacher < ActiveRecord::Base
   has_many :timeline
-  has_and_belongs_to_many :bank
+  has_and_belongs_to_many :banks
+  has_many :bank_note
+
   validates :name, :presence => {message: 'O nome do professor é um valor obrigatório' }
   validates :access, :presence => {message: 'O tipo de acesso do professor é um valor obrigatório' }
   validates :email, :presence => {message: 'O email do professor é um valor obrigatório' }

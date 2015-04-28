@@ -1,0 +1,76 @@
+<div ng-controller="BankController as ctrl">
+<legend>Bancas</legend>
+    <div ng-hide="ctrl._view">
+        <h3>Próximas</h3>
+        <table class="table table-bordered">
+            <tr>
+                <th>Data e hora</th>
+                <th>Aluno</th>
+                <th>Ano</th>
+                <th>Semestre</th>
+                <th>TCC</th>
+            </tr>
+            <tr ng-repeat="bank in ctrl.nextBanks">
+                <td>{{bank.date.toString('dd/mm/YYYY')}}</td>
+                <td>{{bank.student}}</td>
+                <td>{{bank.timeline_year}}</td>
+                <td>{{bank.timeline_half}}</td>
+                <td>{{bank.timeline_tcc}}</td>
+            </tr>
+        </table>
+
+        <h3>Anteriores</h3>
+        <table class="table table-bordered" ng-hide="ctrl._view">
+            <tr>
+                <th>Data e hora</th>
+                <th>Aluno</th>
+                <th>Ano</th>
+                <th>Semestre</th>
+                <th>TCC</th>
+                <th>Nota</th>
+            </tr>
+            <tr ng-repeat="bank in ctrl.prevBanks">
+                <td>{{bank.date.toString('dd/mm/YYYY')}}</td>
+                <td>{{bank.student}}</td>
+                <td>{{bank.timeline_year}}</td>
+                <td>{{bank.timeline_half}}</td>
+                <td>{{bank.timeline_tcc}}</td>
+                <td ng-if="!bank.note"><button class="btn btn-primary" ng-click="ctrl.launchNote(bank)">Lançar nota</button></td>
+                <td ng-if="bank.note"><label class="label label-info">{{bank.note}}</label></td>
+            </tr>
+        </table>
+    </div>
+
+    <br><br><br>
+    <div ng-show="ctrl._view">
+        <table class="table table-bordered">
+            <tr>
+                <td>Aluno:</td>
+                <td>{{ctrl.bank.student}}</td>
+            </tr>
+            <tr>
+                <td>Trabalho:</td>
+                <td>TCC {{ctrl.bank.timeline_tcc}} - {{ctrl.bank.timeline_half}}º semestre</td>
+            </tr>
+            <tr>
+                <td>Data da banca:</td>
+                <td>{{ctrl.bank.date.toString('dd/mm/YYYY')}}</td>
+            </tr>
+            <tr>
+                <td>Nota:</td>
+                <td><input type="number" class="form-control" ng-model="ctrl.bank.note" style="width: 100px;"></td>
+            </tr>
+            <!-- <tr>
+                <td>Anexo:</td>
+                <td><input id="file" name="file" class="input-file" type="file"></td>
+            </tr> -->
+        </table>
+        <!-- Button (Double) -->
+        <div class="form-group">
+          <div class="col-md-12 text-center">
+            <button id="back" name="back" class="btn btn-warning" ng-click="ctrl.launchNote(false)">Voltar</button>
+            <button id="save" name="save" class="btn btn-primary" ng-click="ctrl.sendNote();">Enviar</button>
+          </div>
+        </div>
+    </div>
+</div>

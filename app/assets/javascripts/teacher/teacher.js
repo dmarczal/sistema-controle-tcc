@@ -1,6 +1,64 @@
 (function(){
     var app = angular.module('Application');
 
+    app.controller('BankController', ['$http', '$location', 'messageCenterService', function($http, $location, messageCenterService){
+        var that = this;
+        that.prevBanks = [];
+        that.nextBanks = [];
+        var cookies = document.cookie.split('=');
+        that.teacher = JSON.parse(cookies[1]);
+        that._view = false;
+
+        that.updateTable = function(){
+            that.getBanks();
+        }
+
+        that.getBanks = function(){
+            $http.get('/api/banks/find/teacher/'+that.teacher.id).success(function(data){
+                for(i in data){
+                    var split_date = data[i].date.split('-');
+                    var date = new Date(split_date[0], parseInt(split_date[1])-1, split_date[2]);
+                    var todayDate = new Date();
+                    data[i].date = split_date[2]+'/'+split_date[1]+'/'+split_date[0];
+                    if(date >= todayDate){
+                        that.nextBanks.push(data[i]);
+                    }else{
+                        that.prevBanks.push(data[i]);
+                    }
+                }
+            });
+        }
+        that.updateTable();
+
+        that.launchNote = function(bank){
+            if(bank){
+                that.bank = bank;
+                that._view = true;
+            }else{
+                that.bank = {};
+                that._view = false;
+            }
+        }
+
+        that.sendNote = function(){
+            $http.post('/api/banks/notes/'+that.bank.id+'/'+that.teacher.id, {note: that.bank.note}).success(that.successMethod);
+        }
+
+        that.successMethod = function(data){
+            if(data.success){
+                messageCenterService.add('success', 'Operação realizada com sucesso.', {timeout: 3000});
+                that.nextBanks = [];
+                that.prevBanks = [];
+                that.updateTable();
+                that.launchNote(false);
+            }else{
+                for(var i in data.errors){
+                    messageCenterService.add('danger', data.errors[i][0], {timeout: 3000});
+                }
+            }
+        }
+    }]);
+
     app.controller('TeacherController', ['$http', '$location', 'messageCenterService', function($http, $location, messageCenterService){
         var that = this;
         var cookies = document.cookie.split('=');

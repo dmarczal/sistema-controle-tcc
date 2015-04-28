@@ -28,6 +28,7 @@ Rails.application.routes.draw do
         get 'entregas' => 'teacher#deliveries'
         get 'perfil' => 'teacher#profile'
         resources :orientacoes, :controller => 'orientations'
+        get 'bancas' => 'teacher#banks'
         post 'orientacoes/:id/edit' => 'orientations#editPost'
     end
 
@@ -79,6 +80,8 @@ Rails.application.routes.draw do
         get 'banks/find/:timeline' => 'banks#find_by_timeline'
         put 'banks/edit/:id' => 'banks#edit'
         delete 'banks/delete/:timeline' => 'banks#delete'
+        get 'banks/find/teacher/:teacher_id' => 'banks#findByTeacher'
+        post 'banks/notes/:bank_id/:teacher_id' => 'banks#setNote'
 
         # rotas da api para os métodos de controle do angularJS
         get 'messages' => 'page#messages'
