@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def check_login
     if !session.has_key?(:user) && params[:action] != 'login'
-        session[:error] = 'Por favor realize o login abaixo.'
+        flash[:danger] = 'Por favor realize o login abaixo.'
         redirect_to '/login'
     elsif session.has_key?(:user)
         user = session[:user].to_hash
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
             redirect_to session[:user]['homeUrl']
         else
             if params[:controller] == 'app/responsible_teacher' && user['access'] != 'responsible' || params[:controller] == 'app/tcc1' && user['access'] != 'tcc1' || params[:controller] == 'app/teacher' && user['access'] != 'teacher' || params[:controller] == 'app/student' && user['access'] != 'student'
-              session[:error] = 'Você não tem permissão para acessar esta página, contate o administrador.'
+              flash[:danger] = 'Você não tem permissão para acessar esta página, contate o administrador.'
               redirect_to '/login'
             end
         end
