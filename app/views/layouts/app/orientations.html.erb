@@ -12,7 +12,14 @@
 <body>
 <div class="container" ng-app="Application">
   <%= render :partial => 'layouts/admin/header_teacher' %>
-  <div class="messages" ng-controller="FlashController as ctrl" mc-messages></div>
+  <br><br><div class="row">
+    <div class="col-md-12">
+        <% flash.each do |key, value| %>
+            <%= content_tag :div, value.size ? value[1] : value, class: "alert alert-#{key}" %>
+        <% end %>
+    </div>
+  </div>
+  <div class="messages" mc-messages></div>
 <%= yield %>
 <%= render :partial => 'layouts/admin/footer' %>
 </div>
