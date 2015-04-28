@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
     # rotas do módulo do professor responsável
     scope 'responsavel', module: 'app', as: 'responsible_teacher' do
-        get '/' => 'responsible_teacher#students'
+        get '/' => 'responsible_teacher#home'
         get 'alunos' => 'responsible_teacher#students'
         get 'professores' => 'responsible_teacher#teachers'
         get 'calendarios' => 'responsible_teacher#calendars'
@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
     # rotas do módulo do professor orientador / membro de banca
     scope 'professor', module: 'app', as: 'teacher' do
-        get '/' => 'teacher#timelines'
+        get '/' => 'teacher#home'
         get 'timelines' => 'teacher#timelines'
         get 'entregas' => 'teacher#deliveries'
         get 'perfil' => 'teacher#profile'
