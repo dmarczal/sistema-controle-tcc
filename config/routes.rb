@@ -12,6 +12,9 @@ Rails.application.routes.draw do
         get 'timelines' => 'responsible_teacher#timelines'
         get 'bancas' => 'responsible_teacher#banks'
         get 'perfil' => 'responsible_teacher#profile'
+        get 'orientacoes' => 'responsible_teacher#orientations'
+        get 'orientacoes/:timeline' => 'responsible_teacher#orientations_by_timeline'
+        get 'orientacao/:id' => 'responsible_teacher#orientation'
     end
 
     # rotas do módulo do acadêmico
