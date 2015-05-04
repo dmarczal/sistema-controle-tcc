@@ -18,7 +18,7 @@ class Api::StudentController < ApiController
       if student.save
         l = Login.new login: s[:login], password: s[:password], :access => 4, :entity_id => student.id
         if l.save
-          my_logger.info('USER 'session[:user]['user']['id']+' SAVE new student => '+student.id+' / login => '+l.id)
+          my_logger.info('USER '+session[:user]['user']['id']+' SAVE new student => '+student.id.to_s+' / login => '+l.id.to_s)
           UsersMailer.newUser(student).deliver_now
           status[:success] = true
         else
@@ -44,7 +44,7 @@ class Api::StudentController < ApiController
       s.name = params[:student][:name]
       s.email = params[:student][:email]
       if s.save
-        my_logger.info('USER 'session[:user]['user']['id']+' EDITED student => '+s.id)
+        my_logger.info('USER '+session[:user]['user']['id']+' EDITED student => '+s.id.to_s)
         status[:success] = true
       else
         status[:errors] = s.errors
@@ -63,7 +63,7 @@ class Api::StudentController < ApiController
       s = Student.find params[:id]
       if s.delete
         Timeline.where(student_id: params[:id]).destroy_all
-        my_logger.info('USER 'session[:user]['user']['id']+' DELETED student => '+s.id)
+        my_logger.info('USER '+session[:user]['user']['id']+' DELETED student => '+s.id.to_s)
         status[:success] = true
       else
         status[:errors] = s.errors
@@ -84,7 +84,7 @@ class Api::StudentController < ApiController
       if student.save
         if login.save
           session[:user] = login.getData
-          my_logger.info('USER 'session[:user]['user']['id']+' EDITED student profile => '+student.id)
+          my_logger.info('USER '+session[:user]['user']['id']+' EDITED student profile => '+student.id.to_s)
           flash[:success] = ['', "Dados alterados com sucesso."]
         else
           flash[:danger] = login.errors.first

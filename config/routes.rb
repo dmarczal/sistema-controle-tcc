@@ -70,13 +70,15 @@ Rails.application.routes.draw do
         delete 'timeline/base/item/delete/:id' => 'base_timeline#deleteItemBase'
         post 'timeline/base/json/:id' => 'base_timeline#setJson'
 
-        #rotas da api para timeline
+        # rotas da api para timeline
         post 'timeline/new' => 'timeline#new'
         get 'timeline/find/:year/:half/:tcc' => 'timeline#find'
         get 'timeline/find/:student/:tcc' => 'timeline#findByStudent'
         get 'timeline/find/teacher/:teacher/:year/:half/:tcc' => 'timeline#findByTeacher'
         get 'timeline/item/get/:id' => 'timeline#getItem'
         post 'timeline/item/send/:id' => 'timeline#sendFile'
+        # deve ser utilizado em um cron
+        get 'timeline/refresh' => 'timeline#refreshItems'
 
         # rotas da api para bancas
         post 'banks/new' => 'banks#new'

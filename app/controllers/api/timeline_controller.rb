@@ -1,6 +1,6 @@
 class Api::TimelineController < ApiController
   def my_logger
-    @@my_logger ||= Logger.new("#{Rails.root}/log/student.log")
+    @@my_logger ||= Logger.new("#{Rails.root}/log/timeline.log")
   end
 
   def new
@@ -16,7 +16,7 @@ class Api::TimelineController < ApiController
       t = Timeline.new timeline
       if t.save
         t.createItems
-        my_logger.info('USER 'session[:user]['user']['id']+' CREATED TIMELINE timeline => '+t.id)
+        my_logger.info('USER '+session[:user]['user']['id']+' CREATED TIMELINE timeline => '+t.id)
         status[:success] = true
       else
         status = t.errors
@@ -110,7 +110,7 @@ class Api::TimelineController < ApiController
       student = item.timeline.student
       itemBase = item.item_base_timeline
       UsersMailer.notificateTeacher(student, teacher, itemBase).deliver_now
-      my_logger.info('USER 'session[:user]['user']['id']+' SEND FILE item timeline => '+item.id)
+      my_logger.info('USER '+session[:user]['user']['id']+' SEND FILE item timeline => '+item.id)
 
       status[:success] = true
     rescue Exception => e
@@ -118,5 +118,26 @@ class Api::TimelineController < ApiController
       status[:errors] = [[e.message]]
     end
     render :inline => status.to_json
+  end
+
+  def refreshItems
+    ItemTimeline.where.not(:status => 'pending').each do |item|
+      if item.item_base_timeline.date.to_time < Time.new
+        item.status = 'danger'
+        if item.save
+          my_logger.info('CRON SET STATUS: item id = '+item.id.to_s+' Status = '+item.status)
+        else
+          my_logger.info('ERROR IN CRON SET STATUS: item id = '+item.id.to_s)
+        end
+      elsif  item.item_base_timeline.date.to_time < (Time.new + 1.week)
+        item.status = 'warning'
+        if item.save
+          my_logger.info('CRON SET STATUS: item id = '+item.id.to_s+' Status = '+item.status)
+        else
+          my_logger.info('ERROR IN CRON SET STATUS: item id = '+item.id.to_s)
+        end
+      end
+    end
+    render :inline => ""
   end
 end

@@ -2,7 +2,7 @@ class Api::PageController < ApiController
   respond_to :html
 
   def my_logger
-    @@my_logger ||= Logger.new("#{Rails.root}/log/student.log")
+    @@my_logger ||= Logger.new("#{Rails.root}/log/page.log")
   end
 
   def messages

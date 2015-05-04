@@ -8,7 +8,6 @@
 
         that.updateTable = function(){
             $http.get('/api/teacher/pending/tcc1').success(function(data){
-                console.log(data);
                 if(data.length){
                     that.items = data;
                     that._ctrlTable = true;

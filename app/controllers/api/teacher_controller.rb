@@ -2,7 +2,7 @@ class Api::TeacherController < ApiController
   respond_to :html
 
   def my_logger
-    @@my_logger ||= Logger.new("#{Rails.root}/log/student.log")
+    @@my_logger ||= Logger.new("#{Rails.root}/log/teacher.log")
   end
 
   def all
@@ -24,7 +24,7 @@ class Api::TeacherController < ApiController
                     end
         l = Login.new login: t[:login], password: t[:password], :access => access, :entity_id => teacher.id
         if l.save
-          my_logger.info('USER '+session[:user]['user']['id']+' SAVE teacher => '+teacher.id+' AND login => '+l.id)
+          my_logger.info('USER '+session[:user]['user']['id']+' SAVE teacher => '+teacher.id.to_s+' AND login => '+l.id.to_s)
           UsersMailer.newUser(teacher).deliver_now
           status[:success] = true
         else
@@ -65,7 +65,7 @@ class Api::TeacherController < ApiController
         login = Login.find_by(:entity_id => t.id, :access => beforeAccess)
         login.access = access
         if login.save
-          my_logger.info('USER '+session[:user]['user']['id']+' EDITED teacher => '+t.id)
+          my_logger.info('USER '+session[:user]['user']['id']+' EDITED teacher => '+t.id.to_s)
           status[:success] = true
         else
           status[:errors] = login.errors
@@ -90,7 +90,7 @@ class Api::TeacherController < ApiController
         status[:success] = true
         if Login.exists? :entity_id => params[:id]
           Login.destroy_all :entity_id => params[:id]
-          my_logger.info('USER '+session[:user]['user']['id']+' DELETED teacher => '+t.id)
+          my_logger.info('USER '+session[:user]['user']['id']+' DELETED teacher => '+t.id.to_s)
         end
       else
         status[:errors] = t.errors
@@ -178,7 +178,7 @@ class Api::TeacherController < ApiController
       item.save
       status[:success] = true
       UsersMailer.approveRepproveItem(item.timeline.student, itemBase, item).deliver_now
-      my_logger.info('USER '+session[:user]['user']['id']+' REPPROVED timeline item => '+item.id)
+      my_logger.info('USER '+session[:user]['user']['id']+' REPPROVED timeline item => '+item.id.to_s)
     rescue ActiveRecord::RecordNotFound => e
       status[:errors] = [['Item não encontrado']]
     rescue Exception => e
@@ -196,7 +196,7 @@ class Api::TeacherController < ApiController
       if teacher.save
         if login.save
           session[:user] = login.getData
-          my_logger.info('USER '+session[:user]['user']['id']+' EDITED PROFILE teacher => '+teacher.id)
+          my_logger.info('USER '+session[:user]['user']['id']+' EDITED PROFILE teacher => '+teacher.id.to_s)
           flash[:success] = ['', "Dados alterados com sucesso."]
         else
           flash[:danger] = login.errors.first
