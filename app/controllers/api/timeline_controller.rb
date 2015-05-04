@@ -1,4 +1,8 @@
 class Api::TimelineController < ApiController
+  def my_logger
+    @@my_logger ||= Logger.new("#{Rails.root}/log/student.log")
+  end
+
   def new
     _post = params[:timeline]
     status = Hash.new
@@ -12,6 +16,7 @@ class Api::TimelineController < ApiController
       t = Timeline.new timeline
       if t.save
         t.createItems
+        my_logger.info('USER 'session[:user]['user']['id']+' CREATED TIMELINE timeline => '+t.id)
         status[:success] = true
       else
         status = t.errors
@@ -101,11 +106,11 @@ class Api::TimelineController < ApiController
       item.status = 'pending'
       item.save
 
-      # notify teacher and save log
       teacher = item.timeline.teacher
       student = item.timeline.student
       itemBase = item.item_base_timeline
       UsersMailer.notificateTeacher(student, teacher, itemBase).deliver_now
+      my_logger.info('USER 'session[:user]['user']['id']+' SEND FILE item timeline => '+item.id)
 
       status[:success] = true
     rescue Exception => e

@@ -1,0 +1,19 @@
+<div ng-controller="TeacherController as ctrl">
+    <legend>Entrega de documentos</legend>
+    <table class="table table-hovered">
+        <tr>
+            <th>Aluno</th>
+            <th>Título</th>
+            <th>Anexo</th>
+            <th>Aprovar</th>
+            <th>Reprovar</th>
+        </tr>
+        <tr ng-repeat="item in ctrl.items">
+            <td>{{item.name}}</td>
+            <td>{{item.title}}</td>
+            <td><a ng-href="/{{item.file}}">Aqui</a></td>
+            <td><a class="label label-success" ng-click="ctrl.approve(item.id)">Aprovar</a></td>
+            <td><a class="label label-danger" ng-click="ctrl.reprove(item.id)">Reprovar</a></td>
+        </tr>
+    </table>
+</div>

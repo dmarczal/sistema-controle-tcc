@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     # rotas do módulo do professor de TCC 1
     scope 'tcc1', module: 'app', as: 'tcc1' do
         get '/' => 'tcc1#timelines'
+        get '/entregas' => 'tcc1#deliveries'
     end
 
     # rotas da api
@@ -54,6 +55,7 @@ Rails.application.routes.draw do
         post 'teacher/new' => 'teacher#new'
         put 'teacher/edit/:id' => 'teacher#edit'
         delete 'teacher/delete/:id' => 'teacher#delete'
+        get 'teacher/pending/tcc1' => 'teacher#getPendingDocumentsTcc1'
         get 'teacher/pending/:id' => 'teacher#getPendingDocuments'
         get 'teacher/document/reprove/:id' => 'teacher#reproveDocument'
         get 'teacher/document/approve/:id' => 'teacher#approveDocument'

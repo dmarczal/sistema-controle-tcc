@@ -1,5 +1,10 @@
 class Api::PageController < ApiController
   respond_to :html
+
+  def my_logger
+    @@my_logger ||= Logger.new("#{Rails.root}/log/student.log")
+  end
+
   def messages
     msgs = Hash.new
     if session.has_key?(:error)

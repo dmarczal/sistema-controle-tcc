@@ -1,5 +1,10 @@
 class Api::TeacherController < ApiController
   respond_to :html
+
+  def my_logger
+    @@my_logger ||= Logger.new("#{Rails.root}/log/student.log")
+  end
+
   def all
     render :inline => Teacher.all.to_json
   end
@@ -19,6 +24,7 @@ class Api::TeacherController < ApiController
                     end
         l = Login.new login: t[:login], password: t[:password], :access => access, :entity_id => teacher.id
         if l.save
+          my_logger.info('USER '+session[:user]['user']['id']+' SAVE teacher => '+teacher.id+' AND login => '+l.id)
           UsersMailer.newUser(teacher).deliver_now
           status[:success] = true
         else
@@ -59,6 +65,7 @@ class Api::TeacherController < ApiController
         login = Login.find_by(:entity_id => t.id, :access => beforeAccess)
         login.access = access
         if login.save
+          my_logger.info('USER '+session[:user]['user']['id']+' EDITED teacher => '+t.id)
           status[:success] = true
         else
           status[:errors] = login.errors
@@ -83,6 +90,7 @@ class Api::TeacherController < ApiController
         status[:success] = true
         if Login.exists? :entity_id => params[:id]
           Login.destroy_all :entity_id => params[:id]
+          my_logger.info('USER '+session[:user]['user']['id']+' DELETED teacher => '+t.id)
         end
       else
         status[:errors] = t.errors
@@ -119,6 +127,30 @@ class Api::TeacherController < ApiController
     render :inline => status.to_json
   end
 
+  def getPendingDocumentsTcc1
+    status = Hash.new
+    begin
+      status = Array.new
+      timelines = Timeline.joins(:base_timeline).where(:base_timelines => {:tcc => 1})
+      timelines.each do |timeline|
+        student = timeline.student
+        _items = timeline.item_timelines.where :status => 'pending'
+        _items.each do |item|
+          base_item = item.item_base_timeline
+          item = item.to_json
+          item = JSON.parse item
+          item['name'] = student.name
+          item['title'] = base_item.title
+          status.push item
+        end
+      end
+    rescue ActiveRecord::RecordNotFound => e
+      status[:errors] = [['Professor não encontrado']]
+    end
+
+    render :inline => status.to_json
+  end
+
   def approveDocument
     status = Hash.new
     begin
@@ -128,7 +160,7 @@ class Api::TeacherController < ApiController
       status[:success] = true
       itemBase = item.item_base_timeline
       UsersMailer.approveRepproveItem(item.timeline.student, itemBase, item).deliver_now
-      # save log
+      my_logger.info('USER '+session[:user]['user']['id']+' APROVED timeline item => '+item.id)
     rescue ActiveRecord::RecordNotFound => e
       status[:errors] = [['Item não encontrado']]
     rescue Exception => e
@@ -146,7 +178,7 @@ class Api::TeacherController < ApiController
       item.save
       status[:success] = true
       UsersMailer.approveRepproveItem(item.timeline.student, itemBase, item).deliver_now
-      # save log
+      my_logger.info('USER '+session[:user]['user']['id']+' REPPROVED timeline item => '+item.id)
     rescue ActiveRecord::RecordNotFound => e
       status[:errors] = [['Item não encontrado']]
     rescue Exception => e
@@ -164,6 +196,7 @@ class Api::TeacherController < ApiController
       if teacher.save
         if login.save
           session[:user] = login.getData
+          my_logger.info('USER '+session[:user]['user']['id']+' EDITED PROFILE teacher => '+teacher.id)
           flash[:success] = ['', "Dados alterados com sucesso."]
         else
           flash[:danger] = login.errors.first

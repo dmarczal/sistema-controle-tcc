@@ -1,5 +1,10 @@
 class Api::BanksController < ApiController
     respond_to :html
+
+    def my_logger
+        @@my_logger ||= Logger.new("#{Rails.root}/log/student.log")
+    end
+
     def all
         status = Array.new
         Bank.all.each do |bank|
@@ -19,7 +24,7 @@ class Api::BanksController < ApiController
             end
             if bank.save
                 bank.notify
-                my_logger.info('SAVE bank => '+bank.id)
+                my_logger.info('USER 'session[:user]['user']['id']+' SAVE bank => '+bank.id)
                 status[:success] = true
             else
                 status[:errors] = bank.errors
@@ -50,7 +55,7 @@ class Api::BanksController < ApiController
             banks = Bank.where :timeline_id => params[:timeline]
             b = banks.first
             if b.delete
-                my_logger.info('DELETE bank => '+bank.id)
+                my_logger.info('USER 'session[:user]['user']['id']+' DELETE bank => '+bank.id)
                 status[:success] = true
             else
                 status[:errors] = b.errors
@@ -100,7 +105,7 @@ class Api::BanksController < ApiController
             b.date = Date.parse bank['date']
             b.teacher_ids = params[:teachers]
             if b.save
-                my_logger.info('EDITED bank => '+bank.id)
+                my_logger.info('USER 'session[:user]['user']['id']+' EDITED bank => '+bank.id)
                 b.notify
                 status[:success] = true
             else

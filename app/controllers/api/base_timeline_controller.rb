@@ -1,4 +1,8 @@
 class Api::BaseTimelineController < ApiController
+  def my_logger
+    @@my_logger ||= Logger.new("#{Rails.root}/log/student.log")
+  end
+
   def getBase
     status = Hash.new
     if(params[:id])
@@ -55,6 +59,7 @@ class Api::BaseTimelineController < ApiController
       i.link = item['link'] != '#' ? item['link'] : 'http://'+request.env["HTTP_HOST"]+'/academico/item#'+i.id.to_s
       i.description = item['description']
       if i.save
+        my_logger.info('USER 'session[:user]['user']['id']+' EDITED item base timeline => '+i.id)
         status[:success] = true
       else
         status[:errors] = i.errors
@@ -72,6 +77,7 @@ class Api::BaseTimelineController < ApiController
     begin
       item = ItemBaseTimeline.find params[:id]
       if item.delete
+        my_logger.info('USER 'session[:user]['user']['id']+' DELETED item base timeline => '+item.id)
         status[:success] = true
       else
         status[:errors] = item.errors
@@ -105,6 +111,7 @@ class Api::BaseTimelineController < ApiController
       if i.save
         i.link = i.link != '#' ? i.link : 'http://'+request.env["HTTP_HOST"]+'/academico/item#'+i.id.to_s
         base.item_base_timeline.push i
+        my_logger.info('USER 'session[:user]['user']['id']+' CREATED item base timeline => '+i.id)
         response[:success] = true
       else
         response[:errors] = i.errors
@@ -122,6 +129,7 @@ class Api::BaseTimelineController < ApiController
       if params[:json]
         base.json = params[:json]
         if base.save
+          my_logger.info('USER 'session[:user]['user']['id']+' REFRESHED json base timeline => '+base.id)
           response[:success] = true
         else
           response[:errors] = base.errors
