@@ -90,12 +90,14 @@ class Api::BaseTimelineController < ApiController
 
   def newItemBase
     params[:item].delete('id')
+    params[:base].delete('json')
     item = params[:item]
     base = params[:base]
 
     response = Hash.new
     begin
       _base = BaseTimeline.where base.to_hash
+      p base.inspect
       if _base.first
         base = _base.first
       else
@@ -108,8 +110,9 @@ class Api::BaseTimelineController < ApiController
         end
       end
       i = ItemBaseTimeline.new item.to_hash
+      i['date']
+      i.link = i.link != '#' ? i.link : 'http://'+request.env["HTTP_HOST"]+'/academico/item#'+i.id.to_s
       if i.save
-        i.link = i.link != '#' ? i.link : 'http://'+request.env["HTTP_HOST"]+'/academico/item#'+i.id.to_s
         base.item_base_timeline.push i
         my_logger.info('USER '+session[:user]['user']['id'].to_s+' CREATED item base timeline => '+i.id.to_s)
         response[:success] = true
@@ -117,7 +120,8 @@ class Api::BaseTimelineController < ApiController
         response[:errors] = i.errors
       end
     rescue Exception => e
-      response[:errors] = [[e.message ? e.message : 'Ops, algo aconteceu errado, tente novamente.']]
+      puts e.message
+      response[:errors] = [['Ops, algo aconteceu errado, tente novamente.']]
     end
     render :inline => response.to_json
   end

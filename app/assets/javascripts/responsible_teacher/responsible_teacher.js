@@ -184,6 +184,7 @@
         that.updateTable();
 
         that.save = function(item){
+            item = JSON.parse(JSON.stringify(item));
             var date = new Date(item.date);
             var day = date.getDate();
             var month = (date.getMonth()+1);

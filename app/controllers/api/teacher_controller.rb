@@ -191,12 +191,12 @@ class Api::TeacherController < ApiController
     begin
       teacher = Teacher.find params[:id]
       teacher.email = params[:email]
-      login = Login.where('entity_id = ? AND (access = 1 OR access = 2 OR access = 3)', params[:id]).first
+      login = Login.where('entity_id = ? AND access != 4', params[:id]).first
       login.password = params[:password]
       if teacher.save
         if login.save
           session[:user] = login.getData
-          my_logger.info('USER '+session[:user]['user']['id'].to_s+' EDITED PROFILE teacher => '+teacher.id.to_s)
+          my_logger.info('USER '+session[:user][:user]['id'].to_s+' EDITED PROFILE teacher => '+teacher.id.to_s)
           flash[:success] = ['', "Dados alterados com sucesso."]
         else
           flash[:danger] = login.errors.first
@@ -205,7 +205,8 @@ class Api::TeacherController < ApiController
         flash[:danger] = teacher.errors.first
       end
     rescue Exception => e
-      flash[:danger] = ['', e.message]
+      p e.message
+      flash[:danger] = ['', 'Ops, algum erro aconteceu!']
     end
 
     controller = login.access == 1 ? 'responsavel' : 'professor'

@@ -40,6 +40,7 @@ var patternStatusColor = {
 	success: '#00FF7F',
 	warning: '#FFD700',
 	danger: '#8B0000',
+	repproved: '#8B0000',
 	pending: '#B0E0E6'
 }
 
