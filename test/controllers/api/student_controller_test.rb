@@ -10,7 +10,7 @@ class Api::StudentControllerTest < ActionController::TestCase
   end
 
   test "login" do
-    student = {name: 'Érico', ra: 1462562, login: 'erico', password: '12345', email: 'aluno@utfpr.edu.br'}
+    student = {name: 'Érico', ra: 1462562, login: 'erico', password: '12345', email: 'erico_testes@yahoo.com.br'}
     post 'new', {:controller => 'api/student', :student => student}
     assert_response :success
     resp = JSON.parse response.body

@@ -10,7 +10,7 @@ class StudentTest < ActiveSupport::TestCase
     assert_not student.save, msg
 
     student.ra = 111111
-    student.email = 'aluno@utfpr.edu.br'
+    student.email = 'erico_testes@yahoo.com.br'
     msg = 'student save for uniqueness ra'
     assert student.save, msg+student.errors.inspect
 
