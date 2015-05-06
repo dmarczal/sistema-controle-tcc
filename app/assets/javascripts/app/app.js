@@ -13,8 +13,6 @@
 
     app.controller('LoginController', ['$http', 'messageCenterService', function($http, messageCenterService){
         var that = this;
-        that.login = 'dmarczal@gmail.com';
-        that.password = 'rKfz4ZfV';
 
         that._login = function(){
             if(that.login && that.password){

@@ -16,7 +16,7 @@ class Api::TimelineController < ApiController
       t = Timeline.new timeline
       if t.save
         t.createItems
-        my_logger.info('USER '+session[:user]['user']['id']+' CREATED TIMELINE timeline => '+t.id)
+        my_logger.info('USER '+session[:user]['user']['id'].to_s+' CREATED TIMELINE timeline => '+t.id.to_s)
         status[:success] = true
       else
         status = t.errors
@@ -78,7 +78,7 @@ class Api::TimelineController < ApiController
   def getItem
     status = Hash.new
     begin
-      userId = session[:user]['user']['id']
+      userId = session[:user]['user']['id'].to_s
       item = ItemTimeline.where(item_base_timeline_id: params[:id], timeline_id: Student.find(userId).timeline_ids).first
       status = item.attributes
       status[:base] = item.item_base_timeline.attributes
@@ -110,7 +110,7 @@ class Api::TimelineController < ApiController
       student = item.timeline.student
       itemBase = item.item_base_timeline
       UsersMailer.notificateTeacher(student, teacher, itemBase).deliver_now
-      my_logger.info('USER '+session[:user]['user']['id']+' SEND FILE item timeline => '+item.id)
+      my_logger.info('USER '+session[:user]['user']['id'].to_s+' SEND FILE item timeline => '+item.id.to_s)
 
       status[:success] = true
     rescue Exception => e
