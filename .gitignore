@@ -18,3 +18,7 @@
 
 .ruby-gemset
 .ruby-version
+public/uploads
+temp
+tmp
+logs

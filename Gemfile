@@ -14,6 +14,8 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# Use AngularJS as the frontend MVC framework
+gem 'angularjs-rails', '~> 1.3.14'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -34,7 +36,9 @@ gem 'bootstrap-sass'
 gem 'responders'
 
 # Gems do heroku
-gem 'rails_12factor', group: :production
+group :production do
+  gem 'rails_12factor'
+end
 
 # ------------- End custom gems
 

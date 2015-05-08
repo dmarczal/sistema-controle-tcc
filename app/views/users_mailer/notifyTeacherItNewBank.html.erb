@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Olá <%= @teacher.name %>, você foi selecionado para uma banca de TCC:</h1>
+    <p>
+      Seguem as informações da banca:<br>
+      TCC: <%= @calendar.tcc %>, <%= @calendar.half %>º semestre.<br>
+      Aluno: <%= @student.name %>
+      Data da banca: <%= @bank.date.to_s %><br>
+      Membros da banca:
+      <% @teachers.each do |teacher| %>
+      <%= teacher.name %>,&nbsp
+      <% end %>
+      <br>
+    </p>
+    <p>
+      Para maiores informações consulte o professor responsável pelo TCC. <br>
+    </p>
+  </body>
+</html>

@@ -11,10 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227204829) do
+ActiveRecord::Schema.define(version: 20150427225705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bank_notes", force: true do |t|
+    t.integer  "bank_id"
+    t.integer  "teacher_id"
+    t.float    "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "banks", force: true do |t|
+    t.date     "date"
+    t.float    "note"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "timeline_id"
+  end
+
+  create_table "banks_teachers", id: false, force: true do |t|
+    t.integer "bank_id"
+    t.integer "teacher_id"
+  end
+
+  add_index "banks_teachers", ["bank_id", "teacher_id"], name: "index_banks_teachers_on_bank_id_and_teacher_id", using: :btree
 
   create_table "base_timelines", force: true do |t|
     t.integer  "year"
@@ -54,11 +77,21 @@ ActiveRecord::Schema.define(version: 20150227204829) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "orientations", force: true do |t|
+    t.string   "title"
+    t.date     "date"
+    t.text     "description"
+    t.integer  "timeline_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "students", force: true do |t|
     t.string   "name"
     t.string   "ra"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "email"
   end
 
   create_table "teachers", force: true do |t|
@@ -68,6 +101,7 @@ ActiveRecord::Schema.define(version: 20150227204829) do
     t.string   "atuacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "email"
   end
 
   create_table "timelines", force: true do |t|
@@ -76,6 +110,7 @@ ActiveRecord::Schema.define(version: 20150227204829) do
     t.integer  "student_id"
     t.integer  "teacher_id"
     t.integer  "base_timeline_id"
+    t.integer  "bank_id"
   end
 
 end

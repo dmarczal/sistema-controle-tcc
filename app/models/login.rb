@@ -1,7 +1,7 @@
 class Login < ActiveRecord::Base
   validates :login, :presence => {message: 'Especifique um login.'}
   validates :login, :uniqueness => {message: 'Login já existe.'}
-  validates :password, :presence => {message: 'Especifique um passoword.'}
+  validates :password, :presence => {message: 'Especifique um password.'}
   # 1 -> professor responsável, 2 -> professor de TCC 1, 3 -> professor, 4 -> acadêmico
   validates :access, :presence => {message: 'Especifique um tipo de acesso.'}
   # entidade = id do: professor em caso de :access == 1 || 2 || 3, ou estudante em caso de :access == 4
@@ -13,13 +13,17 @@ class Login < ActiveRecord::Base
                       when 1 then '/responsavel'
                       when 2 then '/tcc1'
                       when 3 then '/professor'
-                      when 4 then '/aluno'
+                      when 4 then '/academico'
                     end
     user = case self.access
              when 1..3 then Teacher.find self.entity_id
              when 4 then Student.find self.entity_id
            end
-    json[:user] = user.attributes.to_json
+    json[:user] = user.attributes.to_hash
+    json[:user]['password'] = self.password
+    if self.access == 4
+      json[:user]['access'] = 'student'
+    end
     json
   end
 end

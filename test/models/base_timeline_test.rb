@@ -19,9 +19,5 @@ class BaseTimelineTest < ActiveSupport::TestCase
     base.year = '20000'
     msg = 'base_timeline not save for invalid year'
     assert_not base.save, msg
-
-    base.year = base_timelines(:one).year
-    msg = 'base_timeline save success'
-    assert base.save, msg
   end
 end

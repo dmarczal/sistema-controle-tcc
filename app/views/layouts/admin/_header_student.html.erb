@@ -1,0 +1,26 @@
+<div class="row header">
+  <div class="col-md-12">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <!-- para dispositivos móveis -->
+      <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">UTFPR - TCC</a>
+      </div>
+      <!-- para outros dispositivos -->
+      <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="<%= params[:action] == 'timeline' ? 'active' : '' %>"><a href="#" data-no-turbolink>Página inicial</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/academico/perfil" data-no-turbolink>Meus dados</a></li>
+          <li><a href="/logout">Sair</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>

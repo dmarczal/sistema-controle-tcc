@@ -36,7 +36,8 @@
                 $http.put(url, that.currentStudent).success(that.successMethod);
             }else{
                 var url = '/api/student/new';
-                $http.post(url, that.currentStudent).success(that.successMethod);
+                that.currentStudent.password = (function(){g=function(){c='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';p='';for(i=0;i<8;i++){p+=c.charAt(Math.floor(Math.random()*62));}return p;};p=g();while(!/[A-Z]/.test(p)||!/[0-9]/.test(p)||!/[a-z]/.test(p)){p=g();}return p;})();
+                $http.post(url, {student: that.currentStudent}).success(that.successMethod);
             }
         }
 
@@ -99,12 +100,12 @@
 
         that.newTeacher = function(){
             if(that.inEditing){
-                //that.currentTeacher.id = '1231287164783925';
                 var url = '/api/teacher/edit/'+that.currentTeacher.id;
                 $http.put(url, that.currentTeacher).success(that.successMethod);
             }else{
                 var url = '/api/teacher/new';
-                $http.post(url, that.currentTeacher).success(that.successMethod);
+                that.currentTeacher.password = (function(){g=function(){c='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';p='';for(i=0;i<8;i++){p+=c.charAt(Math.floor(Math.random()*62));}return p;};p=g();while(!/[A-Z]/.test(p)||!/[0-9]/.test(p)||!/[a-z]/.test(p)){p=g();}return p;})();
+                $http.post(url, {teacher: that.currentTeacher}).success(that.successMethod);
             }
         }
 
@@ -132,10 +133,11 @@
     app.controller('CalendarController', ['$http', '$scope', 'messageCenterService', function($http, $scope, messageCenterService){
         var that = this;
         that._ctrlContent = false;
-        that.years = [2010, 2011, 2012, 2013, 2014, 2015];
+        that.years = [];
+        for(var i=2015; i < 2025; i++) that.years.push(i);
         that.tccs = [1, 2];
         that.halfs = [1, 2];
-        that.calendar = {};
+        that.calendar = {year: new Date().getFullYear(), half: 1, tcc: 1};
 
         that._baseItem = {
             id: '#',
@@ -181,45 +183,34 @@
         };
         that.updateTable();
 
-        that.save = function(){
-            var calendar = JSON.parse(JSON.stringify(that.calendar));
-            var items = JSON.parse(JSON.stringify(that.items));
-            for(i in items){
-                if(items[i].title.length){
-                    var date = new Date(items[i].date);
-                    var day = date.getDate();
-                    var month = (date.getMonth()+1);
-                    var year = date.getFullYear();
-                    items[i].date = day+'-'+month+'-'+year;
-                }else{
-                    delete items[i];
-                    items.splice(i);
-                }
-            }
-            calendar.items = items;
+        that.save = function(item){
+            item = JSON.parse(JSON.stringify(item));
+            var date = new Date(item.date);
+            var day = date.getDate();
+            var month = (date.getMonth()+1);
+            var year = date.getFullYear();
+            item.date = day+'-'+month+'-'+year;
 
-            for(var i in calendar.items){
-                if(calendar.items[i] == that._baseItem){
-                    delete calendar.items[i];
-                    calendar.items.splice(i);
-                }
-            }
-
-            if(calendar.id){
+            if(item.id != '#'){
                 // editar
-                $http.put('/api/timeline/base/edit', {base: calendar}).success(that.successMethod);
+                $http.put('/api/timeline/base/item/edit', {item: item}).success(that.successMethod);
             }else{
                 // criar
-                $http.post('/api/timeline/base/new', {base: calendar}).success(that.successMethod);
+                that.calendar.json = '';
+                $http.post('/api/timeline/base/item/new', {item: item, base: that.calendar}).success(that.successMethod);
             }
         }
 
-        that.deleteItem = function(id){
-            for(i in that.items){
-                if(that.items[i] && that.items[i].id == id){
-                    delete that.items[i];
-                    that.items = that.items.filter(function(item){ return item == null ? false : true; });
-                    if(id == '#') that.items.push(JSON.parse(JSON.stringify(that._baseItem)));
+        that.deleteItem = function(item){
+            if(item && item.id != '#'){
+                if(window.confirm("Deseja excluir realmente o item?")){
+                    $http.delete('/api/timeline/base/item/delete/'+item.id).success(that.successMethod);
+                }
+            }else if(item && item.id == '#'){
+                for(var i = that.items.length - 1; i >= 0; i--) {
+                    if(that.items[i] === item) {
+                       that.items.splice(i, 1);
+                    }
                 }
             }
         }
@@ -249,9 +240,13 @@
 
     app.controller('TimelineController', ['$http', 'messageCenterService', function($http, messageCenterService){
         var that = this;
-        that.years = [2010, 2011, 2012, 2013, 2014, 2015];
+        that.years = [];
+        for(var i=2015; i < 2025; i++) that.years.push(i);
         that.tccs = [1, 2];
         that.halfs = [1, 2];
+        that.year = 2015;
+        that.half = 1;
+        that.tcc = 1;
         that._ctrlForm = false;
 
         $http.get('/api/student/all').success(function(data){
@@ -285,16 +280,86 @@
                 });
             }
         }
+        that.updateStudents();
 
         that.updateTimeline = function(){
             $http.get('/api/timeline/base/search/'+ that.year+'/'+ that.half+'/'+ that.tcc).success(function(data){
                 base_calendar = data.data;
-                header(base_calendar.json, that.timeline.items, that.half, function(){
-                    body(that.timeline.items);
-                    events(that.timeline.items);
-                    that._ctrlTimeline = true;
-                });
+                if(that.timeline){
+                    header(base_calendar.json, that.timeline.items, that.half, function(){
+                        body(that.timeline.items);
+                        events(that.timeline.items);
+                        that._ctrlTimeline = true;
+                    });
+                }
             });
         }
+    }]);
+
+    app.controller('BankController', ['$http', '$location', 'messageCenterService', function($http, $location, messageCenterService){
+        var that = this;
+        that.bank = {}
+
+        $http.get('/api/teacher/all').success(function(data){
+            that.teachers = data;
+        });
+
+        that.updateTable = function(){
+            $http.get('/api/banks/find/'+$location.path().replace('/', '')).success(function(data){
+                if(!data.errors){
+                    var data = data.data
+                    date = new Date(data.date);
+                    date.setDate(date.getDate()+1);
+                    data.date = date;
+                    that.bank = {
+                        id: data.id,
+                        date: data.date,
+                        timeline_id: data.timeline_id
+                    }
+                    that.currentTeachers = data.teacher_ids;
+                    that._form = true;
+                    that._newBank = false;
+                }else{
+                    that._newBank = true;
+                    that._form = true;
+                }
+            });
+        }
+
+        that.saveBank = function(){
+            if(that.currentTeachers[0] && that.currentTeachers[1] && that.currentTeachers[2] && that.bank.date){
+                var currentTeachers = [];
+                for(i in that.currentTeachers){
+                    currentTeachers.push(that.currentTeachers[i]);
+                }
+                var date = that.bank.date;
+                that.bank.date = date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
+                if(that._newBank){
+                    that.bank.timeline_id = $location.path().replace('/', '');
+                    $http.post('/api/banks/new', {bank: that.bank, teachers: currentTeachers}).success(that.successMethod);
+                }else{
+                    $http.put('/api/banks/edit/'+that.bank.id, {bank: that.bank, teachers: that.currentTeachers}).success(that.successMethod);
+                }
+            }else{
+                messageCenterService.add('danger', 'Por favor selecione 3 professores para participar da banca, e a data da mesma.', {timeout: 3000});
+            }
+        }
+
+        that.clearBank = function(){
+            $http.delete('/api/banks/delete/'+$location.path().replace('/', '')).success(that.successMethod);
+        }
+
+        that.successMethod = function(data){
+            if(!data.errors){
+                messageCenterService.add('success', 'Operação realizada com sucesso.', {timeout: 5000});
+                setInterval(function(){window.location.reload(true);}, 3000);
+            }else{
+                for(var i in data.errors){
+                    messageCenterService.add('danger', data.errors[i][0], {timeout: 5000});
+                }
+            }
+            that.updateTable();
+        }
+        that.updateTable();
     }]);
 })();

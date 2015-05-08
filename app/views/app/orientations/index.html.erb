@@ -1,0 +1,22 @@
+    <div class="row text-center">
+      <a href="/professor/orientacoes/new" class="btn btn-primary">Nova orientação</a>
+    </div><br>
+    <!-- LISTAGEM DE ORIENTAÇÕES -->
+    <table class="table table-bordered">
+        <tr>
+            <th>Data de criação</th>
+            <th>TCC</th>
+            <th>Título da orientação</th>
+            <th>Editar</th>
+            <th>Excluir</th>
+        </tr>
+        <% @orientations.each do |orientation| %>
+        <tr>
+            <td><%= orientation.date.strftime("%d/%m/%Y") %></td>
+            <td><%= orientation.timeline.student.name+' - TCC '+orientation.timeline.base_timeline.tcc+' - '+orientation.timeline.base_timeline.year.to_s %></td>
+            <td><%= orientation.title %></td>
+            <td><a href="/professor/orientacoes/<%= orientation.id %>/edit"><span class="glyphicon glyphicon-pencil"></a></span></td>
+            <td><a href="/professor/orientacoes/<%= orientation.id %>" data-method="delete"><span class="glyphicon glyphicon-remove"></a></span></td>
+        </tr>
+        <% end %>
+    </table>

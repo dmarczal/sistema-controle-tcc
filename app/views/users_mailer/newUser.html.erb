@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Seja bem-vindo ao SGTCC da UTFPR Guarapuava, <%= @user.name %></h1>
+    <p>
+      Você foi inscrito no sistema com as seguintes informações:<br>
+      Seu login é: <%= @login.login %>.<br>
+      Sua senha é: <%= @login.password %>.<br>
+    </p>
+    <p>
+      Para realizar o login no sistema basta acessar a seguitne URL: <%= @baseUrl %>.
+    </p>
+    <p>Obrigado por se cadastrar e tenha um ótimo dia!</p>
+  </body>
+</html>

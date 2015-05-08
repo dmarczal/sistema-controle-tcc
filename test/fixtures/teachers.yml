@@ -1,19 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: João da Silva
-  access: responsavel
+  id: 1
+  name: Diego Marczal
+  email: diego@utfpr.edu.br
+  access: responsible
   lattes: http://www.google.com.br
   atuacao: programação web
 
 two:
-  name: Marcos Silveira
-  access: professor
+  id: 2
+  name: Andres Porfirio
+  email: andres@utfpr.edu.br
+  access: teacher
   lattes: http://www.google.com.br
   atuacao: banco de dados
 
 three:
+  id: 3
   name: Adriano Pimenta
+  email: adriano@utfpr.edu.br
   access: tcc1
   lattes: http://www.google.com.br
   atuacao: engenharia de software

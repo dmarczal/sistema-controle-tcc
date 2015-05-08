@@ -1,0 +1,65 @@
+<form class="form-horizontal" method="POST" action="<%= !@orientation.nil? ? '/professor/orientacoes/'+@orientation.id.to_s+'/edit' : '/professor/orientacoes' %>">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <fieldset>
+
+  <!-- Form Name -->
+  <legend>Orientações</legend>
+
+  <!-- Select input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="datetime">TCC</label>
+    <div class="col-md-5">
+    <select name="tcc" class="form-control">
+    <% @tccs.each do |tcc| %>
+      <option value="<%= tcc.id %>" <%= !@orientation.nil? && (@orientation.timeline_id == tcc.id) ? 'selected' : '' %>><%= tcc.student.name+' - TCC '+tcc.base_timeline.tcc+' - '+tcc.base_timeline.year.to_s %></option>
+    <% end %>
+    </select>
+    <span class="help-block">Selecione o TCC</span>
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="datetime">Data e hora</label>
+    <div class="col-md-5">
+    <input value="<%= !@orientation.nil? ? @orientation.date : '' %>" id="date" name="date" type="date" placeholder="Date" class="form-control input-md" required="">
+    <span class="help-block">Data da orientação</span>
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="title">Título</label>
+    <div class="col-md-5">
+    <input value="<%= !@orientation.nil? ? @orientation.title : '' %>" id="title" name="title" type="text" placeholder="Título" class="form-control input-md" required="">
+    <span class="help-block">Título do tema da orientação</span>
+    </div>
+  </div>
+
+  <!-- Textarea -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="description">Descrição</label>
+    <div class="col-md-4">
+      <textarea class="form-control" id="description" name="description" placeholder="Descrição da orientação"><%= !@orientation.nil? ? @orientation.description : '' %></textarea>
+    </div>
+  </div>
+
+  <!-- File Button -->
+  <!-- <div class="form-group">
+    <label class="col-md-4 control-label" for="file">Ficha de orientação</label>
+    <div class="col-md-4">
+      <input id="file" name="file" class="input-file" type="file">
+    </div>
+  </div> -->
+
+  <!-- Button (Double) -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="save"></label>
+    <div class="col-md-8">
+      <button id="save" name="save" type="submit" class="btn btn-primary">Salvar</button>
+      <a href="/professor/orientacoes" id="back" name="back" class="btn btn-warning">Voltar</a>
+    </div>
+  </div>
+
+  </fieldset>
+</form>
