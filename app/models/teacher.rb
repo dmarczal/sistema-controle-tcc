@@ -7,4 +7,12 @@ class Teacher < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :role_id
   validates_presence_of :email
+
+  def self.search(search)
+    if search
+        where(['lower(name) LIKE ?', "%#{search}%".downcase])
+    else
+        all
+    end
+  end
 end

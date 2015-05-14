@@ -9,12 +9,10 @@ Rails.application.routes.draw do
         # dashboard
         get '/' => 'responsible_teacher#home'
 
-        # management students
-        # get 'alunos' => 'responsible_teacher#students'
         resources :students, module: 'responsibleteacher', path: 'academicos'
+        resources :teachers, module: 'responsibleteacher', path: 'professores'
 
         # we will be refactored
-        get 'professores' => 'responsible_teacher#teachers'
         get 'calendarios' => 'responsible_teacher#calendars'
         get 'timelines' => 'responsible_teacher#timelines'
         get 'bancas' => 'responsible_teacher#banks'

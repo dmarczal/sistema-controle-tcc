@@ -1,0 +1,38 @@
+<%= form_for(@teacher, url: @teacher.id ? responsible_teacher_teacher_path(@teacher) : responsible_teacher_teachers_path) do |f| %>
+    <div class="col-md-8 col-md-offset-2">
+        <div class="form-group">
+            Nome do professor<br>
+            <%= f.text_field :name, class: 'form-control' %>
+            <%= f.label @teacher.errors[:name].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @teacher.errors.has_key? :name %>
+        </div>
+        <div class="form-group">
+            Acesso<br>
+            <%= f.select(:role_id, options_for_select(Role.all.map{|r|[r.name, r.id]}, @teacher.role_id), {}, {class: 'form-control', :selected => @teacher.role_id}) %>
+            <%= f.label @teacher.errors[:role_id].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @teacher.errors.has_key? :role_id %>
+        </div>
+        <div class="form-group">
+            Atuação<br>
+            <%= f.text_field :atuacao, class: 'form-control' %>
+            <%= f.label @teacher.errors[:atuacao].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @teacher.errors.has_key? :atuacao %>
+        </div>
+        <div class="form-group">
+            Curriculum lattes<br>
+            <%= f.text_field :lattes, class: 'form-control' %>
+            <%= f.label @teacher.errors[:lattes].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @teacher.errors.has_key? :lattes %>
+        </div>
+        <div class="form-group">
+            E-mail<br>
+            <%= f.text_field :email, class: 'form-control' %>
+            <%= f.label @teacher.errors[:email].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @teacher.errors.has_key? :email %>
+        </div>
+        <div class="form-group">
+            Login<br>
+            <%= f.text_field :login, class: 'form-control' %>
+            <%= f.label @teacher.errors[:login].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @teacher.errors.has_key? :login %>
+        </div>
+        <div class="text-center">
+            <%= link_to glyph(:backward)+' Voltar', responsible_teacher_teachers_path, class: 'btn btn-warning' %>
+            <%= f.button glyph(:ok)+' Salvar professor', class: 'btn btn-success' %>
+        </div>
+    </div>
+<% end %>
