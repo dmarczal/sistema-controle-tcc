@@ -276,6 +276,8 @@
                         that.timelines = data.timelines;
                     }else if(data.errors){
                         messageCenterService.add('danger', 'Nenhum TCC encontrado.', {timeout: 3000});
+                        that._ctrlTimeline = false;
+                        that.timelines = [];
                     }
                 });
             }

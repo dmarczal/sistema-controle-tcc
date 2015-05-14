@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427225705) do
+ActiveRecord::Schema.define(version: 20150513214621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,15 +68,6 @@ ActiveRecord::Schema.define(version: 20150427225705) do
     t.integer  "timeline_id"
   end
 
-  create_table "logins", force: true do |t|
-    t.string   "login"
-    t.string   "password"
-    t.integer  "access"
-    t.integer  "entity_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "orientations", force: true do |t|
     t.string   "title"
     t.date     "date"
@@ -86,22 +77,30 @@ ActiveRecord::Schema.define(version: 20150427225705) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "roles", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "students", force: true do |t|
     t.string   "name"
     t.string   "ra"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "email"
+    t.string   "login"
   end
 
   create_table "teachers", force: true do |t|
     t.string   "name"
-    t.string   "access"
     t.string   "lattes"
     t.string   "atuacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "email"
+    t.string   "login"
+    t.integer  "role_id"
   end
 
   create_table "timelines", force: true do |t|

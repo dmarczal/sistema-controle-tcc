@@ -1,0 +1,28 @@
+<div class="col-md-8 col-md-offset-2">
+<%= form_for(@student, url: @student.id ? responsible_teacher_student_path(@student) : responsible_teacher_students_path) do |f| %>
+  <div class="form-group">
+    RA do aluno<br>
+    <%= f.text_field :ra, class: 'form-control' %>
+    <%= f.label @student.errors[:ra].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @student.errors.has_key? :ra %>
+  </div>
+  <div class="form-group">
+    Nome do aluno<br>
+    <%= f.text_field :name, class: 'form-control' %>
+    <%= f.label @student.errors[:name].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @student.errors.has_key? :name %>
+  </div>
+  <div class="form-group">
+    E-mail do aluno<br>
+    <%= f.text_field :email, class: 'form-control' %>
+    <%= f.label @student.errors[:email].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @student.errors.has_key? :email %>
+  </div>
+  <div class="form-group">
+    Login do aluno<br>
+    <%= f.text_field :login, class: 'form-control' %>
+    <%= f.label @student.errors[:login].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @student.errors.has_key? :login %>
+  </div>
+  <div class="text-center">
+  <%= link_to glyph(:backward)+' Voltar', responsible_teacher_students_path, class: 'btn btn-warning' %>
+    <%= f.button glyph(:ok)+' Salvar acadêmico', class: 'btn btn-success' %>
+  </div>
+<% end %>
+</div>

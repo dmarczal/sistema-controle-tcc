@@ -7,15 +7,17 @@ class TeacherTest < ActiveSupport::TestCase
     assert_not t.save, 'Not save empty teacher'
 
     t.name = teachers(:one).name
-    assert_not t.save, 'Not save teacher if name is type of access is empty'
-
-    t.access = teachers(:one).access
     t.email = teachers(:one).email
-    assert t.save, 'Save teacher for name and access not empty '+t.errors.inspect
 
     t.lattes = teachers(:one).lattes
     t.atuacao = teachers(:one).atuacao
 
-    assert t.save, 'Save teacher with complete data'
+    assert_not t.save, 'Save teacher with empty login'
+    t.login = 'diego'
+
+    assert_not t.save, 'Save teacher with not role'
+    t.role = Role.first
+
+    assert t.save, 'Not save teacher with complete data'
   end
 end

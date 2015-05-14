@@ -35,6 +35,18 @@ gem 'bootstrap-sass'
 # Utilizando gem responders para responder automaticamente em diferentes formatos
 gem 'responders'
 
+# Padronização de idiomas
+gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master' # For 4.x
+
+# População de banco
+gem 'faker'
+gem 'populator'
+
+# paginação
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+
+
 # Gems do heroku
 group :production do
   gem 'rails_12factor'

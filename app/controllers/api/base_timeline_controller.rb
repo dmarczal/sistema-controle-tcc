@@ -110,7 +110,6 @@ class Api::BaseTimelineController < ApiController
         end
       end
       i = ItemBaseTimeline.new item.to_hash
-      i['date']
       i.link = i.link != '#' ? i.link : 'http://'+request.env["HTTP_HOST"]+'/academico/item#'+i.id.to_s
       if i.save
         base.item_base_timeline.push i

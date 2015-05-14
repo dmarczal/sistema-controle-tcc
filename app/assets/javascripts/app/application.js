@@ -15,3 +15,6 @@
 //= require bootstrap
 //= require turbolinks
 //= require angular
+$(function(){
+    $('.field_with_errors').parent().addClass('has-error');
+});

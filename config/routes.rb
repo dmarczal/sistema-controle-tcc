@@ -2,11 +2,18 @@ Rails.application.routes.draw do
     # rotas gerais da aplicação
     get 'login' => 'application#login'
     get 'logout' => 'application#logout'
+    root 'application#login'
 
     # rotas do módulo do professor responsável
     scope 'responsavel', module: 'app', as: 'responsible_teacher' do
+        # dashboard
         get '/' => 'responsible_teacher#home'
-        get 'alunos' => 'responsible_teacher#students'
+
+        # management students
+        # get 'alunos' => 'responsible_teacher#students'
+        resources :students, module: 'responsibleteacher', path: 'academicos'
+
+        # we will be refactored
         get 'professores' => 'responsible_teacher#teachers'
         get 'calendarios' => 'responsible_teacher#calendars'
         get 'timelines' => 'responsible_teacher#timelines'
