@@ -13,17 +13,24 @@
         </div>
         <div class="form-group">
             <label>Semestre: </label><br>
-            1º <input type="radio" name="half" checked>
-            2º <input type="radio" name="half">
+            1º <input type="radio" value="1" name="half" checked>
+            2º <input type="radio" value="2" name="half">
         </div>
         <div class="form-group">
             <label>TCC: </label><br>
-            1 <input type="radio" name="tcc" checked>
-            2 <input type="radio" name="tcc">
+            1 <input type="radio" name="tcc" value="1" checked>
+            2 <input type="radio" name="tcc" value="2">
         </div>
         <div class="form-group">
             <!-- deve ser dinâmico -->
-            <a href="/responsavel/calendarios/2015/1/1" class="btn btn-info">Avançar</a>
+            <a href="#" class="go btn btn-info">Avançar</a>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(function(){
+        $('.go').on('click', function(){
+            window.location.href = "/responsavel/calendarios/"+$('[name=year]').val()+"/"+$('[name=half]').val()+"/"+$('[name=tcc]').val();
+        });
+    });
+</script>
