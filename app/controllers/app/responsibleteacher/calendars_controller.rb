@@ -2,11 +2,18 @@ class App::Responsibleteacher::CalendarsController < ApplicationController
     layout 'app/responsibleteacher'
     respond_to :js
     before_action :set_item, only: [:edit, :update, :destroy]
+    before_action :set_calendar, only: [:show, :timeline]
 
     def new
         @item = ItemBaseTimeline.new
         @calendar = BaseTimeline.find params[:id]
         render :partial => 'edit.js.erb'
+    end
+
+    def timeline
+        @calendar = @calendar.attributes
+        @json = @calendar['json']
+        @calendar.delete("json")
     end
 
     def create
@@ -22,14 +29,6 @@ class App::Responsibleteacher::CalendarsController < ApplicationController
         else
             render :partial => 'edit.js.erb'
         end
-    end
-
-    def show
-        @calendar = BaseTimeline.find_by calendar_params
-        if !@calendar
-            @calendar = BaseTimeline.create calendar_params
-        end
-        @items = @calendar.item_base_timeline
     end
 
     def edit
@@ -56,9 +55,28 @@ class App::Responsibleteacher::CalendarsController < ApplicationController
         render :partial => 'redirect.js.erb'
     end
 
+    def save_timeline
+        @calendar = BaseTimeline.find params[:id]
+        @calendar.json = params[:json]
+        if @calendar.save
+            response = {response: true}
+        else
+            response = {response: @calendar.errors}
+        end
+        render :inline => response.to_json
+    end
+
     private
     def calendar_params
         params.permit(:year, :half, :tcc)
+    end
+
+    def set_calendar
+        @calendar = BaseTimeline.find_by calendar_params
+        if !@calendar
+            @calendar = BaseTimeline.create calendar_params
+        end
+        @items = @calendar.item_base_timeline
     end
 
     def set_item_link

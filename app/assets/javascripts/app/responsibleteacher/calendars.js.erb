@@ -1,0 +1,20 @@
+var calendar = JSON.parse(window.calendar.replace(/&quot;/ig, '"'));
+var items = JSON.parse(window.items.replace(/&quot;/ig, '"'));
+console.log(window.json.replace(/&quot;/ig, '"'))
+var json = JSON.parse(window.json.replace(/&quot;/ig, '"'));
+header(json, items, calendar.half, function(){
+  body(items);
+});
+
+$('#save').on('click', function(){
+  var canvas_json = JSON.stringify(canvas.toJSON(['event_id', 'fill']));
+  $.post('/responsavel/calendarios/'+calendar.id+'/timeline/save', {json: canvas_json}, function(status){
+    status = JSON.parse(status)
+    if(status.response == true){
+      alert("Timeline foi salva com sucesso!");
+    }else{
+      console.log(status);
+      alert("Ops, algo errado aconteceu!");
+    }
+  })
+});
