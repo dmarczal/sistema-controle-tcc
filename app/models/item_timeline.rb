@@ -1,6 +1,7 @@
 class ItemTimeline < ActiveRecord::Base
   belongs_to :item_base_timeline
   belongs_to :timeline
+  belongs_to :status_item
 
   def self.refreshItems
     ItemTimeline.where.not(:status => 'pending').each do |item|

@@ -17,4 +17,5 @@
 //= require angular
 $(function(){
     $('.field_with_errors').parent().addClass('has-error');
+    $('[data-toggle="tooltip"]').tooltip();
 });

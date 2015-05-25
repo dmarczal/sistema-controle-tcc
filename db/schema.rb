@@ -11,18 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513214621) do
+ActiveRecord::Schema.define(version: 20150524221629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "bank_notes", force: true do |t|
-    t.integer  "bank_id"
-    t.integer  "teacher_id"
-    t.float    "note"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "banks", force: true do |t|
     t.date     "date"
@@ -32,12 +24,16 @@ ActiveRecord::Schema.define(version: 20150513214621) do
     t.integer  "timeline_id"
   end
 
+  add_index "banks", ["timeline_id"], name: "banks_timeline_idx", using: :btree
+
   create_table "banks_teachers", id: false, force: true do |t|
     t.integer "bank_id"
     t.integer "teacher_id"
   end
 
   add_index "banks_teachers", ["bank_id", "teacher_id"], name: "index_banks_teachers_on_bank_id_and_teacher_id", using: :btree
+  add_index "banks_teachers", ["bank_id"], name: "banks_teachers_bank_id_idx", using: :btree
+  add_index "banks_teachers", ["teacher_id"], name: "banks_teachers_teacher_id_idx", using: :btree
 
   create_table "base_timelines", force: true do |t|
     t.integer  "year"
@@ -59,14 +55,19 @@ ActiveRecord::Schema.define(version: 20150513214621) do
     t.integer  "base_timeline_id"
   end
 
+  add_index "item_base_timelines", ["base_timeline_id"], name: "item_base_timelines_base_timeline_id_idx", using: :btree
+
   create_table "item_timelines", force: true do |t|
-    t.string   "status"
     t.string   "file"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.integer  "item_base_timeline_id"
     t.integer  "timeline_id"
+    t.integer  "status_item_id"
   end
+
+  add_index "item_timelines", ["item_base_timeline_id"], name: "item_timelines_item_base_timeline_id_idx", using: :btree
+  add_index "item_timelines", ["timeline_id"], name: "item_timelines_timeline_id_idx", using: :btree
 
   create_table "orientations", force: true do |t|
     t.string   "title"
@@ -77,7 +78,15 @@ ActiveRecord::Schema.define(version: 20150513214621) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "orientations", ["timeline_id"], name: "orientations_timeline_id_idx", using: :btree
+
   create_table "roles", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "status_items", force: true do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -103,6 +112,8 @@ ActiveRecord::Schema.define(version: 20150513214621) do
     t.integer  "role_id"
   end
 
+  add_index "teachers", ["role_id"], name: "teachers_role_id_idx", using: :btree
+
   create_table "timelines", force: true do |t|
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
@@ -111,5 +122,7 @@ ActiveRecord::Schema.define(version: 20150513214621) do
     t.integer  "base_timeline_id"
     t.integer  "bank_id"
   end
+
+  add_index "timelines", ["base_timeline_id"], name: "timelines_base_timeline_id_idx", using: :btree
 
 end

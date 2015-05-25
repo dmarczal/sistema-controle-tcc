@@ -1,0 +1,32 @@
+<div class="col-md-3 pull-right text-right">
+  <a data-remote="true" href="<%= new_responsible_teacher_calendar_path %>?id=<%= @calendar.id %>" class="btn btn-primary" data-dismiss="modal"><i class="glyphicon glyphicon-plus"></i> Novo item</a>
+</div>
+<p>Você está visualizando:</p>
+<p>Calendário do TCC <%= @calendar.tcc %> do <%= @calendar.half %>º semestre de <%= @calendar.year %> </p>
+<br>
+<table class="table table-striped">
+  <tr>
+    <th>Título</th>
+    <th>Tipo</th>
+    <th>Data</th>
+    <th>Editar</th>
+    <th>Excluir</th>
+  </tr>
+  <% @items.each do |item| %>
+  <tr>
+    <td><%= item.title %></td>
+    <td><%= t('views.timeline.type.'+item._type) %></td>
+    <td><%= item.date.strftime('%d/%m/%Y') %></td>
+    <td><a data-remote="true" href="<%= edit_responsible_teacher_calendar_path(item) %>" data-turbolink="true" class="label label-warning"><%= glyph(:pencil) %> Ver</a></td>
+    <td><%= link_to glyph(:trash) + ' Excluir', responsible_teacher_calendar_path(item), class: 'label label-danger', method: 'delete', data: { confirm: 'Tem certeza?', remote: true } %></td>
+  </tr>
+  <% end %>
+</table>
+<div id="modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header"><h3>Salvar item do calendário</h3></div>
+        <div class="modal-body"></div>
+    </div>
+  </div>
+</div>

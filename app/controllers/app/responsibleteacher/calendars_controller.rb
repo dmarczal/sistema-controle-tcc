@@ -1,0 +1,80 @@
+class App::Responsibleteacher::CalendarsController < ApplicationController
+    layout 'app/responsibleteacher'
+    respond_to :js
+    before_action :set_item, only: [:edit, :update, :destroy]
+
+    def new
+        @item = ItemBaseTimeline.new
+        @calendar = BaseTimeline.find params[:id]
+        render :partial => 'edit.js.erb'
+    end
+
+    def create
+        @item = ItemBaseTimeline.new item_params
+        @item.base_timeline = BaseTimeline.find params[:calendar_id]
+        if @item.save
+            set_item_link
+            @item.save
+            flash[:success] = t('controllers.save')
+            @url = responsible_teacher_calendars_url+@item.base_timeline.path
+            @type = 'success'
+            render :partial => 'redirect.js.erb'
+        else
+            render :partial => 'edit.js.erb'
+        end
+    end
+
+    def show
+        @calendar = BaseTimeline.find_by calendar_params
+        if !@calendar
+            @calendar = BaseTimeline.create calendar_params
+        end
+        @items = @calendar.item_base_timeline
+    end
+
+    def edit
+        render :partial => 'edit.js.erb'
+    end
+
+    def update
+        set_item_link
+        if @item.update item_params
+            flash[:success] = t('controllers.save')
+            @url = responsible_teacher_calendars_url+@item.base_timeline.path
+            @type = 'success'
+            render :partial => 'redirect.js.erb'
+        else
+            render :partial => 'edit.js.erb'
+        end
+    end
+
+    def destroy
+        @item.destroy
+        flash[:success] = 'Item excluído com sucesso.'
+        @url = responsible_teacher_calendars_url+@item.base_timeline.path
+        @type = 'success'
+        render :partial => 'redirect.js.erb'
+    end
+
+    private
+    def calendar_params
+        params.permit(:year, :half, :tcc)
+    end
+
+    def set_item_link
+        link_param = params[:item_base_timeline][:link]
+        if link_param.length > 0
+            @item.link = link_param
+        else
+            @item.link = 'http://'+request.env["HTTP_HOST"]+'/academico/item/'+@item.id.to_s
+        end
+    end
+
+    def item_params
+       params.require(:item_base_timeline).permit(:title, :_type, :date, :description)
+    end
+
+    def set_item
+        @item = ItemBaseTimeline.find_by_id params[:id]
+    end
+end

@@ -11,6 +11,12 @@ pt-BR:
       student/name: "Nome"
       student/email: "E-mail"
       student/password: "Senha"
+  views:
+    timeline:
+      type:
+        document: "Documento"
+        presentation: "Apresentação"
+        important: "Importante"
   date:
     abbr_day_names:
     - Dom

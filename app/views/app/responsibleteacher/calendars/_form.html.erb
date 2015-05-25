@@ -1,0 +1,39 @@
+<%= form_for(@item, remote: true, url: @item.id ? responsible_teacher_calendar_path(@item) : responsible_teacher_calendars_path) do |f| %>
+  <%= hidden_field_tag 'calendar_id', @calendar.id if !@calendar.nil? %>
+  <div class="form-group">
+    Título do item<br>
+    <%= f.text_field :title, class: 'form-control' %>
+    <%= f.label @item.errors[:title].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @item.errors.has_key? :title %>
+  </div>
+
+  <div class="form-group">
+    Tipo<br>
+    <%= f.select(:_type, options_for_select({'Importante' => 'important','Documento' => 'document','Apresentação' => 'presentation'}, [@item._type]), {}, {class: 'form-control'}) %>
+    <%= f.label @item.errors[:_type].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @item.errors.has_key? :_type %>
+  </div>
+
+  <div class="form-group">
+    Data<br>
+    <%= f.date_field :date, class: 'form-control' %>
+    <%= f.label @item.errors[:date].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @item.errors.has_key? :date %>
+  </div>
+
+  <div class="form-group">
+    Link <a href="#" data-toggle="tooltip" title="Digite aqui o link para onde o ícone da timeline irá redirecionar. Caso seja um item que deve ser entregue, e você deseja que ao clicar no link o acadêmico seja redirecionado para a página de entrega do item, deixe o campo em branco, que o link será gerado automaticamente."><i class="glyphicon glyphicon-question-sign"></i></a><br>
+    <%= f.text_field :link, class: 'form-control' %>
+    <%= f.label @item.errors[:link].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @item.errors.has_key? :link %>
+  </div>
+
+  <div class="form-group">
+    Descrição<br>
+    <%= f.text_area :description, class: 'form-control' %>
+    <%= f.label @item.errors[:description].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @item.errors.has_key? :description %>
+  </div>
+  <div class="text-center">
+      <button type="button" class="btn btn-inverse" data-dismiss="modal"><i class="glyphicon glyphicon-backward"></i> Fechar</button>
+      <%= f.button glyph(:ok)+' Salvar', class: 'btn btn-success' %>
+  </div>
+<% end %>
+<script type="text/javascript">
+  $('[data-toggle="tooltip"]').tooltip();
+</script>

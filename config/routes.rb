@@ -11,9 +11,11 @@ Rails.application.routes.draw do
 
         resources :students, module: 'responsibleteacher', path: 'academicos'
         resources :teachers, module: 'responsibleteacher', path: 'professores'
+        resources :calendars, module: 'responsibleteacher', path: 'calendarios', format: :js
+        get 'calendarios/:year/:half/:tcc' => 'responsibleteacher/calendars#show', module: 'app'
 
         # we will be refactored
-        get 'calendarios' => 'responsible_teacher#calendars'
+        get 'calendarios1' => 'responsible_teacher#calendars'
         get 'timelines' => 'responsible_teacher#timelines'
         get 'bancas' => 'responsible_teacher#banks'
         get 'perfil' => 'responsible_teacher#profile'
