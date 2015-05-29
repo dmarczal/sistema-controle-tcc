@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524221629) do
+ActiveRecord::Schema.define(version: 20150528230102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,16 @@ ActiveRecord::Schema.define(version: 20150524221629) do
     t.string   "email"
     t.string   "login"
   end
+
+  create_table "teacher_timelines", force: true do |t|
+    t.integer  "teacher_id"
+    t.integer  "timeline_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "teacher_timelines", ["teacher_id"], name: "teacher_timelines_teacher_id_idx", using: :btree
+  add_index "teacher_timelines", ["timeline_id"], name: "teacher_timelines_timeline_id_idx", using: :btree
 
   create_table "teachers", force: true do |t|
     t.string   "name"

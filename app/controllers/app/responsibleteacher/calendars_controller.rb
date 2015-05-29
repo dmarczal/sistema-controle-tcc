@@ -4,6 +4,10 @@ class App::Responsibleteacher::CalendarsController < ApplicationController
     before_action :set_item, only: [:edit, :update, :destroy]
     before_action :set_calendar, only: [:show, :timeline]
 
+    def index
+        redirect_to '/responsavel/calendarios/'+Time.now.year.to_s+'/1/1'
+    end
+
     def new
         @item = ItemBaseTimeline.new
         @calendar = BaseTimeline.find params[:id]

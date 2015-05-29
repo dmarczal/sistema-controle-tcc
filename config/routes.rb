@@ -11,14 +11,18 @@ Rails.application.routes.draw do
 
         resources :students, module: 'responsibleteacher', path: 'academicos'
         resources :teachers, module: 'responsibleteacher', path: 'professores'
+
         resources :calendars, module: 'responsibleteacher', path: 'calendarios', format: :js
         get 'calendarios/:year/:half/:tcc' => 'responsibleteacher/calendars#show', module: 'app'
         get 'calendarios/:year/:half/:tcc/timeline' => 'responsibleteacher/calendars#timeline', module: 'app'
         post 'calendarios/:id/timeline/save' => 'responsibleteacher/calendars#save_timeline', module: 'app'
 
+        resources :timelines, module: 'responsibleteacher', only: [:index, :show, :new, :create, :destroy]
+        get 'timelines/:year/:half/:tcc' => 'responsibleteacher/timelines#list', module: 'responsibleteacher'
+
         # we will be refactored
         get 'calendarios1' => 'responsible_teacher#calendars'
-        get 'timelines' => 'responsible_teacher#timelines'
+        get 'timelines1' => 'responsible_teacher#timelines'
         get 'bancas' => 'responsible_teacher#banks'
         get 'perfil' => 'responsible_teacher#profile'
         get 'orientacoes' => 'responsible_teacher#orientations'

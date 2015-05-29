@@ -1,0 +1,20 @@
+<%= form_for(@timeline, remote: true, url: responsible_teacher_timelines_path) do |f| %>
+  <%= f.label 'Aluno' %>
+  <%= f.select :student, options_for_select(Student.all.map{|s|[s.name, s.id]}, @timeline.student_id), {}, class: 'form-control', style: 'width: 100% !important;' %>
+
+  <%= f.label 'Orientadores' %>
+  <%= f.select :teachers, options_for_select(Teacher.all.map{|t|[t.name, t.id]}, @timeline.teacher_id), {}, {class: 'form-control', multiple: true, style: 'width: 100% !important;'} %>
+  <%= f.label @timeline.errors[:teachers].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @timeline.errors.has_key? :teachers %>
+  <br><br>
+  <%= f.submit 'Cadastrar', class: 'btn btn-primary' %>
+<% end %>
+<script type="text/javascript">
+  var split = window.location.href.split('timelines');
+  var params = split[1].split('/');
+  var year = params[1];
+  var half = params[2];
+  var tcc = params[3];
+  $('form').append('<input type="hidden" name="year" value="'+year+'">');
+  $('form').append('<input type="hidden" name="half" value="'+half+'">');
+  $('form').append('<input type="hidden" name="tcc" value="'+tcc+'">');
+</script>

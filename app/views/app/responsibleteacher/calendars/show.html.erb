@@ -1,5 +1,34 @@
-<div class="col-md-3 pull-right text-right">
+<%= javascript_include_tag 'app/responsibleteacher/calendars', 'data-turbolinks-track' => true %>
+<br><div class="row">
+    <div class="col-md-12">
+        <div class="col-md-2">
+            <label>Ano: </label>
+            <select class="form-control" name="year">
+              <% (2015..2025).each do |n| %>
+                <option <%= params[:year] == n.to_s ? 'selected' : '' %>><%= n %></option>
+              <% end %>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label>Semestre</label><br>
+            1º <input type="radio" value="1" name="half" <%= params[:half] == '1' ? 'checked' : '' %>>
+            2º <input type="radio" value="2" name="half"<%= params[:half] == '2' ? 'checked' : '' %>>
+        </div>
+        <div class="col-md-1">
+            <label>TCC</label><br>
+            1 <input type="radio" name="tcc" value="1" <%= params[:tcc] == '1' ? 'checked' : '' %>>
+            2 <input type="radio" name="tcc" value="2" <%= params[:tcc] == '2' ? 'checked' : '' %>>
+        </div>
+        <div class="col-md-2">
+          <a href="#" class="go btn btn-info">Selecionar calendário</a>
+        </div>
+        <div class="links col-md-3 col-md-offset-1"></div>
+    </div>
+</div>
+<br><br>
+<div class="col-md-5 pull-right text-right">
   <a data-remote="true" href="<%= new_responsible_teacher_calendar_path %>?id=<%= @calendar.id %>" class="btn btn-primary" data-dismiss="modal"><i class="glyphicon glyphicon-plus"></i> Novo item</a>
+  <a href="/responsavel/calendarios/<%= params[:year]+'/'+params[:half]+'/'+params[:tcc]+'/' %>timeline" class="btn btn-success"><i class="glyphicon glyphicon-list"></i> Editar timeline</a>
   <a href="/responsavel/calendarios" class="btn btn-warning"><i class="glyphicon glyphicon-backward"></i> Voltar</a>
 </div>
 <p>Você está visualizando:</p>

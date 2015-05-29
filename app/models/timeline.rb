@@ -2,13 +2,15 @@ class Timeline < ActiveRecord::Base
   has_many :item_timelines
   has_one :bank
   has_many :orientations
-  belongs_to :teacher
+  has_many :teachers, through: :teacher_timelines
+  has_many :teacher_timelines
   belongs_to :student
   belongs_to :bank
   belongs_to :base_timeline
 
   validates :base_timeline, :presence => {message: 'Ainda não foi referenciado um calendário para esse TCC.'}
-  validates :teacher, :presence => {message: 'Uma timeline precisa de um professor orientador.'}
+  # validates :teacher, :presence => {message: 'Uma timeline precisa de um professor orientador.'}
+  validates :teachers, :length => { :minimum => 1, message: 'Selecione pelo menos 1 professor orientador.' }
   validates :student, :presence => {message: 'Uma timeline precisa de um acadêmico.'}
   validate :tcc_is_valid
 
@@ -19,8 +21,8 @@ class Timeline < ActiveRecord::Base
 
   def tcc_is_valid
     s = self.student
-    exist = false
-    if s.timeline.length
+    exist = s == nil ? true : false
+    if !exist && s.timeline.length
       s.timeline.each do |t|
         base = t.base_timeline
         selfBase = self.base_timeline

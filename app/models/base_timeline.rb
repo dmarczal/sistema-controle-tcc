@@ -31,6 +31,7 @@ class BaseTimeline < ActiveRecord::Base
   end
 
   def default_items_hash_tcc1
+    # guardar em um arquivo
     [
       {
         title: 'Entrega da proposta de TCC para correção',
@@ -48,6 +49,7 @@ class BaseTimeline < ActiveRecord::Base
   end
 
   def default_items_hash_tcc2
+    # guardar em um arquivo
     [
       {
         title: 'Entrega da monografia de TCC para correção',

@@ -13,7 +13,7 @@
 </div>
 <%= javascript_tag do %>
   window.calendar = '<%= @calendar.to_json %>';
-  window.json = '<%= @json %>';
+  window.json = <%= @json.to_json.html_safe %>;
   window.items = '<%= @items.to_json %>';
 <% end %>
 <%= javascript_include_tag 'timeline/fabric.min', 'data-turbolinks-track' => true %>

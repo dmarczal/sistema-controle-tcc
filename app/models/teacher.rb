@@ -1,5 +1,6 @@
 class Teacher < ActiveRecord::Base
-  has_many :timeline
+  has_many :timelines, through: :teacher_timelines
+  has_many :teacher_timelines
   has_and_belongs_to_many :banks
   has_many :bank_note
   belongs_to :role
