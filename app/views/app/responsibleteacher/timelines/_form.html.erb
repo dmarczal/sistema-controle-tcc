@@ -3,7 +3,7 @@
   <%= f.select :student, options_for_select(Student.all.map{|s|[s.name, s.id]}, @timeline.student_id), {}, class: 'form-control', style: 'width: 100% !important;' %>
 
   <%= f.label 'Orientadores' %>
-  <%= f.select :teachers, options_for_select(Teacher.all.map{|t|[t.name, t.id]}, @timeline.teacher_id), {}, {class: 'form-control', multiple: true, style: 'width: 100% !important;'} %>
+  <%= f.select :teachers, options_for_select(Teacher.all.map{|t|[t.name, t.id]}, @timeline.teacher_ids), {}, {class: 'form-control', multiple: true, style: 'width: 100% !important;'} %>
   <%= f.label @timeline.errors[:teachers].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @timeline.errors.has_key? :teachers %>
   <br><br>
   <%= f.submit 'Cadastrar', class: 'btn btn-primary' %>

@@ -20,10 +20,13 @@ Rails.application.routes.draw do
         resources :timelines, module: 'responsibleteacher', only: [:index, :show, :new, :create, :destroy]
         get 'timelines/:year/:half/:tcc' => 'responsibleteacher/timelines#list', module: 'responsibleteacher'
 
+        resources :banks, module: 'responsibleteacher', only: [:index, :show, :new, :create, :destroy], path: 'bancas'
+        get 'banks/note/:id' => 'responsibleteacher/banks#note', as: 'bank_note'
+
         # we will be refactored
         get 'calendarios1' => 'responsible_teacher#calendars'
         get 'timelines1' => 'responsible_teacher#timelines'
-        get 'bancas' => 'responsible_teacher#banks'
+        get 'bancas1' => 'responsible_teacher#banks'
         get 'perfil' => 'responsible_teacher#profile'
         get 'orientacoes' => 'responsible_teacher#orientations'
         get 'orientacoes/:timeline' => 'responsible_teacher#orientations_by_timeline'

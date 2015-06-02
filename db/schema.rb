@@ -11,17 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528230102) do
+ActiveRecord::Schema.define(version: 20150601173002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "bank_statuses", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "banks", force: true do |t|
     t.date     "date"
-    t.float    "note"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "timeline_id"
+    t.string   "file"
+    t.string   "_type"
+    t.integer  "bank_status_id"
   end
 
   add_index "banks", ["timeline_id"], name: "banks_timeline_idx", using: :btree

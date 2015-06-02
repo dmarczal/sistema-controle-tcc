@@ -36,6 +36,10 @@ class Timeline < ActiveRecord::Base
     end
   end
 
+  def to_s
+    self.student.name + ', ' + 'TCC '+self.base_timeline.tcc.to_s+', '+self.base_timeline.half.to_s+'º de '+self.base_timeline.year.to_s
+  end
+
   def serialize
     s = self.attributes
     student = Student.find self.student_id

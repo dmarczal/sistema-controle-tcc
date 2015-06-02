@@ -11,6 +11,10 @@ pt-BR:
       student/name: "Nome"
       student/email: "E-mail"
       student/password: "Senha"
+  banks:
+    proposta: "Proposta de TCC 1"
+    tcc1: "Projeto de TCC 1"
+    tcc2: "Projeto de TCC 2"
   views:
     timeline:
       type:
@@ -38,7 +42,7 @@ pt-BR:
     - Ago
     - Set
     - Out
-    - Nov
+    - Nov/
     - Dez
     day_names:
     - Domingo
