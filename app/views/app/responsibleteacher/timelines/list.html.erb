@@ -1,7 +1,7 @@
 <%= render 'header' %>
 <div class="row">
   <div class="col-md-12 text-right">
-    <%= link_to 'Nova timeline', new_responsible_teacher_timeline_path, remote: true, class: 'btn btn-primary' %><br><br>
+    <%= link_to glyph(:plus)+' Nova timeline', new_responsible_teacher_timeline_path, remote: true, class: 'btn btn-primary' %><br><br>
   </div>
 </div>
 <% if @timelines.size > 0 %>
@@ -25,7 +25,7 @@
 <div id="modal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-        <div class="modal-header"><h3>Visualizar timeline</h3></div>
+        <div class="modal-header"><h3>Timeline</h3></div>
         <div class="modal-body"></div>
     </div>
   </div>

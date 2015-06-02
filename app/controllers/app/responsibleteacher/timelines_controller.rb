@@ -11,7 +11,7 @@ class App::Responsibleteacher::TimelinesController < ApplicationController
     @timeline = Timeline.new(base_timeline: base_timeline, student: student, teachers: teachers)
     if @timeline.save
       flash[:success] = t('controllers.save')
-      redirect_to responsible_teacher_timelines_path
+      render :partial => 'success.js.erb'
     else
       render :partial => 'new.js.erb'
     end
