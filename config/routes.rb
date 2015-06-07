@@ -21,7 +21,8 @@ Rails.application.routes.draw do
         get 'timelines/:year/:half/:tcc' => 'responsibleteacher/timelines#list', module: 'responsibleteacher'
 
         resources :banks, module: 'responsibleteacher', only: [:index, :show, :new, :create, :destroy], path: 'bancas'
-        get 'banks/note/:id' => 'responsibleteacher/banks#note', as: 'bank_note'
+        resources :approvals, module: 'responsibleteacher', only: [:index, :show, :create, :destroy], path: 'aprovados'
+        get 'aprovados/new/:id' => 'responsibleteacher/approvals#new', as: :new_approval
 
         # we will be refactored
         get 'calendarios1' => 'responsible_teacher#calendars'

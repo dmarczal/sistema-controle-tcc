@@ -3,6 +3,7 @@ class Teacher < ActiveRecord::Base
   has_many :teacher_timelines
   has_and_belongs_to_many :banks
   has_many :bank_note
+  has_many :approval
   belongs_to :role
 
   validates_presence_of :name

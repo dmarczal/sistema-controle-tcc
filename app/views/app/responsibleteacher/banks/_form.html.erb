@@ -16,3 +16,8 @@
   <br><br>
   <%= f.submit 'Cadastrar', class: 'btn btn-primary' %>
 <% end %>
+<script type="text/javascript">
+$('#new_bank').on('submit', function(){
+  $('#new_bank').children('input[type=submit]').val('Carregando...').attr('disabled','disabled');
+});
+</script>

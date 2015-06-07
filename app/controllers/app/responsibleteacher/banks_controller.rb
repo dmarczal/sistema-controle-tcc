@@ -28,6 +28,7 @@ class App::Responsibleteacher::BanksController < ApplicationController
     def create
         @bank = Bank.new(bank_params)
         if @bank.save
+            @bank.notify
             flash[:success] = t('controllers.save')
             render :partial => 'success.js.erb'
         else

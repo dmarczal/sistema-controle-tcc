@@ -44,7 +44,11 @@
           <td><%= bank.timeline.to_s %></td>
           <td><%= bank.teachers.map(&:name).join(', ') %></td>
           <td><%= t('banks.'+bank._type) %></td>
-          <td><%= link_to glyph(:ok) + ' Aprovar',  responsible_teacher_bank_note_path(bank), class: 'btn btn-xs btn-success', remote: true %>&nbsp;<%= link_to glyph(:trash) + ' Excluir',  responsible_teacher_bank_path(bank), class: 'btn btn-xs btn-danger', method: 'delete', remote: true, data: {:confirm => 'Você tem certeza?'} %></td>
+          <% if !approval(bank) %>
+            <td><%= link_to glyph(:ok) + ' Aprovar',  responsible_teacher_new_approval_path(bank.id), class: 'btn btn-xs btn-success', remote: true %>&nbsp;<%= link_to glyph(:trash) + ' Excluir',  responsible_teacher_bank_path(bank), class: 'btn btn-xs btn-danger', method: 'delete', remote: true, data: {:confirm => 'Você tem certeza?'} %></td>
+          <% else %>
+            <td><%= approval(bank) %>&nbsp;<%= link_to glyph(:trash) + ' Excluir',  responsible_teacher_bank_path(bank), class: 'btn btn-xs btn-danger', method: 'delete', remote: true, data: {:confirm => 'Você tem certeza?'} %></td>
+          <% end %>
         </tr>
       <% end %>
     </table>
@@ -53,7 +57,7 @@
 <div id="modal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-        <div class="modal-header"><h3>Salvar banca</h3></div>
+        <div class="modal-header"><h3>Bancas</h3></div>
         <div class="modal-body"></div>
     </div>
   </div>
