@@ -20,8 +20,8 @@ Rails.application.routes.draw do
         resources :timelines, module: 'responsibleteacher', only: [:index, :show, :new, :create, :destroy]
         get 'timelines/:year/:half/:tcc' => 'responsibleteacher/timelines#list', module: 'responsibleteacher'
 
-        resources :banks, module: 'responsibleteacher', only: [:index, :show, :new, :create, :destroy], path: 'bancas'
-        resources :approvals, module: 'responsibleteacher', only: [:index, :show, :create, :destroy], path: 'aprovados'
+        resources :banks, module: 'responsibleteacher', only: [:index, :show, :new, :create, :destroy, :edit, :update], path: 'bancas'
+        resources :approvals, module: 'responsibleteacher', only: [:index, :show, :create, :destroy, :edit, :update], path: 'aprovados'
         get 'aprovados/new/:id' => 'responsibleteacher/approvals#new', as: :new_approval
 
         # we will be refactored

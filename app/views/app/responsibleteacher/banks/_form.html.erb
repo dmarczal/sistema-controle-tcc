@@ -1,4 +1,4 @@
-<%= form_for @bank, remote: true, url: responsible_teacher_banks_path do |f| %>
+<%= form_for @bank, remote: true, url: @bank.id ? responsible_teacher_bank_path(@bank) : responsible_teacher_banks_path do |f| %>
   <%= f.label 'TCC' %>
   <%= f.select :timeline, options_for_select(Timeline.all.map{|t|[t.to_s, t.id]}, @bank.timeline_id), {}, class: 'form-control', style: 'width: 100% !important;' %>
 

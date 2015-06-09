@@ -1,23 +1,28 @@
 class App::Responsibleteacher::BanksController < ApplicationController
     layout 'app/responsibleteacher'
-    before_filter :set_bank, only: [:destroy, :note]
+    before_filter :set_bank, only: [:destroy, :note, :edit, :update]
     respond_to :js
 
     def index
-        @banks = Bank.all
-        @next_banks = Array.new
-        @prev_banks = Array.new
-        @banks.each do |bank|
-            if bank.date > Date.today
-                @next_banks.push bank
-            else
-                @prev_banks.push bank
-            end
-        end
+        @next_banks = Bank.next_banks
+        @prev_banks = Bank.prev_banks.paginate(:page => params[:page]).order('created_at DESC')
     end
 
     def note
         render :partial => 'note.js.erb'
+    end
+
+    def edit
+        render :partial => 'save.js.erb'
+    end
+
+    def update
+        if @bank.update bank_params
+            flash[:success] = t('controllers.save')
+            render :partial => 'success.js.erb'
+        else
+            render :partial => 'save.js.erb'
+        end
     end
 
     def new

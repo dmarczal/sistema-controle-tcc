@@ -11,17 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602210715) do
+ActiveRecord::Schema.define(version: 20150609174902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "approvals", force: true do |t|
-    t.integer  "timeline_id"
     t.integer  "type_approval_id"
     t.string   "file"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "bank_id"
   end
 
   create_table "bank_statuses", force: true do |t|

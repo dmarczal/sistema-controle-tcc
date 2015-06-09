@@ -14,7 +14,7 @@ pt-BR:
   banks:
     proposta: "Proposta de TCC 1"
     tcc1: "Projeto de TCC 1"
-    tcc2: "Projeto de TCC 2"
+    tcc2: "Monografia de TCC"
   views:
     timeline:
       type:
