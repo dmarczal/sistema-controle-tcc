@@ -1,0 +1,25 @@
+<%= render 'header' %>
+<% if @timelines.size > 0 %>
+  <table class="table table-hovered">
+    <th>Nome</th>
+    <th>Orientador(es)</th>
+    <th>Ver timeline</th>
+    <% @timelines.each do |timeline| %>
+    <tr>
+      <td><%= timeline.student.name %></td>
+      <td><%= timeline.teachers.map { |t| t.name }.join(', ') %></td>
+      <td><%= link_to glyph(:list) + ' Ver',  teachers_timeline_path(timeline), class: 'btn btn-xs btn-success', remote: true %></td>
+    </tr>
+    <% end %>
+  </table>
+<% else %>
+  <h3>Não há timelines a serem mostradas.</h3>
+<% end %>
+<div id="modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header"><h3>Timeline</h3></div>
+        <div class="modal-body"></div>
+    </div>
+  </div>
+</div>

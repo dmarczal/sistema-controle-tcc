@@ -22,4 +22,8 @@ class ItemTimeline < ActiveRecord::Base
       end
     end
   end
+
+  def notify
+    UsersMailer.approveRepproveItem(self.timeline.student, self.item_base_timeline, self).deliver_now
+  end
 end

@@ -9,26 +9,24 @@ Rails.application.routes.draw do
         # dashboard
         get '/' => 'responsible_teacher#home'
 
-        resources :students, module: 'responsibleteacher', path: 'academicos'
-        resources :teachers, module: 'responsibleteacher', path: 'professores'
+        resources :students, module: 'responsibleteachers', path: 'academicos'
+        resources :teachers, module: 'responsibleteachers', path: 'professores'
 
-        resources :calendars, module: 'responsibleteacher', path: 'calendarios', format: :js
-        get 'calendarios/:year/:half/:tcc' => 'responsibleteacher/calendars#show', module: 'app'
-        get 'calendarios/:year/:half/:tcc/timeline' => 'responsibleteacher/calendars#timeline', module: 'app'
-        post 'calendarios/:id/timeline/save' => 'responsibleteacher/calendars#save_timeline', module: 'app'
+        resources :calendars, module: 'responsibleteachers', path: 'calendarios', format: :js
+        get 'calendarios/:year/:half/:tcc' => 'responsibleteachers/calendars#show', module: 'app'
+        get 'calendarios/:year/:half/:tcc/timeline' => 'responsibleteachers/calendars#timeline', module: 'app'
+        post 'calendarios/:id/timeline/save' => 'responsibleteachers/calendars#save_timeline', module: 'app'
 
-        resources :timelines, module: 'responsibleteacher', only: [:index, :show, :new, :create, :destroy]
-        get 'timelines/:year/:half/:tcc' => 'responsibleteacher/timelines#list', module: 'responsibleteacher'
+        resources :timelines, module: 'responsibleteachers', only: [:index, :show, :new, :create, :destroy]
+        get 'timelines/:year/:half/:tcc' => 'responsibleteachers/timelines#list', module: 'responsibleteachers'
 
-        resources :banks, module: 'responsibleteacher', only: [:index, :show, :new, :create, :destroy, :edit, :update], path: 'bancas'
-        resources :approvals, module: 'responsibleteacher', only: [:index, :show, :create, :destroy, :edit, :update], path: 'aprovados'
-        get 'aprovados/new/:id' => 'responsibleteacher/approvals#new', as: :new_approval
+        resources :banks, module: 'responsibleteachers', only: [:index, :show, :new, :create, :destroy, :edit, :update], path: 'bancas'
+        resources :approvals, module: 'responsibleteachers', only: [:index, :show, :create, :destroy, :edit, :update], path: 'aprovados'
+        get 'aprovados/new/:id' => 'responsibleteachers/approvals#new', as: :new_approval
 
-        # we will be refactored
-        get 'calendarios1' => 'responsible_teacher#calendars'
-        get 'timelines1' => 'responsible_teacher#timelines'
-        get 'bancas1' => 'responsible_teacher#banks'
+        # não será usado
         get 'perfil' => 'responsible_teacher#profile'
+
         get 'orientacoes' => 'responsible_teacher#orientations'
         get 'orientacoes/:timeline' => 'responsible_teacher#orientations_by_timeline'
         get 'orientacao/:id' => 'responsible_teacher#orientation'
@@ -42,13 +40,26 @@ Rails.application.routes.draw do
     end
 
     # rotas do módulo do professor orientador / membro de banca
-    scope 'professor', module: 'app', as: 'teacher' do
-        get '/' => 'teacher#home'
-        get 'timelines' => 'teacher#timelines'
-        get 'entregas' => 'teacher#deliveries'
-        get 'perfil' => 'teacher#profile'
+    scope 'professor', module: 'app', as: 'teachers' do
+        get 'timeline/:timeline_id/item/:id' => 'teachers/items#show', as: :item
+        get 'timeline/:timeline_id/item/:id/aprovar' => 'teachers/items#approve', as: :approve
+        get 'timeline/:timeline_id/item/:id/reprovar' => 'teachers/items#repprove', as: :repprove
+
+        get 'timelines' => 'teachers/timelines#index'
+        get 'timelines/:id' => 'teachers/timelines#show', as: :timeline
+        get 'timelines/:year/:half/:tcc' => 'teachers/timelines#list'
+
+        get 'entregas' => 'teachers/items#pending', as: :pending
+
+        get 'bancas' => 'teachers/banks#index'
+
+        # we will be refactored
+        get '/' => 'teachers/timelines#index'
+        get 'timelines1' => 'teachers#timelines'
+        get 'entregas' => 'teachers#deliveries'
+        get 'perfil' => 'teachers#profile'
         resources :orientacoes, :controller => 'orientations'
-        get 'bancas' => 'teacher#banks'
+        get 'bancas' => 'teachers#banks'
         post 'orientacoes/:id/edit' => 'orientations#editPost'
     end
 

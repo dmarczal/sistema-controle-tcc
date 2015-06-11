@@ -1,4 +1,4 @@
-class App::Responsibleteacher::ApprovalsController < ApplicationController
+class App::Responsibleteachers::ApprovalsController < ApplicationController
   respond_to :js
   before_filter :set_approval, only: [:edit, :update]
 

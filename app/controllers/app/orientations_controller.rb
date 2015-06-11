@@ -1,12 +1,14 @@
 class App::OrientationsController < ApplicationController
+    before_filter :set_teacher
     def index
-        teacher_id = session[:user]['user']['id']
-        @orientations = Orientation.joins(:timeline).where(:timelines => {:teacher_id => teacher_id})
+        teacher_id = @teacher.id
+        timeline_ids = Timeline.joins(:teacher_timelines).where(teacher_timelines: {:teacher_id => teacher_id}).ids
+        @orientations = Orientation.where(timeline_id: timeline_ids)
     end
 
     def edit
-        teacher_id = session[:user]['user']['id']
-        @tccs = Timeline.where(:teacher_id => teacher_id)
+        teacher_id = @teacher.id
+        @tccs = Timeline.joins(:teacher_timelines).where(teacher_timelines: {:teacher_id => teacher_id})
         @orientation = Orientation.find params[:id]
         render 'new'
     end
@@ -53,8 +55,8 @@ class App::OrientationsController < ApplicationController
     end
 
     def new
-        teacher_id = session[:user]['user']['id']
-        @tccs = Timeline.where(:teacher_id => teacher_id)
+        teacher_id = @teacher.id
+        @tccs = Timeline.joins(:teacher_timelines).where(teacher_timelines: {:teacher_id => teacher_id})
     end
 
     def create
@@ -72,5 +74,11 @@ class App::OrientationsController < ApplicationController
             flash[:danger] = orientation.errors.first
             redirect_to '/professor/orientacoes/new'
         end
+    end
+
+    private
+    def set_teacher
+        # enquanto não tem o login
+        @teacher = Teacher.first
     end
 end

@@ -1,0 +1,9 @@
+<p>TCC: <%= @item.timeline.to_s %></p>
+<p>Título: <%= @item.item_base_timeline.title %></p>
+<p>Descrição: <%= @item.item_base_timeline.description %></p>
+<p>Anexo: <%= link_to @item.file, @item.file %></p>
+<p>Status atual: <b><%= @item.status_item.name %><b></p>
+<p>
+  <%= link_to 'Aprovar', teachers_approve_path(@item.timeline_id, @item.id), class: 'btn btn-success' %>
+  <%= link_to 'Reprovar', teachers_repprove_path(@item.timeline_id, @item.id), class: 'btn btn-danger' %>
+</p>

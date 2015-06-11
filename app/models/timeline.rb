@@ -12,7 +12,7 @@ class Timeline < ActiveRecord::Base
   # validates :teacher, :presence => {message: 'Uma timeline precisa de um professor orientador.'}
   validates :teachers, :length => { :minimum => 1, message: 'Selecione pelo menos 1 professor orientador.' }
   validates :student, :presence => {message: 'Uma timeline precisa de um acadêmico.'}
-  validate :tcc_is_valid
+  validate :tcc_is_valid, on: :create
 
   def delete
     ItemTimeline.where(timeline_id: self.id).destroy_all

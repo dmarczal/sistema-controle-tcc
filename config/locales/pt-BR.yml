@@ -2,6 +2,8 @@ pt-BR:
   controllers:
     save: "Registro salvo com sucesso."
     destroy: "Registro excluído com sucesso."
+    approve_item: "Item aprovado com sucesso."
+    repprove_item: "Item reprovado com sucesso."
   activerecord:
     models:
       student:

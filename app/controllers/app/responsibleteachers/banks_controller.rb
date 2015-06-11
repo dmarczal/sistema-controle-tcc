@@ -1,4 +1,4 @@
-class App::Responsibleteacher::BanksController < ApplicationController
+class App::Responsibleteachers::BanksController < ApplicationController
     layout 'app/responsibleteacher'
     before_filter :set_bank, only: [:destroy, :note, :edit, :update]
     respond_to :js

@@ -9,7 +9,7 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="datetime">TCC</label>
     <div class="col-md-5">
-    <select name="tcc" class="form-control">
+    <select name="tcc" class="form-control" style="width: 100% !important;">
     <% @tccs.each do |tcc| %>
       <option value="<%= tcc.id %>" <%= !@orientation.nil? && (@orientation.timeline_id == tcc.id) ? 'selected' : '' %>><%= tcc.student.name+' - TCC '+tcc.base_timeline.tcc+' - '+tcc.base_timeline.year.to_s %></option>
     <% end %>

@@ -1,4 +1,4 @@
-class App::Responsibleteacher::TimelinesController < ApplicationController
+class App::Responsibleteachers::TimelinesController < ApplicationController
   layout '/app/responsibleteacher'
 
   def create
