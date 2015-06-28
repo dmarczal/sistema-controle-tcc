@@ -1,5 +1,5 @@
 class App::Responsibleteachers::StudentsController < ApplicationController
-    layout '/app/responsibleteacher'
+    layout '/app/responsibleteachers'
     before_action :set_student, only: [:show, :edit, :update, :destroy]
     def index
         @students = Student.search(params[:search]).paginate(:page => params[:page]).order('created_at DESC')

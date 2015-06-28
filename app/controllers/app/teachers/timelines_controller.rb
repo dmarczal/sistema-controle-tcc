@@ -7,7 +7,16 @@ class App::Teachers::TimelinesController < ApplicationController
 
   def show
     @_calendar = Timeline.find(params[:id]).base_timeline
-    @items = @_calendar.item_base_timeline
+    items = @_calendar.item_base_timeline
+
+    @items = Array.new
+    items.each do |item|
+      item_timeline = ItemTimeline.find_by(timeline_id: params[:id], item_base_timeline_id: item.id)
+      _item = item.attributes
+      _item['status'] = item_timeline.status_item.name.downcase
+      @items.push _item
+    end
+
     @calendar = @_calendar.attributes
     @json = @_calendar.json
     @calendar.delete("json")

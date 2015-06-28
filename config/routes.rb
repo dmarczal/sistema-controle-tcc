@@ -34,9 +34,10 @@ Rails.application.routes.draw do
 
     # rotas do módulo do acadêmico
     scope 'academico', module: 'app', as: 'student' do
-        get '/' => 'student#timeline'
-        get 'item' => 'student#item'
-        get 'perfil' => 'student#profile'
+        get '/' => 'students#timelines'
+        get 'timeline/:timeline_id/:id' => 'students#item', as: :delivery_item_get
+        post 'timeline/:id' => 'students#delivery', as: :delivery_item
+        # get 'perfil' => 'student#profile'
     end
 
     # rotas do módulo do professor orientador / membro de banca

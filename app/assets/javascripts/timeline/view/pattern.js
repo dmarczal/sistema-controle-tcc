@@ -41,8 +41,13 @@ var patternStatusColor = {
 	warning: '#FFD700',
 	danger: '#8B0000',
 	repproved: '#8B0000',
-	pending: '#B0E0E6'
+	pending: '#B0E0E6',
+	pendente: '#B0E0E6',
+	reprovado: '#8B0000',
+	aprovado: '#00FF7F'
 }
+
+patternStatusColor['entrega em breve'] = '#FFD700';
 
 var iconsType = [];
 var icons = ['warning', 'document', 'presentation'];

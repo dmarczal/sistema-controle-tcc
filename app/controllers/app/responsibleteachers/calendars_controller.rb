@@ -1,5 +1,5 @@
 class App::Responsibleteachers::CalendarsController < ApplicationController
-    layout 'app/responsibleteacher'
+    layout 'app/responsibleteachers'
     respond_to :js
     before_action :set_item, only: [:edit, :update, :destroy]
     before_action :set_calendar, only: [:show, :timeline]

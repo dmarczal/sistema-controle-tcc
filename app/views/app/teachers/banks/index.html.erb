@@ -7,7 +7,6 @@
         <th>TCC</th>
         <th>Membros</th>
         <th>Tipo</th>
-        <th>Ações</th>
       </tr>
       <% @next_banks.each do |bank| %>
         <tr>
@@ -15,7 +14,6 @@
           <td><%= bank.timeline.to_s %></td>
           <td><%= bank.teachers.map(&:name).join(', ') %></td>
           <td><%= t('banks.'+bank._type) %></td>
-          <td><%= link_to glyph(:pencil) + ' Editar',  edit_responsible_teacher_bank_path(bank), class: 'btn btn-xs btn-warning', remote: true %>&nbsp<%= link_to glyph(:trash) + ' Excluir',  responsible_teacher_bank_path(bank), class: 'btn btn-xs btn-danger', method: 'delete', remote: true, data: {:confirm => 'Você tem certeza?'} %></td>
         </tr>
       <% end %>
     </table>
@@ -29,7 +27,6 @@
         <th>TCC</th>
         <th>Membros</th>
         <th>Tipo</th>
-        <th>Ações</th>
       </tr>
       <% @prev_banks.each do |bank| %>
         <tr>
@@ -37,19 +34,6 @@
           <td><%= bank.timeline.to_s %></td>
           <td><%= bank.teachers.map(&:name).join(', ') %></td>
           <td><%= t('banks.'+bank._type) %></td>
-          <% if !bank.approval %>
-            <td>
-              <%= link_to glyph(:pencil) + ' Editar',  edit_responsible_teacher_bank_path(bank), class: 'btn btn-xs btn-warning', remote: true %>&nbsp;
-              <%= link_to glyph(:ok) + ' Aprovar',  responsible_teacher_new_approval_path(bank.id), class: 'btn btn-xs btn-success', remote: true %>&nbsp;
-              <%= link_to glyph(:trash) + ' Excluir',  responsible_teacher_bank_path(bank), class: 'btn btn-xs btn-danger', method: 'delete', remote: true, data: {:confirm => 'Você tem certeza?'} %>
-            </td>
-          <% else %>
-            <td>
-              <%= link_to glyph(:pencil) + ' Editar',  edit_responsible_teacher_bank_path(bank), class: 'btn btn-xs btn-warning', remote: true %>&nbsp;
-              <%= link_to glyph(:ok) + ' Aprovação',  edit_responsible_teacher_approval_path(bank.approval.id), class: 'btn btn-xs btn-success', remote: true %>&nbsp;
-              <%= link_to glyph(:trash) + ' Excluir',  responsible_teacher_bank_path(bank), class: 'btn btn-xs btn-danger', method: 'delete', remote: true, data: {:confirm => 'Você tem certeza?'} %>
-            </td>
-          <% end %>
         </tr>
       <% end %>
     </table>

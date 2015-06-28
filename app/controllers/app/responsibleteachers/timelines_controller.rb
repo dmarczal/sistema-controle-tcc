@@ -1,5 +1,5 @@
 class App::Responsibleteachers::TimelinesController < ApplicationController
-  layout '/app/responsibleteacher'
+  layout '/app/responsibleteachers'
 
   def create
     base_timeline = BaseTimeline.find_by year: params[:year], half: params[:half], tcc: params[:tcc]
