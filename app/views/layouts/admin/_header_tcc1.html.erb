@@ -14,11 +14,10 @@
       <!-- para outros dispositivos -->
       <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="<%= params[:action] == 'timelines' ? 'active' : '' %>"><a href="/tcc1/timelines" data-no-turbolink>Timelines</a></li>
-          <li class="<%= params[:action] == 'deliveries' ? 'active' : '' %>"><a href="/tcc1/entregas" data-no-turbolink>Entregas pendentes</a></li>
+          <li class="<%= params[:controller] == 'app/tcc1/timelines' ? 'active' : '' %>"><a href="/tcc1/timelines" data-no-turbolink>Timelines</a></li>
+          <li class="<%= params[:controller] == 'app/tcc1/items' ? 'active' : '' %>"><a href="/tcc1/entregas" data-no-turbolink>Entregas pendentes</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/tcc1/perfil" data-no-turbolink>Meus dados</a></li>
           <li><a href="/logout" data-no-turbolink>Sair</a></li>
         </ul>
       </div>

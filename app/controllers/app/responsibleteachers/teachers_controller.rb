@@ -1,4 +1,4 @@
-class App::Responsibleteachers::TeachersController < ApplicationController
+class App::Responsibleteachers::TeachersController < App::Responsibleteachers::BaseController
     layout '/app/responsibleteachers'
     before_action :set_teacher, only: [:show, :edit, :update, :destroy]
     def index

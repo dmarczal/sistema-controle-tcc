@@ -4,6 +4,11 @@ pt-BR:
     destroy: "Registro excluído com sucesso."
     approve_item: "Item aprovado com sucesso."
     repprove_item: "Item reprovado com sucesso."
+    login:
+      user_not_found: Usuário não encontrado
+      success_login: Login realizado com sucesso
+      forbidden: Você não tem acesso a essa área do sistema.
+      sign_in: "Por favor, faça o login"
   activerecord:
     models:
       student:

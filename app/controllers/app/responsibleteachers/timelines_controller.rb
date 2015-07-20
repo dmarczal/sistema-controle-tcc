@@ -1,4 +1,4 @@
-class App::Responsibleteachers::TimelinesController < ApplicationController
+class App::Responsibleteachers::TimelinesController < App::Responsibleteachers::BaseController
   layout '/app/responsibleteachers'
 
   def create
@@ -10,6 +10,7 @@ class App::Responsibleteachers::TimelinesController < ApplicationController
     end
     @timeline = Timeline.new(base_timeline: base_timeline, student: student, teachers: teachers)
     if @timeline.save
+      @timeline.create_items
       flash[:success] = t('controllers.save')
       render :partial => 'success.js.erb'
     else

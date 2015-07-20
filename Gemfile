@@ -23,6 +23,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'devise'
 
 # ------------- Custom gems
 
@@ -45,6 +46,11 @@ gem 'populator'
 # paginação
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+
+# gdrive para salvar arquivos do heroku
+gem 'google_drive'
+
+gem "cancan"
 
 
 # Gems do heroku

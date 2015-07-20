@@ -1,5 +1,5 @@
-class App::Teachers::ItemsController < App::Teachers::BaseController
-  layout 'app/teachers'
+class App::Tcc1::ItemsController < App::Tcc1::BaseController
+  layout 'app/tcc1'
   before_filter :set_item, except: [:pending]
   before_filter :set_teacher, only: [:pending]
   before_filter :notify, only: [:approve, :repprove ]
@@ -11,27 +11,25 @@ class App::Teachers::ItemsController < App::Teachers::BaseController
     @item.status_item = StatusItem.find_by(name: "Aprovado")
     @item.save
     flash[:success] = t('controllers.approve_item')
-    redirect_to teachers_item_path(@item.timeline, @item.item_base_timeline)
+    redirect_to tcc1_item_path(@item.timeline, @item)
   end
 
   def repprove
     @item.status_item = StatusItem.find_by(name: "Reprovado")
     @item.save
     flash[:success] = t('controllers.repprove_item')
-    redirect_to teachers_item_path(@item.timeline, @item.item_base_timeline)
+    redirect_to tcc1_item_path(@item.timeline, @item)
   end
 
   def pending
-    timeline_ids = Timeline.joins(:teacher_timelines).where(teacher_timelines: {teacher_id: [@teacher.id]}).ids
+    timeline_ids = Timeline.joins(:base_timeline).where(base_timelines: {tcc: 1}).ids
     status = StatusItem.find_by(name: "Pendente")
     @items = ItemTimeline.where(status_item_id: status.id, timeline_id: timeline_ids)
   end
 
   private
   def set_item
-    @timeline = Timeline.find(params[:timeline_id])
-    @item_base = ItemBaseTimeline.find(params[:id])
-    @item = ItemTimeline.find_by(timeline: @timeline, item_base_timeline: @item_base)
+    @item = ItemTimeline.find(params[:id])
   end
 
   def set_teacher

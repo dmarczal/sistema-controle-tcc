@@ -1,4 +1,4 @@
-class App::Teachers::TimelinesController < ApplicationController
+class App::Teachers::TimelinesController < App::Teachers::BaseController
   layout '/app/teachers'
   before_filter :set_teacher
   def index
@@ -6,15 +6,15 @@ class App::Teachers::TimelinesController < ApplicationController
   end
 
   def show
-    @_calendar = Timeline.find(params[:id]).base_timeline
+    timeline = Timeline.find(params[:id])
+    @_calendar = timeline.base_timeline
     items = @_calendar.item_base_timeline
 
     @items = Array.new
-    items.each do |item|
-      item_timeline = ItemTimeline.find_by(timeline_id: params[:id], item_base_timeline_id: item.id)
-      _item = item.attributes
-      _item['status'] = item_timeline.status_item.name.downcase
-      @items.push _item
+    timeline.item_timelines.each do |item_timeline|
+      _item = item_timeline.item_base_timeline.attributes
+      _item['status'] = !item_timeline.status_item.nil? ? item_timeline.status_item.name.downcase : 'none'
+      @items.push(_item)
     end
 
     @calendar = @_calendar.attributes

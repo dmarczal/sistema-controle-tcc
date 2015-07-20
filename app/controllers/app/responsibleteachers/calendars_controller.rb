@@ -1,4 +1,4 @@
-class App::Responsibleteachers::CalendarsController < ApplicationController
+class App::Responsibleteachers::CalendarsController < App::Responsibleteachers::BaseController
     layout 'app/responsibleteachers'
     respond_to :js
     before_action :set_item, only: [:edit, :update, :destroy]

@@ -13,6 +13,7 @@ Teacher.create(name: 'Diego Marczal', lattes: 'http://lates.cnpq.br', atuacao: '
 TypeApproval.create(name: "Aprovado")
 TypeApproval.create(name: "Aprovado com restrições")
 StatusItem.create name: "Pendente"
+StatusItem.create name: "Nenhum"
 StatusItem.create name: "Aprovado"
 StatusItem.create name: "Reprovado"
 StatusItem.create name: "Entrega em breve"

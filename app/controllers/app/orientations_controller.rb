@@ -1,5 +1,7 @@
 class App::OrientationsController < ApplicationController
+
     before_filter :set_teacher
+    before_filter :check_permission
     def index
         teacher_id = @teacher.id
         timeline_ids = Timeline.joins(:teacher_timelines).where(teacher_timelines: {:teacher_id => teacher_id}).ids
@@ -80,5 +82,11 @@ class App::OrientationsController < ApplicationController
     def set_teacher
         # enquanto não tem o login
         @teacher = Teacher.first
+    end
+
+    def check_permission
+        if !can? :manage, :responsible
+          redirect_to get_redirect_path, :flash => { :danger => t('controllers.login.forbidden') }
+        end
     end
 end

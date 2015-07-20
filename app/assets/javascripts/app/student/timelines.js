@@ -4,7 +4,7 @@ function set_timeline(timeline_id, canvas_id){
   var json = window.json;
   for(i in items){
     if(items[i].link){
-      items[i].link = items[i].link.replace('academico', 'academico/timeline/'+timeline_id);
+      items[i].link = items[i].link.replace('academico/item', 'academico/timeline/'+timeline_id);
     }
   }
   header(json, items, calendar.half, function(){

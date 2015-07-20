@@ -1,4 +1,3 @@
-<%= javascript_include_tag 'app/student/timelines', 'data-turbolinks-track' => true %>
 <div class="labels" style="display: none;">
   <img src="/assets/timeline/icons/presentation.png" id="label-presentation">
   <img src="/assets/timeline/icons/warning.png" id="label-important">
@@ -10,19 +9,12 @@
 <%= javascript_include_tag 'timeline/header', 'data-turbolinks-track' => true %>
 <%= javascript_include_tag 'timeline/view/body', 'data-turbolinks-track' => true %>
 <%= javascript_include_tag 'timeline/view/events', 'data-turbolinks-track' => true %>
-<% if(@timelines) %>
-  <% @timelines.each_with_index do |timeline, i| %>
-    <div style="overflow: scroll;">
-      <canvas id="<%= "c#{i}" %>" width="1600" height="500"></canvas>
-    </div>
-    <%= javascript_tag do %>
-      window.calendar = '<%= timeline[:calendar].to_json %>';
-      window.json = <%= timeline[:json].to_json.html_safe %>;
-      window.items = '<%= timeline[:items].to_json %>';
-      set_timeline(<%= timeline[:id] %>, "<%= "c#{i}" %>");
-    <% end %>
-    <br><br><br>
-  <% end %>
-<% else %>
-  Não há nenhum TCC cadastrado.
+<div style="overflow: scroll;">
+  <canvas id="c" width="1600" height="500"></canvas>
+</div>
+<%= javascript_tag do %>
+  window.calendar = '<%= @calendar.to_json %>';
+  window.json = <%= @json.to_json.html_safe %>;
+  window.items = '<%= @items.to_json %>';
+  set_timeline(<%= @timeline_id %>);
 <% end %>

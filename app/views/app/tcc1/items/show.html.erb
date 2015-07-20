@@ -4,6 +4,6 @@
 <p>Anexo: <%= link_to @item.file, @item.file %></p>
 <p>Status atual: <b><%= @item.status_item.name %><b></p>
 <p>
-  <%= link_to 'Aprovar', teachers_approve_path(@item.timeline_id, @item.item_base_timeline.id), class: 'btn btn-success' %>
-  <%= link_to 'Reprovar', teachers_repprove_path(@item.timeline_id, @item.item_base_timeline.id), class: 'btn btn-danger' %>
+  <%= link_to 'Aprovar', tcc1_approve_path(@item.timeline_id, @item.id), class: 'btn btn-success' %>
+  <%= link_to 'Reprovar', tcc1_repprove_path(@item.timeline_id, @item.id), class: 'btn btn-danger' %>
 </p>

@@ -57,9 +57,9 @@ class Timeline < ActiveRecord::Base
     s
   end
 
-  def createItems
+  def create_items
     self.base_timeline.item_base_timeline.each do |item|
-      i = ItemTimeline.new :item_base_timeline => item
+      i = ItemTimeline.new :item_base_timeline => item, :status_item => StatusItem.find_by(name: "Nenhum")
       i.save
       self.item_timelines.push i
     end

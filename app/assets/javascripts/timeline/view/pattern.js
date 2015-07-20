@@ -37,6 +37,7 @@ var patternEventText = {
 
 var patternStatusColor = {
 	none: '#DCDCDC',
+	nenhum: '#DCDCDC',
 	success: '#00FF7F',
 	warning: '#FFD700',
 	danger: '#8B0000',

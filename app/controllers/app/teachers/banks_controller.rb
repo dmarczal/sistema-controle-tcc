@@ -1,4 +1,4 @@
-class App::Teachers::BanksController < ApplicationController
+class App::Teachers::BanksController < App::Teachers::BaseController
   layout 'app/teachers'
   before_filter :set_teacher
   def index
