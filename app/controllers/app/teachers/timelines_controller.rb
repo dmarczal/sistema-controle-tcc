@@ -1,6 +1,6 @@
 class App::Teachers::TimelinesController < App::Teachers::BaseController
   layout '/app/teachers'
-  before_filter :set_teacher
+
   def index
     redirect_to '/professor/timelines/'+Time.now.year.to_s+'/1/1'
   end
@@ -26,11 +26,5 @@ class App::Teachers::TimelinesController < App::Teachers::BaseController
 
   def list
     @timelines = Timeline.joins(:base_timeline).joins(:teacher_timelines).where(base_timelines: {year: params[:year], half: params[:half], tcc: params[:tcc]}, teacher_timelines: {teacher_id: [@teacher.id]})
-  end
-
-  private
-  def set_teacher
-    # set logged teacher
-    @teacher = Teacher.first
   end
 end

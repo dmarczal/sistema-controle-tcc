@@ -23,8 +23,7 @@ class App::Tcc1::ItemsController < App::Tcc1::BaseController
 
   def pending
     timeline_ids = Timeline.joins(:base_timeline).where(base_timelines: {tcc: 1}).ids
-    status = StatusItem.find_by(name: "Pendente")
-    @items = ItemTimeline.where(status_item_id: status.id, timeline_id: timeline_ids)
+    @items = ItemTimeline.where(status_item_id: [1,3,4], timeline_id: timeline_ids).paginate(:page => params[:page]).order('updated_at DESC')
   end
 
   private

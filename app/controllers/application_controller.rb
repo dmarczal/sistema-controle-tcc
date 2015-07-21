@@ -1,6 +1,6 @@
 require 'json'
 class ApplicationController < ActionController::Base
-  before_filter :check_login, except: [:login, :login_post]
+  before_filter :check_login, except: [:login, :login_post, :logout]
   before_filter :check_permission, except: [:logout, :login, :login_post]
   WillPaginate.per_page = 10
 
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     else
       redirect_to login_path, :flash => { :danger => t('controllers.login.user_not_found') }
     end
-    p "AHSDIUASHDIUADHS"
+
     session[:user_id] = @user.id
     redirect_to get_redirect_path, :flash => { :success => t('controllers.login.success_login') }
   end

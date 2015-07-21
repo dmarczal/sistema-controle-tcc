@@ -23,8 +23,7 @@ class App::Teachers::ItemsController < App::Teachers::BaseController
 
   def pending
     timeline_ids = Timeline.joins(:teacher_timelines).where(teacher_timelines: {teacher_id: [@teacher.id]}).ids
-    status = StatusItem.find_by(name: "Pendente")
-    @items = ItemTimeline.where(status_item_id: status.id, timeline_id: timeline_ids)
+    @items = ItemTimeline.where(status_item_id: [1,3,4], timeline_id: timeline_ids).paginate(:page => params[:page]).order('updated_at DESC')
   end
 
   private
@@ -35,8 +34,7 @@ class App::Teachers::ItemsController < App::Teachers::BaseController
   end
 
   def set_teacher
-    # enquanto não tem login
-    @teacher = Teacher.first
+    @teacher = current_user
   end
 
   def notify
