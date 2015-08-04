@@ -9,6 +9,7 @@ pt-BR:
       success_login: Login realizado com sucesso
       forbidden: Você não tem acesso a essa área do sistema.
       sign_in: "Por favor, faça o login"
+    expired_delivery_date: "Data de entrega deste item expirou"
   activerecord:
     models:
       student:

@@ -30,6 +30,10 @@ class App::StudentsController < ApplicationController
   def item
     @timeline = Timeline.find(params[:timeline_id])
     @item_base = ItemBaseTimeline.find(params[:id])
+    if(DateTime.now > @item_base.date)
+      flash[:warning] = t('controllers.expired_delivery_date')
+      redirect_to student_path
+    end
     @item_timeline = @timeline.item_timelines.find_by(item_base_timeline_id: @item_base.id)
   end
 
