@@ -14,6 +14,12 @@ class Timeline < ActiveRecord::Base
   validates :student, :presence => {message: 'Uma timeline precisa de um acadêmico.'}
   validate :tcc_is_valid, on: :create
 
+  before_destroy :delete_items
+
+  def delete_items
+    item_timelines.destroy_all
+  end
+
   def delete
     ItemTimeline.where(timeline_id: self.id).destroy_all
     super
