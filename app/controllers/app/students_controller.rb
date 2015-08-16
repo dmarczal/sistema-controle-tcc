@@ -1,5 +1,3 @@
-require "google/api_client"
-require "google_drive"
 class App::StudentsController < ApplicationController
   before_filter :set_student
   before_filter :check_permission
@@ -39,12 +37,10 @@ class App::StudentsController < ApplicationController
 
   def delivery
     @item_timeline = ItemTimeline.find(params[:id])
-    file = process_file
-
-    if file
-      @item_timeline.file = file
-      @item_timeline.status_item = StatusItem.find_by(name: "Pendente")
-      @item_timeline.save
+    # @item_timeline.file = params[:item][:file]
+    @item_timeline.dropbox_file = params[:item][:dropbox_file]
+    @item_timeline.status_item = StatusItem.find_by(name: "Pendente")
+    if @item_timeline.save
       flash[:success] = t('controllers.save')
       redirect_to student_path
     else
@@ -61,31 +57,6 @@ class App::StudentsController < ApplicationController
   end
 
   def set_student
-    @student = Student.first
-  end
-
-  def process_file
-    file = params[:item][:file]
-    if file.content_type != 'image/jpeg' && file.content_type != 'application/pdf'
-      nil
-    else
-      ## IMPLEMENTS GOOGLE DRIVE FOR SAVE FILE IN PRODUCTION
-      # client = Google::APIClient.new
-      # auth = client.authorization
-      # auth.client_id = "506774844262-iunr923celv43sjlu9a1j21cp570rse1.apps.googleusercontent.com"
-      # auth.client_secret = "OK6Jz2kHYbqedKk5od-3JLEd"
-      # print("1. Open this page:\n%s\n\n" % auth.authorization_uri)
-      # print("2. Enter the authorization code shown in the page: ")
-      # auth.code = $stdin.gets.chomp
-      # auth.fetch_access_token!
-      # access_token = auth.access_token
-      # session = GoogleDrive.login_with_oauth(access_token)
-      # session.upload_from_string(file.read, "item-"+Time.now.to_s+"-"+file.original_filename)
-      name = "item-"+Time.now.to_s+"-"+file.original_filename
-      directory = "public/uploads"
-      path = File.join(directory, name)
-      File.open(path, "wb") { |f| f.write(file.read) }
-      file = '/uploads/'+name
-    end
+    @student = current_user
   end
 end

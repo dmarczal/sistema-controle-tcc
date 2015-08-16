@@ -13,7 +13,6 @@ class App::Responsibleteachers::ApprovalsController < App::Responsibleteachers::
 
   def create
     @approval = Approval.new approval_params
-    @approval.file = process_file
     if @approval.save
       flash[:success] = t('controllers.save')
     else
@@ -24,7 +23,6 @@ class App::Responsibleteachers::ApprovalsController < App::Responsibleteachers::
 
   def update
     @approval.attributes = approval_params
-    @approval.file = process_file
     if @approval.save
       flash[:success] = t('controllers.save')
     else
@@ -39,19 +37,6 @@ class App::Responsibleteachers::ApprovalsController < App::Responsibleteachers::
   end
 
   def approval_params
-    params.require(:approval).permit(:bank_id, :type_approval_id)
-  end
-
-  def process_file
-    file = params[:approval][:file]
-    if file.content_type != 'image/jpeg' && file.content_type != 'application/pdf'
-      nil
-    else
-      name = "approval-"+Time.now.to_s+"-"+file.original_filename
-      directory = "public/uploads"
-      path = File.join(directory, name)
-      File.open(path, "wb") { |f| f.write(file.read) }
-      file = 'uploads/'+name
-    end
+    params.require(:approval).permit(:bank_id, :type_approval_id, :file)
   end
 end

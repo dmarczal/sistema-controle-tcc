@@ -17,7 +17,8 @@
           <li class="<%= params[:action] == 'timelines' ? 'active' : '' %>"><a href="#" data-no-turbolink>Página inicial</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/logout">Sair</a></li>
+          <li><a href="/password" data-remote="true"><span class="glyphicon glyphicon-lock"></span>Trocar senha</a></li>
+          <li><a href="/logout" remote="true"><span class="glyphicon glyphicon-log-out"></span>Sair</a></li>
         </ul>
       </div>
     </nav>

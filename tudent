@@ -1,0 +1,27 @@
+
+[1mFrom:[0m /home/erico/Dropbox/UTFPR/TCC/Aplicação/app/controllers/app/students_controller.rb @ line 6 App::StudentsController#timelines:
+
+     [1;34m5[0m: [32mdef[0m [1;34mtimelines[0m
+ =>  [1;34m6[0m:   binding.pry
+     [1;34m7[0m:   [32mif[0m @student.timeline.size > [1;34m0[0m
+     [1;34m8[0m:     @timelines = [1;34;4mArray[0m.new
+     [1;34m9[0m:     @student.timeline.each [32mdo[0m |timeline|
+    [1;34m10[0m:       _timeline = [1;34;4mHash[0m.new
+    [1;34m11[0m:       calendar = timeline.base_timeline
+    [1;34m12[0m: 
+    [1;34m13[0m:       _timeline[[33m:items[0m] = [1;34;4mArray[0m.new
+    [1;34m14[0m:       timeline.item_timelines.each [32mdo[0m |item_timeline|
+    [1;34m15[0m:         _item = item_timeline.item_base_timeline.attributes
+    [1;34m16[0m:         _item[[31m[1;31m'[0m[31mstatus[1;31m'[0m[31m[0m] = !item_timeline.status_item.nil? ? item_timeline.status_item.name.downcase : [31m[1;31m'[0m[31mnone[1;31m'[0m[31m[0m
+    [1;34m17[0m:         _timeline[[33m:items[0m].push(_item)
+    [1;34m18[0m:       [32mend[0m
+    [1;34m19[0m: 
+    [1;34m20[0m:       _timeline[[33m:calendar[0m] = calendar.attributes
+    [1;34m21[0m:       _timeline[[33m:json[0m] = calendar.json
+    [1;34m22[0m:       _timeline[[33m:calendar[0m].delete([31m[1;31m'[0m[31mjson[1;31m'[0m[31m[0m)
+    [1;34m23[0m:       _timeline[[33m:id[0m] = timeline.id
+    [1;34m24[0m:       @timelines.push(_timeline)
+    [1;34m25[0m:     [32mend[0m
+    [1;34m26[0m:   [32mend[0m
+    [1;34m27[0m: [32mend[0m
+

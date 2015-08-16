@@ -1,0 +1,10 @@
+<form action="/password" method="POST" data-remote="true">
+  <div class="form-group">
+    <label for="">Senha</label>
+    <input type="text" name="password" required="true" class="form-control">
+    <%= label 'senha', @password.errors[:password].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @password.errors.has_key? :password %>
+  </div>
+  <div class="form-group">
+    <input type="submit" value="Trocar senha" class="btn btn-primary">
+  </div>
+</form>

@@ -6,7 +6,6 @@
   <%= javascript_include_tag 'app/application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'app/message-center', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'app/app', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'teacher/teacher', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -22,6 +21,14 @@
   </div>
 <%= yield %>
 <%= render :partial => 'layouts/admin/footer' %>
+</div>
+<div id="modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header"></div>
+        <div class="modal-body"></div>
+    </div>
+  </div>
 </div>
 </body>
 </html>

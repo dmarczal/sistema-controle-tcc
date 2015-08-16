@@ -1,3 +1,6 @@
+<% if @timeline.errors[:base_timeline].length > 0 %>
+  <div class="alert alert-danger"><%= @timeline.errors[:base_timeline][0] %></div>
+<% end %>
 <%= form_for(@timeline, remote: true, url: responsible_teacher_timelines_path) do |f| %>
   <%= f.label 'Aluno' %>
   <%= f.select :student, options_for_select(Student.all.map{|s|[s.name, s.id]}, @timeline.student_id), {}, class: 'form-control', style: 'width: 100% !important;' %>

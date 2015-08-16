@@ -16,9 +16,12 @@ gem 'faker'
 gem 'populator'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
-gem 'google_drive'
 gem "cancan"
 gem 'pry'
+gem 'httparty'
+gem "paperclip", "~> 4.3"
+gem "paperclip-dropbox", ">= 1.1.7"
+gem "dropbox-api"
 
 group :production do
   gem 'rails_12factor'

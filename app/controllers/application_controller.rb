@@ -17,8 +17,12 @@ class ApplicationController < ActionController::Base
       redirect_to login_path, :flash => { :danger => t('controllers.login.user_not_found') }
     end
 
-    session[:user_id] = @user.id
-    redirect_to get_redirect_path, :flash => { :success => t('controllers.login.success_login') }
+    if(!@user.password.check?(params[:user][:password]))
+      redirect_to login_path, :flash => { :danger => t('controllers.login.incorrect_password') }
+    else
+      session[:user_id] = @user.id
+      redirect_to get_redirect_path, :flash => { :success => t('controllers.login.success_login') }
+    end
   end
 
   def logout

@@ -5,10 +5,13 @@ Rails.application.routes.draw do
     get 'logout' => 'application#logout'
     root 'application#login'
 
+    # download de arquivos do dropbox
+    get "files/get/:id" => "files#get", :as => "download"
+
     # rotas do módulo do professor responsável
     scope 'responsavel', module: 'app', as: 'responsible_teacher' do
         # dashboard
-        get '/' => 'responsible_teacher#home'
+        get '/' => 'responsibleteachers/timelines#home', module: 'app'
 
         resources :students, module: 'responsibleteachers', path: 'academicos'
         resources :teachers, module: 'responsibleteachers', path: 'professores'
@@ -25,9 +28,6 @@ Rails.application.routes.draw do
         resources :approvals, module: 'responsibleteachers', only: [:index, :show, :create, :destroy, :edit, :update], path: 'aprovados'
         get 'aprovados/new/:id' => 'responsibleteachers/approvals#new', as: :new_approval
 
-        # não será usado
-        get 'perfil' => 'responsible_teacher#profile'
-
         get 'orientacoes' => 'responsible_teacher#orientations'
         get 'orientacoes/:timeline' => 'responsible_teacher#orientations_by_timeline'
         get 'orientacao/:id' => 'responsible_teacher#orientation'
@@ -38,7 +38,6 @@ Rails.application.routes.draw do
         get '/' => 'students#timelines'
         get 'timeline/:timeline_id/:id' => 'students#item', as: :delivery_item_get
         post 'timeline/:id' => 'students#delivery', as: :delivery_item
-        # get 'perfil' => 'student#profile'
     end
 
     # rotas do módulo do professor orientador / membro de banca
@@ -72,4 +71,7 @@ Rails.application.routes.draw do
 
         get 'entregas' => 'tcc1/items#pending', as: :pending
     end
+
+    get  'password' => 'passwords#edit'
+    post 'password' => 'passwords#update', as: :edit_password
 end

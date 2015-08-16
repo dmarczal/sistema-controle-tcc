@@ -5,6 +5,7 @@ pt-BR:
     approve_item: "Item aprovado com sucesso."
     repprove_item: "Item reprovado com sucesso."
     login:
+      incorrect_password: Senha inválida.
       user_not_found: Usuário não encontrado
       success_login: Login realizado com sucesso
       forbidden: Você não tem acesso a essa área do sistema.

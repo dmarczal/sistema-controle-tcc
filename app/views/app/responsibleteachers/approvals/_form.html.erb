@@ -6,8 +6,8 @@
   <%= f.label 'Arquivo' %>(.pdf ou .jpg)
   <%= f.file_field :file, class: 'form-control' %>
 
-  <% if @approval.file %>
-    <%= link_to @approval.file, '/'+@approval.file, target: '_blank' %>
+  <% if @approval.file? %>
+    <%= link_to @approval.file_file_name, @approval.file.url, target: '_blank' %>
   <% end %>
 
   <br>
