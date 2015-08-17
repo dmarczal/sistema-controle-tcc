@@ -23,7 +23,7 @@ function body(jsonEvents){
 	for(var i=0; i < objects.length; i++){
 		if(objects[i].event_id){
 			currentEvents.push(objects[i].event_id);
-            refreshEvent(objects[i], getEventById(objects[i].event_id, jsonEvents));
+      refreshEvent(objects[i], getEventById(objects[i].event_id, jsonEvents));
 		}
 	}
 
