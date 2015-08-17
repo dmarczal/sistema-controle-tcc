@@ -12,7 +12,6 @@ class Timeline < ActiveRecord::Base
   # validates :teacher, :presence => {message: 'Uma timeline precisa de um professor orientador.'}
   validates :teachers, :length => { :minimum => 1, message: 'Selecione pelo menos 1 professor orientador.' }
   validates :student, :presence => {message: 'Uma timeline precisa de um acadêmico.'}
-  validate :tcc_is_valid, on: :create
 
   before_destroy :delete_items
 
@@ -23,23 +22,6 @@ class Timeline < ActiveRecord::Base
   def delete
     ItemTimeline.where(timeline_id: self.id).destroy_all
     super
-  end
-
-  def tcc_is_valid
-    s = self.student
-    exist = s == nil ? true : false
-    if !exist && s.timeline.length
-      s.timeline.each do |t|
-        base = t.base_timeline
-        selfBase = self.base_timeline
-        if selfBase && (base.tcc == selfBase.tcc)
-          exist = true
-        end
-      end
-    end
-    if exist
-      errors.add(:tcc, 'TCC já cadastrado para este aluno.')
-    end
   end
 
   def to_s
