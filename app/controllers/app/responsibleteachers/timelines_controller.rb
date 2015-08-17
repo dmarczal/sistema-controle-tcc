@@ -23,7 +23,7 @@ class App::Responsibleteachers::TimelinesController < App::Responsibleteachers::
   end
 
   def new
-    @teachers = Teacher.all
+    @teachers = Teacher.where.not(role: Role.find_by(name: "Professor responsável"))
     @students = Student.all
     @timeline = Timeline.new
     render :partial => 'new.js.erb'
