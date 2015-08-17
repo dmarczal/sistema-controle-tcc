@@ -4,7 +4,7 @@ class Teacher < ActiveRecord::Base
   has_and_belongs_to_many :banks
   has_many :bank_note
   has_many :approval
-  has_one :password
+  has_one :password, :dependent => :delete_all
   belongs_to :role
 
   validates_presence_of :name

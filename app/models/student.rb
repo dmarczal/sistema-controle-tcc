@@ -1,6 +1,6 @@
 class Student < ActiveRecord::Base
   has_many :timeline
-  has_one :password
+  has_one :password, :dependent => :delete_all
   validates_presence_of :ra
   validates_uniqueness_of :ra
   validates_presence_of :name
