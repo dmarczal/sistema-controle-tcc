@@ -64,6 +64,7 @@ class BaseTimeline < ActiveRecord::Base
         description: 'O acadêmico deve realizar uma apresentação de no máximo 15 minutos para defender sua proposta de TCC. Este será avaliado por uma banca composta de 3 professores.',
         base_timeline_id: id,
         link: '#',
+        date: Date.new(year, (first_month+1), 20)
       },
       {
         title: 'Entrega da versão final da proposta',
@@ -103,6 +104,7 @@ class BaseTimeline < ActiveRecord::Base
         description: 'O acadêmico deve realizar uma apresentação de no máximo 20 minutos para defender o desenvolvimento de seu projeto. Esta apresentação assim como o texto escrito, será avaliado por uma banca composta de 3 professores.',
         base_timeline_id: id,
         link: '#',
+        date: Date.new(year, (first_month+2), 10)
       },
       {
         title: 'Entrega da versão final do projeto',
@@ -148,6 +150,7 @@ class BaseTimeline < ActiveRecord::Base
         description: 'O acadêmico deve realizar uma apresentação de no máximo 20 minutos para defender o seu trabalho de TCC. Esta apresentação, assim como a monografia, será avaliado por uma banca composta de 3 professores.',
         base_timeline_id: id,
         link: '#',
+        date: Date.new(year, 11, 10)
       },
       {
         title: 'Entrega da monografia corrigida',
