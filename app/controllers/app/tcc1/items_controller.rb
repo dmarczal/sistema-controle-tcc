@@ -1,7 +1,6 @@
 class App::Tcc1::ItemsController < App::Tcc1::BaseController
   layout 'app/tcc1'
   before_filter :set_item, except: [:pending]
-  before_filter :set_teacher, only: [:pending]
   before_filter :notify, only: [:approve, :repprove ]
 
   def show
@@ -11,14 +10,14 @@ class App::Tcc1::ItemsController < App::Tcc1::BaseController
     @item.status_item = StatusItem.find_by(name: "Aprovado")
     @item.save
     flash[:success] = t('controllers.approve_item')
-    redirect_to tcc1_item_path(@item.timeline, @item)
+    redirect_to tcc1_item_path(@item.timeline, @item.item_base_timeline)
   end
 
   def repprove
     @item.status_item = StatusItem.find_by(name: "Reprovado")
     @item.save
     flash[:success] = t('controllers.repprove_item')
-    redirect_to tcc1_item_path(@item.timeline, @item)
+    redirect_to tcc1_item_path(@item.timeline, @item.item_base_timeline)
   end
 
   def pending
@@ -27,13 +26,11 @@ class App::Tcc1::ItemsController < App::Tcc1::BaseController
   end
 
   private
+  private
   def set_item
-    @item = ItemTimeline.find(params[:id])
-  end
-
-  def set_teacher
-    # enquanto não tem login
-    @teacher = Teacher.first
+    @timeline = Timeline.find(params[:timeline_id])
+    @item_base = ItemBaseTimeline.find(params[:id])
+    @item = ItemTimeline.find_by(timeline: @timeline, item_base_timeline: @item_base)
   end
 
   def notify

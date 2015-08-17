@@ -27,10 +27,4 @@ class App::Tcc1::TimelinesController < App::Tcc1::BaseController
   def list
     @timelines = Timeline.joins(:base_timeline).joins(:teacher_timelines).where(base_timelines: {year: params[:year], half: params[:half], tcc: 1})
   end
-
-  private
-  def set_teacher
-    # set logged teacher
-    @teacher = Teacher.first
-  end
 end

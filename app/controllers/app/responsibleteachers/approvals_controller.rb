@@ -37,6 +37,6 @@ class App::Responsibleteachers::ApprovalsController < App::Responsibleteachers::
   end
 
   def approval_params
-    params.require(:approval).permit(:bank_id, :type_approval_id, :file)
+    params.require(:approval).permit(:bank_id, :type_approval_id, :dropbox_file)
   end
 end

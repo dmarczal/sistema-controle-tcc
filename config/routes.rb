@@ -28,9 +28,9 @@ Rails.application.routes.draw do
         resources :approvals, module: 'responsibleteachers', only: [:index, :show, :create, :destroy, :edit, :update], path: 'aprovados'
         get 'aprovados/new/:id' => 'responsibleteachers/approvals#new', as: :new_approval
 
-        get 'orientacoes' => 'responsible_teacher#orientations'
-        get 'orientacoes/:timeline' => 'responsible_teacher#orientations_by_timeline'
-        get 'orientacao/:id' => 'responsible_teacher#orientation'
+        get 'orientacoes' => 'responsibleteachers/orientations#orientations'
+        get 'orientacoes/:timeline' => 'responsibleteachers/orientations#orientations_by_timeline'
+        get 'orientacao/:id' => 'responsibleteachers/orientations#orientation'
     end
 
     # rotas do módulo do acadêmico

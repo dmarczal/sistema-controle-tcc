@@ -1,5 +1,4 @@
 class App::OrientationsController < ApplicationController
-
     before_filter :set_teacher
     before_filter :check_permission
     def index

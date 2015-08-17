@@ -8,16 +8,20 @@
     <% @items.each do |item| %>
     <tr>
         <td><%= item.timeline.to_s %></td>
-        <td><%= link_to item.file, item.file %></td>
+        <td>
+            <% if item.dropbox_file? %>
+                <%= link_to item.dropbox_file, item.dropbox_file, target: '_blank' %>
+            <% end %>
+        </td>
         <% if item.status_item.id == 3 %>
             <td><button class="btn btn-xs btn-success" disabled="true">Aprovado</button></td>
         <% else %>
-            <td><%= link_to 'Aprovar', tcc1_approve_path(item.timeline, item), class: 'btn btn-xs btn-success' %></td>
+            <td><%= link_to 'Aprovar', tcc1_approve_path(item.timeline, item.item_base_timeline), class: 'btn btn-xs btn-success' %></td>
         <% end %>
         <% if item.status_item.id == 4 %>
             <td><button class="btn btn-xs btn-danger" disabled="true">Reprovado</button></td>
         <% else %>
-            <td><%= link_to 'Reprovar', tcc1_repprove_path(item.timeline, item), class: 'btn btn-xs btn-danger' %></td>
+            <td><%= link_to 'Reprovar', tcc1_repprove_path(item.timeline, item.item_base_timeline), class: 'btn btn-xs btn-danger' %></td>
         <% end %>
     </tr>
     <% end %>

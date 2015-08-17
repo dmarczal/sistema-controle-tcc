@@ -4,12 +4,25 @@
   <%= f.select :type_approval_id, options_for_select(TypeApproval.all.map{|ta|[ta.name, ta.id]}, @approval.type_approval_id), {}, {class: 'form-control', style: 'width: 100% !important;'} %>
 
   <%= f.label 'Arquivo' %>(.pdf ou .jpg)
-  <%= f.file_field :file, class: 'form-control' %>
-
-  <% if @approval.file? %>
-    <%= link_to @approval.file_file_name, @approval.file.url, target: '_blank' %>
+  <%= f.hidden_field :dropbox_file %>
+  <div id="dropbox-append"></div>
+  <% if @approval.dropbox_file? %>
+    <%= link_to 'Download', @approval.dropbox_file, target: '_blank' %>
   <% end %>
 
   <br>
   <%= f.submit 'Aprovar TCC', class: 'btn btn-primary' %>
 <% end %>
+<script type="text/javascript" src="//www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="s883kb109o767em"></script>
+<script>
+    options = {
+        success: function(files) {
+            $('#approval_dropbox_file').val(files[0].link);
+        },
+        linkType: "direct",
+        multiselect: false,
+        extensions: ['.pdf', '.doc', '.docx']
+    };
+    var button = Dropbox.createChooseButton(options);
+    $("#dropbox-append").prepend(button);
+</script>
