@@ -8,7 +8,11 @@
     <% @items.each do |item| %>
     <tr>
         <td><%= item.timeline.to_s %></td>
-        <td><%= link_to item.file, item.file %></td>
+        <td>
+            <% if item.dropbox_file? %>
+                <%= link_to item.dropbox_file, item.dropbox_file, target: '_blank' %>
+            <% end %>
+        </td>
         <% if item.status_item.id == 3 %>
             <td><button class="btn btn-xs btn-success" disabled="true">Aprovado</button></td>
         <% else %>

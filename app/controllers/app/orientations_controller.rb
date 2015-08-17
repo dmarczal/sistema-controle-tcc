@@ -81,11 +81,11 @@ class App::OrientationsController < ApplicationController
     private
     def set_teacher
         # enquanto não tem o login
-        @teacher = Teacher.first
+        @teacher = current_user
     end
 
     def check_permission
-        if !can? :manage, :responsible
+        if (!can? :manage, :responsible) && (!can? :manage, :teacher)
           redirect_to get_redirect_path, :flash => { :danger => t('controllers.login.forbidden') }
         end
     end
