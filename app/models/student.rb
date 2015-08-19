@@ -1,11 +1,26 @@
 class Student < ActiveRecord::Base
   has_many :timeline
-  validates :ra, :presence => {message: 'O RA do aluno é um valor obrigatório' },
-            :uniqueness => {message: 'O RA já foi cadastrado'}
-  validates :name, :presence => { message: 'O nome do aluno é um valor obrigatório' }
-  validates :email, :presence => { message: 'O e-mail do aluno é um valor obrigatório' }
+  has_one :password, :dependent => :destroy
+  validates_presence_of :ra
+  validates_uniqueness_of :ra
+  validates_presence_of :name
+  validates_presence_of :email
+  validates_uniqueness_of :email
+  validates_presence_of :login
+  validates_uniqueness_of :login
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
-  def login
-    Login.find_by :entity_id => self.id, :access => 4
+  after_create :create_default_password
+
+  def self.search(search)
+    if search
+        where(['lower(name) LIKE ?', "%#{search}%".downcase])
+    else
+        all
+    end
+  end
+
+  def create_default_password
+    Password.create student: self, password: 'abc123'
   end
 end

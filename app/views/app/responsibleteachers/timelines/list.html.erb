@@ -1,0 +1,32 @@
+<%= render 'header' %>
+<div class="row">
+  <div class="col-md-12 text-right">
+    <%= link_to glyph(:plus)+' Nova timeline', new_responsible_teacher_timeline_path, remote: true, class: 'btn btn-primary' %><br><br>
+  </div>
+</div>
+<% if @timelines.size > 0 %>
+  <table class="table table-hovered">
+    <th>Nome</th>
+    <th>Orientador(es)</th>
+    <th>Ver timeline</th>
+    <th>Excluir timeline</th>
+    <% @timelines.each do |timeline| %>
+    <tr>
+      <td><%= timeline.student.name %></td>
+      <td><%= timeline.teachers.map { |t| t.name }.join(', ') %></td>
+      <td><%= link_to glyph(:list) + ' Ver',  responsible_teacher_timeline_path(timeline), class: 'btn btn-xs btn-success', remote: true %></td>
+      <td><%= link_to glyph(:trash) + ' Excluir',  responsible_teacher_timeline_path(timeline), class: 'btn btn-xs btn-danger', method: 'delete' %></td>
+    </tr>
+    <% end %>
+  </table>
+<% else %>
+  <h3>Não há timelines a serem mostradas.</h3>
+<% end %>
+<div id="modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header"><h3>Timeline</h3></div>
+        <div class="modal-body"></div>
+    </div>
+  </div>
+</div>

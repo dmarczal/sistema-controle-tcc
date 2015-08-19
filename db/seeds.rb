@@ -5,3 +5,15 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Role.create(name: 'Professor responsável')
+Role.create(name: 'Professor de TCC 1')
+Role.create(name: 'Professor')
+Teacher.create(name: 'Diego Marczal', lattes: 'http://lates.cnpq.br', atuacao: 'Programação web', email: 'email@email.com', login: 'diego', role: Role.find_by(:name => "Professor responsável"))
+TypeApproval.create(name: "Aprovado")
+TypeApproval.create(name: "Aprovado com restrições")
+StatusItem.create name: "Pendente"
+StatusItem.create name: "Nenhum"
+StatusItem.create name: "Aprovado"
+StatusItem.create name: "Reprovado"
+StatusItem.create name: "Entrega em breve"

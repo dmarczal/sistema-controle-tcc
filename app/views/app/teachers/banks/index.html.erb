@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h3>Próximas bancas</h3>
+    <table class="table table-striped fixed">
+      <tr>
+        <th>Data</th>
+        <th>TCC</th>
+        <th>Membros</th>
+        <th>Tipo</th>
+      </tr>
+      <% @next_banks.each do |bank| %>
+        <tr>
+          <td><%= bank.date.strftime('%d/%m/%Y') %></td>
+          <td><%= bank.timeline.to_s %></td>
+          <td><%= bank.teachers.map(&:name).join(', ') %></td>
+          <td><%= t('banks.'+bank._type) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div class="col-md-10 col-md-offset-1">
+    <h3>Bancas anteriores</h3>
+    <table class="table table-striped fixed">
+      <tr>
+        <th>Data</th>
+        <th>TCC</th>
+        <th>Membros</th>
+        <th>Tipo</th>
+      </tr>
+      <% @prev_banks.each do |bank| %>
+        <tr>
+          <td><%= bank.date.strftime('%d/%m/%Y') %></td>
+          <td><%= bank.timeline.to_s %></td>
+          <td><%= bank.teachers.map(&:name).join(', ') %></td>
+          <td><%= t('banks.'+bank._type) %></td>
+        </tr>
+      <% end %>
+    </table>
+    <div class="text-center">
+      <%= will_paginate @prev_banks, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;", renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
+</div>

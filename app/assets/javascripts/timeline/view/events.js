@@ -5,12 +5,12 @@ function events(events){
 			var objs = canvas.getObjects();
 			var legend = getActiveLegend(objs);
 			if(legend) canvas.remove(legend);
-			
+
 			var legendBox = new fabric.Rect(patternLegendBox);
 			var _event = getEventById(options.target.event_id, events);
 			var legendText = wrapCanvasText(new fabric.Text(_event.description, patternLegendText), canvas, legendBox.getWidth()-20, legendBox.getHeight()-20, true);
 			var legend = new fabric.Group([legendBox, legendText], {
-				selectable: false, 
+				selectable: false,
 				visible: true,
 				top: options.target.getTop()-70,
 				left: options.target.getLeft()+70,
@@ -36,9 +36,9 @@ function events(events){
 	canvas.on('mouse:up', function(options){
 		if(options.target && options.target.event_id){
 			var e = getEventById(options.target.event_id, events);
-            if(e.link){
-                window.location = e.link;
-            }
+      if(e.link){
+        window.location = e.link;
+      }
 		}
 	});
 }

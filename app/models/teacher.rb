@@ -1,13 +1,28 @@
 class Teacher < ActiveRecord::Base
-  has_many :timeline
+  has_many :timelines, through: :teacher_timelines
+  has_many :teacher_timelines
   has_and_belongs_to_many :banks
   has_many :bank_note
+  has_many :approval
+  has_one :password, :dependent => :destroy
+  belongs_to :role
 
-  validates :name, :presence => {message: 'O nome do professor é um valor obrigatório' }
-  validates :access, :presence => {message: 'O tipo de acesso do professor é um valor obrigatório' }
-  validates :email, :presence => {message: 'O email do professor é um valor obrigatório' }
+  validates_presence_of :name
+  validates_presence_of :role_id
+  validates_presence_of :email
 
-  def login
-    Login.where(['entity_id = ? AND access != 4', self.id]).first
+  after_create :create_default_password
+
+  def self.search(search)
+    if search
+        where(['lower(name) LIKE ?', "%#{search}%".downcase])
+    else
+        all
+    end
+  end
+
+  private
+  def create_default_password
+    Password.create teacher: self, password: 'abc123'
   end
 end

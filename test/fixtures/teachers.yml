@@ -4,7 +4,7 @@ one:
   id: 1
   name: Diego Marczal
   email: diego@utfpr.edu.br
-  access: responsible
+  role_id: 1
   lattes: http://www.google.com.br
   atuacao: programação web
 
@@ -12,7 +12,7 @@ two:
   id: 2
   name: Andres Porfirio
   email: andres@utfpr.edu.br
-  access: teacher
+  role_id: 1
   lattes: http://www.google.com.br
   atuacao: banco de dados
 
@@ -20,6 +20,6 @@ three:
   id: 3
   name: Adriano Pimenta
   email: adriano@utfpr.edu.br
-  access: tcc1
+  role_id: 2
   lattes: http://www.google.com.br
   atuacao: engenharia de software

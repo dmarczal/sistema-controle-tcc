@@ -1,0 +1,8 @@
+development:
+  root_url: localhost:3000
+
+test:
+  root_url: localhost:3000
+
+production:
+  root_url: erico-dias-tcc.herokuapp.com

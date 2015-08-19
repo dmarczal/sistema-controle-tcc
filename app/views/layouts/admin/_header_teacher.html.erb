@@ -14,15 +14,14 @@
       <!-- para outros dispositivos -->
       <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="<%= params[:action] == 'home' ? 'active' : '' %>"><a href="#" data-no-turbolink>Página inicial</a></li>
-          <li class="<%= params[:action] == 'timelines' ? 'active' : '' %>"><a href="/professor/timelines" data-no-turbolink>TCC's</a></li>
-          <li class="<%= params[:action] == 'deliveries' ? 'active' : '' %>"><a href="/professor/entregas" data-no-turbolink>Entregas pendentes</a></li>
-          <li class="<%= params[:action] == 'banks' ? 'active' : '' %>"><a href="/professor/bancas" data-no-turbolink>Bancas</a></li>
+          <li class="<%= params[:controller] == 'app/teachers/timelines' ? 'active' : '' %>"><a href="/professor/timelines" data-no-turbolink>TCC's</a></li>
+          <li class="<%= params[:controller] == 'app/teachers/items' && params[:action] == 'pending' ? 'active' : '' %>"><a href="/professor/entregas" data-no-turbolink>Entregas</a></li>
+          <li class="<%= params[:controller] == 'app/teachers/banks' ? 'active' : '' %>"><a href="/professor/bancas" data-no-turbolink>Bancas</a></li>
           <li class="<%= params[:controller] == 'app/orientations' ? 'active' : '' %>"><a href="/professor/orientacoes" data-no-turbolink>Orientações</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/professor/perfil" data-no-turbolink>Meus dados</a></li>
-          <li><a href="/logout">Sair</a></li>
+          <li><a href="/password" data-remote="true"><span class="glyphicon glyphicon-lock"></span>Trocar senha</a></li>
+          <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Sair</a></li>
         </ul>
       </div>
     </nav>

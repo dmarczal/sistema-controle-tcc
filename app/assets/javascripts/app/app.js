@@ -4,7 +4,6 @@
     app.controller('FlashController', ['$http', 'messageCenterService', function($http, messageCenterService){
         $http.get('/api/messages').success(function(messages){
             if(messages.length){
-                console.log(messages);
                 messages[0][0] = messages[0][0].replace('error', 'danger');
                 messageCenterService.add(messages[0][0], messages[0][1], {timeout: 3000});
             }

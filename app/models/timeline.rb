@@ -2,36 +2,30 @@ class Timeline < ActiveRecord::Base
   has_many :item_timelines
   has_one :bank
   has_many :orientations
-  belongs_to :teacher
+  has_many :teachers, through: :teacher_timelines
+  has_many :teacher_timelines
   belongs_to :student
   belongs_to :bank
   belongs_to :base_timeline
 
   validates :base_timeline, :presence => {message: 'Ainda não foi referenciado um calendário para esse TCC.'}
-  validates :teacher, :presence => {message: 'Uma timeline precisa de um professor orientador.'}
+  # validates :teacher, :presence => {message: 'Uma timeline precisa de um professor orientador.'}
+  validates :teachers, :length => { :minimum => 1, message: 'Selecione pelo menos 1 professor orientador.' }
   validates :student, :presence => {message: 'Uma timeline precisa de um acadêmico.'}
-  validate :tcc_is_valid
+
+  before_destroy :delete_items
+
+  def delete_items
+    item_timelines.destroy_all
+  end
 
   def delete
     ItemTimeline.where(timeline_id: self.id).destroy_all
     super
   end
 
-  def tcc_is_valid
-    s = self.student
-    exist = false
-    if s.timeline.length
-      s.timeline.each do |t|
-        base = t.base_timeline
-        selfBase = self.base_timeline
-        if selfBase && (base.tcc == selfBase.tcc)
-          exist = true
-        end
-      end
-    end
-    if exist
-      errors.add(:tcc, 'TCC já cadastrado para este aluno.')
-    end
+  def to_s
+    self.student.name + ', ' + 'TCC '+self.base_timeline.tcc.to_s+', '+self.base_timeline.half.to_s+'º de '+self.base_timeline.year.to_s
   end
 
   def serialize
@@ -51,9 +45,9 @@ class Timeline < ActiveRecord::Base
     s
   end
 
-  def createItems
+  def create_items
     self.base_timeline.item_base_timeline.each do |item|
-      i = ItemTimeline.new :item_base_timeline => item
+      i = ItemTimeline.new :item_base_timeline => item, :status_item => StatusItem.find_by(name: "Nenhum")
       i.save
       self.item_timelines.push i
     end

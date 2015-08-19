@@ -15,16 +15,17 @@
       <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           <li class="<%= params[:action] == 'home' ? 'active' : '' %>"><a href="/responsavel" data-no-turbolink>Página inicial</a></li>
-          <li class="<%= params[:action] == 'students' ? 'active' : '' %>"><a href="/responsavel/alunos" data-no-turbolink>Alunos</a></li>
-          <li class="<%= params[:action] == 'teachers' ? 'active' : '' %>"><a href="/responsavel/professores" data-no-turbolink>Professores</a></li>
-          <li class="<%= params[:action] == 'calendars' ? 'active' : '' %>"><a href="/responsavel/calendarios" data-no-turbolink>Calendários</a></li>
-          <li class="<%= params[:action] == 'timelines' ? 'active' : '' %>"><a href="/responsavel/timelines" data-no-turbolink>Timelines</a></li>
-          <li class="<%= params[:action] == 'orientations' ? 'active' : '' %>"><a href="/responsavel/orientacoes" data-no-turbolink>Orientações</a></li>
+          <li class="<%= params[:controller] == 'app/responsibleteachers/students' ? 'active' : '' %>"><a href="/responsavel/academicos" data-no-turbolink>Acadêmicos</a></li>
+          <li class="<%= params[:controller] == 'app/responsibleteachers/teachers' ? 'active' : '' %>"><a href="/responsavel/professores" data-no-turbolink>Professores</a></li>
+          <li class="<%= params[:controller] == 'app/responsibleteachers/calendars' ? 'active' : '' %>"><a href="/responsavel/calendarios" data-no-turbolink>Calendários</a></li>
+          <li class="<%= params[:controller] == 'app/responsibleteachers/timelines' ? 'active' : '' %>"><a href="/responsavel/timelines" data-no-turbolink>Timelines</a></li>
+          <li class="<%= params[:controller] == 'app/responsibleteachers/orientations' ? 'active' : '' %>"><a href="/responsavel/orientacoes" data-no-turbolink>Orientações</a></li>
+          <li class="<%= params[:controller] == 'app/responsibleteachers/banks' ? 'active' : '' %>"><a href="/responsavel/bancas" data-no-turbolink>Bancas</a></li>
           <!--<li><a href="#">Relatórios</a></li>-->
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/responsavel/perfil" data-no-turbolink>Meus dados</a></li>
-          <li><a href="/logout" data-no-turbolink>Sair</a></li>
+          <li><a href="/password" data-remote="true"><span class="glyphicon glyphicon-lock"></span>Trocar senha</a></li>
+          <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Sair</a></li>
         </ul>
       </div>
     </nav>

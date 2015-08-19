@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  timeline_id: 1
+  type_approval_id: 1
+  file: MyString
+
+two:
+  timeline_id: 1
+  type_approval_id: 1
+  file: MyString

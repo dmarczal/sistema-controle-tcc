@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <!-- Listagem de estudantes -->
+    <div class="list-students">
+        <legend>Gestão de acadêmicos</legend>
+        <div class="row">
+          <div class="col-md-4 pull-left text-left">
+            <form action="<%= responsible_teacher_students_path %>" class="form-inline">
+              <p>
+                <%= text_field_tag :search, params[:search], class: 'form-control input-sm' %>
+                <%= button_tag glyph(:search), class: 'btn btn-sm btn-inverse', type: 'submit', :name => nil %>
+              </p>
+            </form>
+          </div>
+          <div class="col-md-3 pull-right text-right">
+            <%= link_to glyph(:plus) + ' Novo acadêmico', "academicos/new", class: 'btn btn-sm btn-primary' %>
+          </div><br><br>
+        </div>
+        <table class="table table-hovered">
+          <tr>
+            <th>RA</th>
+            <th>Nome</th>
+            <th>Editar</th>
+            <th>Excluir</th>
+          </tr>
+          <% @students.each do |student| %>
+          <tr>
+            <td><%= student.ra %></td>
+            <td><%= student.name %></td>
+            <td><%= link_to glyph(:pencil) + ' Editar', edit_responsible_teacher_student_path(student), class: 'label label-warning' %></td>
+            <td><%= link_to glyph(:trash) + ' Excluir', responsible_teacher_student_path(student), class: 'label label-danger', method: 'delete', data: { confirm: 'Tem certeza?' } %></td>
+          </tr>
+          <% end %>
+        </table>
+    </div>
+    <div class="text-center">
+      <%= will_paginate @students, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;", renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
+</div>

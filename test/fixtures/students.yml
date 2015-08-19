@@ -4,8 +4,12 @@ one:
   id: 1
   name: Érico Dias
   ra: 1462563
+  login: erico
+  email: erico_testes@yahoo.com.br
 
 two:
   id: 2
   name: Outro aluno
   ra: 123123
+  login: outroaluno
+  email: outroaluno@yahoo.com.br
