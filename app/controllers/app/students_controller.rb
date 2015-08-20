@@ -37,7 +37,7 @@ class App::StudentsController < ApplicationController
 
   def delivery
     @item_timeline = ItemTimeline.find(params[:id])
-    # @item_timeline.file = params[:item][:file]
+    @item_timeline.file = params[:item][:file]
     @item_timeline.dropbox_file = params[:item][:dropbox_file]
     @item_timeline.status_item = StatusItem.find_by(name: "Pendente")
     if @item_timeline.save

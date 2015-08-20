@@ -32,7 +32,7 @@ var patternEventText = {
 	originX: 'center',
 	originY: 'center',
 	fontFamily: 'Arial',
-	fontSize: 15
+	fontSize: 15,
 }
 
 var patternStatusColor = {
