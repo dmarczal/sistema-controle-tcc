@@ -21,7 +21,7 @@ gem 'pry'
 gem 'httparty'
 gem "paperclip", "~> 4.3"
 gem "paperclip-dropbox", ">= 1.1.7"
-gem "dropbox-api"
+gem "rest-client"
 
 group :production do
   gem 'rails_12factor'

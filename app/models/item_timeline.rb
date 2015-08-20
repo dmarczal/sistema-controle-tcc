@@ -1,23 +1,26 @@
 class ItemTimeline < ActiveRecord::Base
+  include Paperclip::Glue
   belongs_to :item_base_timeline
   belongs_to :timeline
   belongs_to :status_item
   has_attached_file :file, :storage => :dropbox, :dropbox_credentials => Rails.root.join("config/dropbox.yml"), :dropbox_visibility => 'public'
+
   validates_attachment :file, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf"] }
 
   def self.refreshItems
-    ItemTimeline.where.not(:status => 'pending').each do |item|
+    ids = StatusItem.where(name: ["Pendente", "Nenhum"]).ids
+    ItemTimeline.where(:status_item_id => ids).each do |item|
       if item.item_base_timeline.date.to_time < Time.new
-        item.status = StatusItem.find_by(name: "Reprovado")
+        item.status_item = StatusItem.find_by(name: "Reprovado")
         if item.save
-          puts 'CRON SET STATUS: item id = '+item.id.to_s+' Status = '+item.status
+          puts 'CRON SET STATUS: item id = '+item.id.to_s+' Status = '+item.status_item.name
         else
           puts 'ERROR IN CRON SET STATUS: item id = '+item.id.to_s
         end
       elsif  item.item_base_timeline.date.to_time < (Time.new + 1.week)
-        item.status = StatusItem.find_by(name: "Entrega em breve")
+        item.status_item = StatusItem.find_by(name: "Entrega em breve")
         if item.save
-          puts 'CRON SET STATUS: item id = '+item.id.to_s+' Status = '+item.status
+          puts 'CRON SET STATUS: item id = '+item.id.to_s+' Status = '+item.status_item.name
         else
           puts 'ERROR IN CRON SET STATUS: item id = '+item.id.to_s
         end
