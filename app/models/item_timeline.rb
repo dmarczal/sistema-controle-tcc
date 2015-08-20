@@ -3,7 +3,8 @@ class ItemTimeline < ActiveRecord::Base
   belongs_to :item_base_timeline
   belongs_to :timeline
   belongs_to :status_item
-  has_attached_file :file, :storage => :dropbox, :dropbox_credentials => Rails.root.join("config/dropbox.yml"), :dropbox_visibility => 'public'
+
+  has_attached_file(:file, {}.merge(PaperclipStorage.options))
 
   validates_attachment :file, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf"] }
 
