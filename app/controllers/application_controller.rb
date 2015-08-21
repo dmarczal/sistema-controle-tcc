@@ -5,26 +5,26 @@ class ApplicationController < ActionController::Base
   WillPaginate.per_page = 10
 
   def login_post
-    if Teacher.exists?(login: params[:user][:login])
-      # TODO Ldap connect
-      @user = Teacher.find_by(login: params[:user][:login])
-      session[:resource] = 1
-    elsif Student.exists?(login: params[:user][:login])
-      # TODO Ldap connect
-      @user = Student.find_by(login: params[:user][:login])
-      session[:resource] = 0
+    user = connect(params[:user])
+    user = {"email"=>"ericodias1@gmail.com"} #for tests
+    if user
+      if Teacher.exists?(login: params[:user][:login])
+        @user = Teacher.find_by(login: params[:user][:login])
+        @user.update! email: user["email"]
+        session[:resource] = 1
+      elsif Student.exists?(login: params[:user][:login])
+        @user = Student.find_by(login: params[:user][:login])
+        @user.update! email: user["email"]
+        session[:resource] = 0
+      else
+        redirect_to login_path, :flash => { :danger => t('controllers.login.user_not_found') }
+      end
+    else
+      redirect_to login_path, :flash => { :danger => t('controllers.login.authentication_error') }
     end
 
-    if !@user
-      redirect_to login_path, :flash => { :danger => t('controllers.login.user_not_found') }
-    else
-      if(!@user.password.check?(params[:user][:password]))
-        redirect_to login_path, :flash => { :danger => t('controllers.login.incorrect_password') }
-      else
-        session[:user_id] = @user.id
-        redirect_to get_redirect_path, :flash => { :success => t('controllers.login.success_login') }
-      end
-    end
+    session[:user_id] = @user.id
+    redirect_to get_redirect_path, :flash => { :success => t('controllers.login.success_login') }
   end
 
   def logout
@@ -34,6 +34,21 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def connect(user)
+    response = RestClient.post 'http://tsi.gp.utfpr.edu.br/ldap/',
+      { user: { user_name: user[:login], password: user[:password]} }.to_json,
+      {
+        authorization: 'Token token="6e89e720147952ced8ebf25d2977316c9a798a78"',
+        content_type: :json, accept: :json
+      }
+    data = JSON.parse(response)
+    if(data["status"] == "200")
+      data["user"]
+    else
+      nil
+    end
+  end
+
   def check_login
     if !current_user
       redirect_to login_path, :flash => { :danger => t('controllers.login.sign_in') }
