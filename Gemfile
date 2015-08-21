@@ -19,7 +19,7 @@ gem 'will_paginate-bootstrap'
 gem "cancan"
 gem 'pry'
 gem 'httparty'
-gem "paperclip", "~> 4.3"
+gem "paperclip"
 gem "paperclip-dropbox", ">= 1.1.7"
 gem "rest-client"
 

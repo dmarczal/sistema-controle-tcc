@@ -6,7 +6,9 @@ class ItemTimeline < ActiveRecord::Base
 
   has_attached_file(:file, {}.merge(PaperclipStorage.options))
 
-  validates_attachment :file, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf"] }
+  validates_with AttachmentSizeValidator, :attributes => :file, :less_than => 10.megabytes
+  validates_with AttachmentContentTypeValidator, :attributes => :file, content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf"]
+
 
   def self.refreshItems
     ids = StatusItem.where(name: ["Pendente", "Nenhum"]).ids

@@ -12,17 +12,6 @@
                 <td><%= @item_base.description %></td>
             </tr>
             <tr>
-                <td>Importar do dropbox:</td>
-                <td id="dropbox-append">
-                    <br>
-                    <% if @item_timeline.dropbox_file? %>
-                        <%= link_to @item_timeline.dropbox_file, @item_timeline.dropbox_file, target: '_blank' %>
-                    <% end %>
-                </td>
-            </tr>
-            <%= hidden_field :item, :dropbox_file %>
-            <% if true %>
-            <tr>
                 <td>Anexo: (só são aceitos arquivos .pdf e .jpg)</td>
                 <td>
                     <%= file_field :item, :file, class: 'form-control', accept: 'application/pdf,/image/png,image/gif,image/jpeg' %>
@@ -32,7 +21,6 @@
                     <% end %>
                 </td>
             </tr>
-            <% end %>
         </table>
         <!-- Button (Double) -->
         <div class="form-group">
@@ -43,16 +31,3 @@
         </div>
     </form>
 </div>
-<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="s883kb109o767em"></script>
-<script>
-    options = {
-        success: function(files) {
-            $('#item_dropbox_file').val(files[0].link);
-        },
-        linkType: "direct",
-        multiselect: false,
-        extensions: ['.pdf', '.doc', '.docx'],
-    };
-    var button = Dropbox.createChooseButton(options);
-    $("#dropbox-append").prepend(button);
-</script>
