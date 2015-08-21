@@ -1,7 +1,7 @@
 class App::Tcc1::ItemsController < App::Tcc1::BaseController
   layout 'app/tcc1'
   before_filter :set_item, except: [:pending]
-  before_filter :notify, only: [:approve, :repprove ]
+  after_filter :notify, only: [:approve, :repprove ]
 
   def show
   end

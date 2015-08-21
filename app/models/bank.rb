@@ -21,8 +21,8 @@ class Bank < ActiveRecord::Base
     end
 
     def notify
-        UsersMailer.notifyStudentItNewBank(self).deliver_now
-        UsersMailer.notifyTeacherItNewBank(self).deliver_now
+        UsersMailer.notifyStudentItNewBank(self).deliver!
+        UsersMailer.notifyTeacherItNewBank(self).deliver!
     end
 
     def self.next_banks
