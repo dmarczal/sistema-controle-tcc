@@ -19,6 +19,7 @@
 .ruby-gemset
 .ruby-version
 public/uploads
+public/assets
 temp
 tmp
 logs
