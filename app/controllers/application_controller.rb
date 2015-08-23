@@ -6,8 +6,17 @@ class ApplicationController < ActionController::Base
 
   def login_post
     user = connect(params[:user])
-    user = {"email"=>"ericodias1@gmail.com"} #for tests
-    if user
+
+    roles = Role.where(name: ["Professor responsável", "Professor de TCC 1"]).ids
+    if Teacher.exists?(login: params[:user][:login], role_id: [roles])
+      user = Teacher.find_by(login: params[:user][:login])
+      if user.password.check?(params[:user][:password])
+        @user = user
+        session[:resource] = 1
+      else
+        redirect_to login_path, :flash => { :danger => t('controllers.login.incorrect_password') }
+      end
+    elsif user
       if Teacher.exists?(login: params[:user][:login])
         @user = Teacher.find_by(login: params[:user][:login])
         @user.update! email: user["email"]
@@ -23,14 +32,20 @@ class ApplicationController < ActionController::Base
       redirect_to login_path, :flash => { :danger => t('controllers.login.authentication_error') }
     end
 
-    session[:user_id] = @user.id
-    redirect_to get_redirect_path, :flash => { :success => t('controllers.login.success_login') }
+    if @user
+      session[:user_id] = @user.id
+      redirect_to get_redirect_path, :flash => { :success => t('controllers.login.success_login') }
+    end
   end
 
   def logout
     session[:user_id] = nil
     session[:resource] = nil
     redirect_to '/login'
+  end
+
+  def except_login
+
   end
 
   private

@@ -10,7 +10,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'pg'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.3.1.0'
 gem 'responders'
 gem 'faker'
 gem 'populator'
