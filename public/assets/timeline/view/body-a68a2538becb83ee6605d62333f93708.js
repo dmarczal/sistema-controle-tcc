@@ -1,0 +1,1 @@
+function body(t){var e=canvas.getObjects();for(var a in e)if(e[a].set("selectable",!1),e[a].event_id){var s=getEventById(e[a].event_id,t);"reprovado"==s.status&&e[a].item(1).set("fill","#FFF"),e[a].item(0).set("fill",patternStatusColor[s.status]?patternStatusColor[s.status]:patternStatusColor.none)}canvas.renderAll()}
