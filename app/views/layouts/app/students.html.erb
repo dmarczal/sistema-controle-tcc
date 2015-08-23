@@ -9,7 +9,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="container" ng-app="Application">
+<div class="container">
   <%= render :partial => 'layouts/admin/header_student' %>
   <br><br>
   <div class="row">
@@ -22,13 +22,3 @@
 <%= yield %>
 <%= render :partial => 'layouts/admin/footer' %>
 </div>
-<div id="modal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header"></div>
-        <div class="modal-body"></div>
-    </div>
-  </div>
-</div>
-</body>
-</html>

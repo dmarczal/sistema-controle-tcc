@@ -9,7 +9,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="container" ng-app="Application">
+<div class="container">
   <%= render :partial => 'layouts/admin/header_teacher' %>
   <br><br><div class="row">
     <div class="col-md-12">
@@ -18,7 +18,6 @@
         <% end %>
     </div>
   </div>
-  <div class="messages" mc-messages></div>
 <%= yield %>
 <%= render :partial => 'layouts/admin/footer' %>
 </div>
