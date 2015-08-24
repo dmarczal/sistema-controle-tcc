@@ -9,8 +9,8 @@
     <tr>
         <td><%= item.timeline.to_s %></td>
         <td>
-            <% if item.dropbox_file? %>
-                <%= link_to item.dropbox_file, item.dropbox_file, target: '_blank' %>
+            <% if item.file? %>
+                <%= link_to item.file_file_name, item.file.url, target: '_blank' %>
             <% end %>
         </td>
         <% if item.status_item.id == 3 %>
