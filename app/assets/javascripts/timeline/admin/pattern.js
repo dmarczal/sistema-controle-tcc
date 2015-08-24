@@ -32,6 +32,7 @@ for(var i=0; i < icons.length; i++){
 	  height: 30,
 	  left: -100,
 	  top: 00,
-	}, "anonymous");
+	});
+	imgInstance.crossOrigin = "anonymous";
 	iconsType[icons[i]] = imgInstance;
 }
