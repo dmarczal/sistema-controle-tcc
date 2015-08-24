@@ -10,7 +10,7 @@ class ItemTimeline < ActiveRecord::Base
   validates_with AttachmentContentTypeValidator, :attributes => :file, content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf"]
 
 
-  def self.refreshItems
+  def self.refresh_items
     ids = StatusItem.where(name: ["Pendente", "Nenhum"]).ids
     ItemTimeline.where(:status_item_id => ids).each do |item|
       if item.item_base_timeline.date.to_time < Time.new

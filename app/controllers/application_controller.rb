@@ -1,5 +1,7 @@
 require 'json'
 class ApplicationController < ActionController::Base
+  skip_before_action :protect_from_forgery
+
   before_filter :check_login, except: [:login, :login_post, :logout]
   before_filter :check_permission, except: [:logout, :login, :login_post]
   WillPaginate.per_page = 10
