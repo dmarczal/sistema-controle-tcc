@@ -14,4 +14,10 @@ td, th{
   color: white;
 }
 
+.legend{font-weight: bold;}
+.legend-btn{cursor: initial}
+.legend-btn.btn-timeline-pending{background-color: #B0E0E6;}
+.legend-btn.btn-timeline-success{background-color: #00FF7F;}
+.legend-btn.btn-timeline-warning{background-color: #FFD700;}
+.legend-btn.btn-timeline-repproved{background-color: #8B0000;}
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700");

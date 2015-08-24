@@ -12,6 +12,9 @@
 <div style="overflow: scroll;">
   <canvas id="c" width="1600" height="500"></canvas>
 </div>
+<div class="legend">
+Legenda: <div class="btn legend-btn btn-timeline-pending"></div> item pendente <div class="btn legend-btn btn-timeline-success"></div> item realizado com sucesso <div class="btn legend-btn btn-timeline-warning"></div> = item deve ser entregue em breve <div class="btn legend-btn btn-timeline-repproved"></div> = item reprovado
+</div>
 <%= javascript_tag do %>
   window.calendar = '<%= @calendar.to_json %>';
   window.json = <%= @json.to_json.html_safe %>;
