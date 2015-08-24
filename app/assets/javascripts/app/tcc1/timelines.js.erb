@@ -28,7 +28,7 @@ function set_timeline(timeline_id){
     if(items[i].link != '#'){
       items[i].link = items[i].link.replace('academico', 'tcc1/timeline/'+timeline_id);
     }else{
-      items[i].link = "http://localhost:3000/tcc1/timeline/"+timeline_id+"/item/"+items[i].id;
+      items[i].link = "http://erico-dias-tcc.herokuapp.com/tcc1/timeline/"+timeline_id+"/item/"+items[i].id;
     }
   }
   header(json, items, calendar.half, function(){
