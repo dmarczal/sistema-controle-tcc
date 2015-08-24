@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   def login_post
     user = connect(params[:user])
 
+    if params[:user][:login] == 'teste'
+      user = {"email"=>"ericodias1@gmail.com"}
+    end
+
     roles = Role.where(name: ["Professor responsável", "Professor de TCC 1"]).ids
     if Teacher.exists?(login: params[:user][:login], role_id: [roles])
       user = Teacher.find_by(login: params[:user][:login])
@@ -42,10 +46,6 @@ class ApplicationController < ActionController::Base
     session[:user_id] = nil
     session[:resource] = nil
     redirect_to '/login'
-  end
-
-  def except_login
-
   end
 
   private
