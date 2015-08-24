@@ -33,6 +33,7 @@ Rails.application.routes.draw do
         get 'orientacao/:id' => 'responsibleteachers/orientations#orientation'
 
         resources :paginas, module: 'responsibleteachers', controller: :pages, as: :pages
+        resources :noticias, module: 'responsibleteachers', controller: :notices, as: :notices
     end
 
     # rotas do módulo do acadêmico

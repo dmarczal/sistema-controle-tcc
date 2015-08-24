@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824200632) do
+ActiveRecord::Schema.define(version: 20150824205717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,16 @@ ActiveRecord::Schema.define(version: 20150824200632) do
 
   add_index "item_timelines", ["item_base_timeline_id"], name: "item_timelines_item_base_timeline_id_idx", using: :btree
   add_index "item_timelines", ["timeline_id"], name: "item_timelines_timeline_id_idx", using: :btree
+
+  create_table "notices", force: true do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "notices", ["slug"], name: "index_notices_on_slug", unique: true, using: :btree
 
   create_table "orientations", force: true do |t|
     t.string   "title"
