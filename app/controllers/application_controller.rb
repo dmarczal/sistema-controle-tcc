@@ -2,6 +2,7 @@ require 'json'
 class ApplicationController < ActionController::Base
   before_filter :check_login, except: [:login, :login_post, :logout]
   before_filter :check_permission, except: [:logout, :login, :login_post]
+  before_filter :redirect_to_https
   WillPaginate.per_page = 10
 
   def login_post
@@ -62,6 +63,10 @@ class ApplicationController < ActionController::Base
     else
       nil
     end
+  end
+
+  def redirect_to_https
+    redirect_to :protocol => "https://" unless (request.ssl? || request.local?)
   end
 
   def check_login

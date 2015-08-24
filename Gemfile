@@ -22,6 +22,7 @@ gem 'httparty'
 gem "paperclip"
 gem "paperclip-dropbox", ">= 1.1.7"
 gem "rest-client"
+gem "friendly_id"
 
 group :production do
   gem 'rails_12factor'
