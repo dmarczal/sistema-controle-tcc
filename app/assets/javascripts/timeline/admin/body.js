@@ -48,7 +48,17 @@ function body(jsonEvents){
 			top: alignTop,
 			left: 30,
 		});
+		var split_date = jsonEvents[i].date.split("-");
+		var date_obj = new Date(split_date[0], split_date[1]-1, split_date[2]);
+
+		if(canvas.getObjects()[1].text == "Julho"){
+			left = (((date_obj.getMonth()+1) % 6) - 1) * 235;
+		}else{
+			left = ((date_obj.getMonth()+1) - 1) * 235;
+		}
+
 		groupEvent.set('event_id', eventsToAdd[i].id);
+		groupEvent.set('left', left);
 
 		// inserindo grupo no canvas
 		canvas.add(groupEvent);
