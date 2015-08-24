@@ -32,7 +32,7 @@ Rails.application.routes.draw do
         get 'orientacoes/:timeline' => 'responsibleteachers/orientations#orientations_by_timeline'
         get 'orientacao/:id' => 'responsibleteachers/orientations#orientation'
 
-        resources :pages, module: 'responsibleteachers'
+        resources :paginas, module: 'responsibleteachers', controller: :pages, as: :pages
     end
 
     # rotas do módulo do acadêmico

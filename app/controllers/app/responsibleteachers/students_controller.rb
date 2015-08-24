@@ -22,6 +22,7 @@ class App::Responsibleteachers::StudentsController < App::Responsibleteachers::B
     def edit
     end
 
+
     def show
     end
 

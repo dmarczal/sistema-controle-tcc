@@ -23,6 +23,7 @@ gem "paperclip"
 gem "paperclip-dropbox", ">= 1.1.7"
 gem "rest-client"
 gem "friendly_id"
+gem "redcarpet"
 
 group :production do
   gem 'rails_12factor'
