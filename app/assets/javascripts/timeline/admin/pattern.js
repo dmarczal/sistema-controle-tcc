@@ -10,7 +10,7 @@ patternEventBox = {
 };
 
 patternEventText = {
-	originX: 'center', 
+	originX: 'center',
 	originY: 'center',
 	fontFamily: 'Arial',
 	fontSize: 15,
@@ -32,6 +32,6 @@ for(var i=0; i < icons.length; i++){
 	  height: 30,
 	  left: -100,
 	  top: 00,
-	});
+	}, "anonymous");
 	iconsType[icons[i]] = imgInstance;
 }

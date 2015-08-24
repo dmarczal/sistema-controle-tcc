@@ -1,12 +1,5 @@
 require 'json'
 class ApplicationController < ActionController::Base
-  skip_before_action :protect_from_forgery
-  before_filter :allow_cross_domain_access
-  def allow_cross_domain_access
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "*"
-  end
-
   before_filter :check_login, except: [:login, :login_post, :logout]
   before_filter :check_permission, except: [:logout, :login, :login_post]
   WillPaginate.per_page = 10
