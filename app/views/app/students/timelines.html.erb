@@ -12,7 +12,7 @@
 <%= javascript_include_tag 'timeline/view/events', 'data-turbolinks-track' => true %>
 <% if(@timelines) %>
   <div class="legend">
-  Legenda: <div class="btn legend-btn btn-timeline-pending"></div> item pendente <div class="btn legend-btn btn-timeline-success"></div> item realizado com sucesso <div class="btn legend-btn btn-timeline-warning"></div> = item deve ser entregue em breve <div class="btn legend-btn btn-timeline-repproved"></div> = item reprovado
+  Legenda: <div class="btn legend-btn btn-timeline-pending"></div> item pendente <div class="btn legend-btn btn-timeline-success"></div> item realizado com sucesso <div class="btn legend-btn btn-timeline-warning"></div> item deve ser entregue em breve <div class="btn legend-btn btn-timeline-repproved"></div> item reprovado
   </div>
   <% @timelines.each_with_index do |timeline, i| %>
     <div style="overflow: scroll;">
