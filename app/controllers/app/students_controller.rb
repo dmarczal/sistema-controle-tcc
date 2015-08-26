@@ -5,6 +5,11 @@ class App::StudentsController < ApplicationController
   def timelines
   end
 
+  def orientations
+    ids = @student.timeline.ids
+    @orientations = Orientation.where(timeline_id: ids)
+  end
+
   def item
     @timeline = Timeline.find(params[:timeline_id])
     @item_base = ItemBaseTimeline.find(params[:id])

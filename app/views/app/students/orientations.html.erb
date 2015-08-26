@@ -1,0 +1,18 @@
+<h2>Orientações</h2>
+
+<table class="table table-striped">
+  <tr>
+    <th>TCC</th>
+    <th>Data</th>
+    <th>Título</th>
+    <th>Descrição</th>
+  </tr>
+  <% @orientations.each do |orientation| %>
+  <tr>
+    <td><%= orientation.timeline.to_s %></td>
+    <td><%= orientation.date.strftime("%d/%m/%Y") %></td>
+    <td><%= orientation.title %></td>
+    <td><a href="#" data-toggle="tooltip" title="<%= orientation.description %>"><i class="glyphicon glyphicon-list-alt"></i></a></td>
+  </tr>
+  <% end %>
+</table>

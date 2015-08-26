@@ -47,6 +47,8 @@ Rails.application.routes.draw do
         get 'timeline/show/:id' => 'students#show_timeline', as: :show_timeline
         get 'timeline/:timeline_id/:id' => 'students#item', as: :delivery_item_get
         post 'timeline/:id' => 'students#delivery', as: :delivery_item
+
+        get '/orientacoes' => 'students#orientations'
     end
 
     # rotas do módulo do professor orientador / membro de banca

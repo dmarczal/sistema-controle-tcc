@@ -62,7 +62,7 @@ class App::OrientationsController < ApplicationController
 
     def create
         orientationHash = {
-            timeline_id: params[:tcc],
+            timeline: Timeline.find(params[:tcc]),
             title: params[:title],
             description: params[:description],
             date: Date.parse(params[:date])
