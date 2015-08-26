@@ -21,7 +21,7 @@
         <% if item.status_item.id == 4 %>
             <td><button class="btn btn-xs btn-danger" disabled="true">Reprovado</button></td>
         <% else %>
-            <td><%= link_to 'Reprovar', teachers_repprove_path(item.timeline, item.item_base_timeline), class: 'btn btn-xs btn-danger' %></td>
+            <td><%= link_to 'Reprovar', teachers_repprove_path(item.timeline, item.item_base_timeline), class: 'btn btn-xs btn-danger', remote: true %></td>
         <% end %>
     </tr>
     <% end %>

@@ -55,6 +55,7 @@ Rails.application.routes.draw do
         get 'timeline/:timeline_id/item/:id' => 'teachers/items#show', as: :item
         get 'timeline/:timeline_id/item/:id/aprovar' => 'teachers/items#approve', as: :approve
         get 'timeline/:timeline_id/item/:id/reprovar' => 'teachers/items#repprove', as: :repprove
+        post 'timeline/:timeline_id/item/:id/reprovar' => 'teachers/items#repprove_post', as: :repprove_post
 
         get 'timelines' => 'teachers/timelines#index'
         get 'timelines/:id' => 'teachers/timelines#show', as: :timeline
@@ -73,10 +74,11 @@ Rails.application.routes.draw do
         get 'timeline/:timeline_id/item/:id' => 'tcc1/items#show', as: :item
         get 'timeline/:timeline_id/item/:id/aprovar' => 'tcc1/items#approve', as: :approve
         get 'timeline/:timeline_id/item/:id/reprovar' => 'tcc1/items#repprove', as: :repprove
+        post 'timeline/:timeline_id/item/:id/reprovar' => 'tcc1/items#repprove_post', as: :repprove_post
 
         get 'timelines' => 'tcc1/timelines#index'
         get 'timelines/:id' => 'tcc1/timelines#show', as: :timeline
-        get 'timelines/:year/:half' => 'tcc1/timelines#list'
+        get 'timelines/:year/:half/:tcc' => 'tcc1/timelines#list'
 
         get 'entregas' => 'tcc1/items#pending', as: :pending
     end

@@ -8,13 +8,19 @@ class App::Tcc1::ItemsController < App::Tcc1::BaseController
 
   def approve
     @item.status_item = StatusItem.find_by(name: "Aprovado")
+    @item.note = nil
     @item.save
     flash[:success] = t('controllers.approve_item')
     redirect_to tcc1_item_path(@item.timeline, @item.item_base_timeline)
   end
 
   def repprove
+    render :note, formats: [:js]
+  end
+
+  def repprove_post
     @item.status_item = StatusItem.find_by(name: "Reprovado")
+    @item.note = params[:note] if params[:note]
     @item.save
     flash[:success] = t('controllers.repprove_item')
     redirect_to tcc1_item_path(@item.timeline, @item.item_base_timeline)

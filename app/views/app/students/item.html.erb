@@ -25,6 +25,12 @@
                     <% end %>
                 </td>
             </tr>
+            <% if @item_timeline.note %>
+            <tr>
+                <td>Observações:</td>
+                <td><%= @item_timeline.note %></td>
+            </tr>
+            <% end %>
         </table>
         <!-- Button (Double) -->
         <div class="form-group">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826000823) do
+ActiveRecord::Schema.define(version: 20150826021758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20150826000823) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.string   "dropbox_file"
+    t.text     "note"
   end
 
   add_index "item_timelines", ["item_base_timeline_id"], name: "item_timelines_item_base_timeline_id_idx", using: :btree

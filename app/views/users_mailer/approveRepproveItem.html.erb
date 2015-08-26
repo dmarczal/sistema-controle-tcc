@@ -8,6 +8,10 @@
     <p>
       Seguem as informações do item:<br>
       Item: <%= @itemBase.title %><br>
+      <% if @item.note %>
+      Observações: <%= @item.note %>
+      <% end %>
+      Item: <%= @itemBase.title %><br>
       Status: <%= @item.status_item.name %><br>
     </p>
     <p>

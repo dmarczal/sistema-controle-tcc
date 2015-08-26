@@ -6,8 +6,13 @@
     <%= link_to @item.file_file_name, @item.file.url, target: '_blank' %>
   <% end %>
 </p>
+<% if @item.note %>
+<p>
+  Observações: <%= @item.note %>
+</p>
+<% end %>
 <p>Status atual: <b><%= @item.status_item.name %><b></p>
 <p>
-  <%= link_to 'Aprovar', teachers_approve_path(@item.timeline_id, @item.item_base_timeline.id), class: 'btn btn-success' %>
-  <%= link_to 'Reprovar', teachers_repprove_path(@item.timeline_id, @item.item_base_timeline.id), class: 'btn btn-danger' %>
+  <%= link_to 'Aprovar', tcc1_approve_path(@item.timeline_id, @item.item_base_timeline.id), class: 'btn btn-success' %>
+  <%= link_to 'Reprovar', tcc1_repprove_path(@item.timeline_id, @item.item_base_timeline.id), class: 'btn btn-danger', remote: true %>
 </p>
