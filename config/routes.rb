@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+    # rotas do site
+    scope 'site' do
+        get '/' => 'site#home'
+    end
+
     # rotas gerais da aplicação
     get 'login' => 'application#login', as: :login
     post 'login' => 'application#login_post', as: :login_post
@@ -39,6 +44,7 @@ Rails.application.routes.draw do
     # rotas do módulo do acadêmico
     scope 'academico', module: 'app', as: 'student' do
         get '/' => 'students#timelines'
+        get 'timeline/show/:id' => 'students#show_timeline', as: :show_timeline
         get 'timeline/:timeline_id/:id' => 'students#item', as: :delivery_item_get
         post 'timeline/:id' => 'students#delivery', as: :delivery_item
     end

@@ -12,7 +12,7 @@ class App::Responsibleteachers::TimelinesController < App::Responsibleteachers::
     params[:timeline][:teachers].each do |teacher_id|
       teachers.push Teacher.find(teacher_id) if Teacher.exists?(teacher_id)
     end
-    @timeline = Timeline.new(base_timeline: base_timeline, student: student, teachers: teachers)
+    @timeline = Timeline.new(base_timeline: base_timeline, student: student, teachers: teachers, title: params[:timeline][:title])
     if @timeline.save
       @timeline.create_items
       flash[:success] = t('controllers.save')
@@ -28,7 +28,8 @@ class App::Responsibleteachers::TimelinesController < App::Responsibleteachers::
   end
 
   def index
-    redirect_to '/responsavel/timelines/'+Time.now.year.to_s+'/1/1'
+    half = Date.today.strftime("%m").to_i < 6 ? 1 : 2
+    redirect_to "/responsavel/timelines/#{Time.now.year.to_s}/#{half.to_s}/1"
   end
 
   def show

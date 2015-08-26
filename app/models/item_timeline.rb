@@ -14,7 +14,7 @@ class ItemTimeline < ActiveRecord::Base
     ids = StatusItem.where(name: ["Pendente", "Nenhum"]).ids
     ItemTimeline.where(:status_item_id => ids).each do |item|
       if item.item_base_timeline.date.to_time < Time.new
-        item.status_item = StatusItem.find_by(name: "Reprovado")
+        item.status_item = StatusItem.find_by(name: "Data expirada")
         if item.save
           puts 'CRON SET STATUS: item id = '+item.id.to_s+' Status = '+item.status_item.name
         else

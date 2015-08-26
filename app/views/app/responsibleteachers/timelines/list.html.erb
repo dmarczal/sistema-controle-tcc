@@ -8,12 +8,14 @@
   <table class="table table-hovered">
     <th>Nome</th>
     <th>Orientador(es)</th>
+    <th>Tema</th>
     <th>Ver timeline</th>
     <th>Excluir timeline</th>
     <% @timelines.each do |timeline| %>
     <tr>
       <td><%= timeline.student.name %></td>
       <td><%= timeline.teachers.map { |t| t.name }.join(', ') %></td>
+      <td><%= timeline.title %></td>
       <td><%= link_to glyph(:list) + ' Ver',  responsible_teacher_timeline_path(timeline), class: 'btn btn-xs btn-success', remote: true %></td>
       <td><%= link_to glyph(:trash) + ' Excluir',  responsible_teacher_timeline_path(timeline), class: 'btn btn-xs btn-danger', method: 'delete' %></td>
     </tr>

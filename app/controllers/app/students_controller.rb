@@ -3,26 +3,6 @@ class App::StudentsController < ApplicationController
   before_filter :check_permission
 
   def timelines
-    if @student.timeline.size > 0
-      @timelines = Array.new
-      @student.timeline.each do |timeline|
-        _timeline = Hash.new
-        calendar = timeline.base_timeline
-
-        _timeline[:items] = Array.new
-        timeline.item_timelines.each do |item_timeline|
-          _item = item_timeline.item_base_timeline.attributes
-          _item['status'] = !item_timeline.status_item.nil? ? item_timeline.status_item.name.downcase : 'none'
-          _timeline[:items].push(_item)
-        end
-
-        _timeline[:calendar] = calendar.attributes
-        _timeline[:json] = calendar.json
-        _timeline[:calendar].delete('json')
-        _timeline[:id] = timeline.id
-        @timelines.push(_timeline)
-      end
-    end
   end
 
   def item
@@ -48,6 +28,23 @@ class App::StudentsController < ApplicationController
       flash[:danger] = 'Ops, algum erro ocorreu. Verifique a extensão do arquivo, são aceitas extensões .jpg e .pdf.'
       redirect_to student_delivery_item_get_path(@item_timeline.timeline_id, @item_timeline.item_base_timeline.id)
     end
+  end
+
+  def show_timeline
+    timeline = Timeline.find(params[:id])
+    @timeline = Hash.new
+    calendar = timeline.base_timeline
+    @timeline[:items] = Array.new
+    timeline.item_timelines.each do |item_timeline|
+      _item = item_timeline.item_base_timeline.attributes
+      _item['status'] = !item_timeline.status_item.nil? ? item_timeline.status_item.name.downcase : 'none'
+      @timeline[:items].push(_item)
+    end
+    @timeline[:calendar] = calendar.attributes
+    @timeline[:json] = calendar.json
+    @timeline[:calendar].delete('json')
+    @timeline[:id] = timeline.id
+    render layout: false
   end
 
   private

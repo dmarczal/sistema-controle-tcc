@@ -2,7 +2,8 @@ class App::Teachers::TimelinesController < App::Teachers::BaseController
   layout '/app/teachers'
 
   def index
-    redirect_to '/professor/timelines/'+Time.now.year.to_s+'/1/1'
+    half = Date.today.strftime("%m").to_i < 6 ? 1 : 2
+    redirect_to "/professor/timelines/#{Time.now.year.to_s}/#{half.to_s}/1"
   end
 
   def show

@@ -49,6 +49,7 @@ var patternStatusColor = {
 }
 
 patternStatusColor['entrega em breve'] = '#FFD700';
+patternStatusColor['data expirada'] = '#FF4500';
 
 var iconsType = [];
 var icons = ['warning', 'document', 'presentation'];

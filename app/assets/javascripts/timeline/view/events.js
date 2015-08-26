@@ -1,4 +1,4 @@
-function events(events){
+	function events(events){
 	canvas.on('mouse:over', function(options){
 		if(options.target.event_id){
 			// se já existir uma legenda ativa, remove-a
@@ -36,8 +36,8 @@ function events(events){
 	canvas.on('mouse:up', function(options){
 		if(options.target && options.target.event_id){
 			var e = getEventById(options.target.event_id, events);
-      if(e.link){
-        window.location = e.link;
+      if(e.link && e.link != "#"){
+        window.top.location = e.link;
       }
 		}
 	});

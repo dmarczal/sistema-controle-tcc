@@ -5,7 +5,8 @@ class App::Responsibleteachers::CalendarsController < App::Responsibleteachers::
     before_action :set_calendar, only: [:show, :timeline]
 
     def index
-        redirect_to '/responsavel/calendarios/'+Time.now.year.to_s+'/1/1'
+        half = Date.today.strftime("%m").to_i < 6 ? 1 : 2
+        redirect_to "/responsavel/calendarios/#{Time.now.year.to_s}/#{half.to_s}/1"
     end
 
     def new

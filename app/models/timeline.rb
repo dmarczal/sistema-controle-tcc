@@ -9,7 +9,7 @@ class Timeline < ActiveRecord::Base
   belongs_to :base_timeline
 
   validates :base_timeline, :presence => {message: 'Ainda não foi referenciado um calendário para esse TCC.'}
-  # validates :teacher, :presence => {message: 'Uma timeline precisa de um professor orientador.'}
+  validates :title, :presence => {message: 'Uma timeline precisa de um título.'}
   validates :teachers, :length => { :minimum => 1, message: 'Selecione pelo menos 1 professor orientador.' }
   validates :student, :presence => {message: 'Uma timeline precisa de um acadêmico.'}
 

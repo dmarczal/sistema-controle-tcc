@@ -12,6 +12,10 @@
                 <td><%= @item_base.description %></td>
             </tr>
             <tr>
+                <td>Data limite para entrega:</td>
+                <td><%= @item_base.date.strftime("%d/%m/%Y") %></td>
+            </tr>
+            <tr>
                 <td>Anexo: (só são aceitos arquivos .pdf e .jpg)</td>
                 <td>
                     <%= file_field :item, :file, class: 'form-control', accept: 'application/pdf,/image/png,image/gif,image/jpeg' %>

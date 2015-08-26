@@ -1,0 +1,21 @@
+<div class="col-md-12">
+  <h1 class="pull-left">Páginas</h1>
+  <%= link_to glyph(:plus)+ ' Nova página', new_responsible_teacher_page_path(), class: "pull-right btn btn-primary" %>
+</div>
+<table class="table table-striped">
+  <tr>
+    <th>Caminho</th>
+    <th>Título</th>
+    <th>Ações</th>
+  </tr>
+  <% @pages.each do |page| %>
+  <tr>
+    <td><%= "/#{page.slug}" %></td>
+    <td><%= page.title %></td>
+    <td>
+      <%= link_to glyph(:pencil) + ' Editar', edit_responsible_teacher_page_path(page), class: "btn btn-warning btn-xs" %>
+      <%= link_to glyph(:trash) + ' Excluir', responsible_teacher_page_path(page), class: 'btn btn-danger btn-xs', method: 'delete', data: { confirm: 'Tem certeza?' } %>
+    </td>
+  </tr>
+  <% end %>
+</table>
