@@ -1,4 +1,5 @@
 <legend>Orientações</legend>
 <p>Título: <%= @orientation.title %></p>
 <p>Data: <%= @orientation.date.strftime('%d/%m/%Y') %></p>
-<p>Descrição: <%= @orientation.description %></p>
+<p>Descrição: <br>
+<%= @markdown.render(@orientation.description).html_safe %></p>

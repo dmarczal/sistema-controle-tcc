@@ -10,5 +10,6 @@ class App::Responsibleteachers::OrientationsController < App::Responsibleteacher
 
   def orientation
     @orientation = Orientation.find params[:id]
+    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
   end
 end
