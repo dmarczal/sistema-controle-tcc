@@ -118,7 +118,7 @@ class BaseTimeline < ActiveRecord::Base
   end
 
   def default_items_hash_tcc2(base_url)
-    first_month = half == "1" ? 10 : 5
+    first_month = half == "1" ? 5 : 10
     [
       {
         title: 'Solicitação da matrícula de TCC 2',
@@ -144,7 +144,7 @@ class BaseTimeline < ActiveRecord::Base
         link: 'http://'+base_url+'/academico/item/{{id}}',
         date: Date.new(year, first_month+1, 1)
       },
-      {''
+      {
         title: 'Entrega da ficha de acompanhamento de atividades',
         _type: 'document',
         description: 'Acompanhado do projeto, o acadêmico deve entregar a Ficha de Acompanhamentos de Atividades de TCC assinada.',
