@@ -1,7 +1,7 @@
 class App::Tcc1::ItemsController < App::Tcc1::BaseController
   layout 'app/tcc1'
   before_filter :set_item, except: [:pending]
-  after_filter :notify, only: [:approve, :repprove ]
+  after_filter :notify, only: [:approve, :repprove_post ]
 
   def show
   end
@@ -15,6 +15,7 @@ class App::Tcc1::ItemsController < App::Tcc1::BaseController
   end
 
   def repprove
+    binding.pry
     render :note, formats: [:js]
   end
 
@@ -31,7 +32,6 @@ class App::Tcc1::ItemsController < App::Tcc1::BaseController
     @items = ItemTimeline.where(status_item_id: [1,3,4], timeline_id: timeline_ids).paginate(:page => params[:page]).order('updated_at DESC')
   end
 
-  private
   private
   def set_item
     @timeline = Timeline.find(params[:timeline_id])

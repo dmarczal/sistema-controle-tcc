@@ -2,7 +2,7 @@ class App::Teachers::ItemsController < App::Teachers::BaseController
   layout 'app/teachers'
   before_filter :set_item, except: [:pending]
   before_filter :set_teacher, only: [:pending]
-  after_filter :notify, only: [:approve, :repprove ]
+  after_filter :notify, only: [:approve, :repprove_post ]
 
   def show
   end
