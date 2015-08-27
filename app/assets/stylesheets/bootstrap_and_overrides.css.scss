@@ -1,5 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+select.form-control{width: 100%;}
+
 td, th{
     text-align: left !important;
 }
