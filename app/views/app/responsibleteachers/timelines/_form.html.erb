@@ -3,14 +3,14 @@
 <% end %>
 <%= form_for(@timeline, remote: true, url: !@timeline.persisted? ? responsible_teacher_timelines_path : responsible_teacher_timeline_path(@timeline)) do |f| %>
   <%= f.label 'Aluno' %>
-  <%= f.select :student, options_for_select(Student.all.map{|s|[s.name, s.id]}, @timeline.student_id), {}, class: 'form-control', style: 'width: 100% !important;' %>
+  <%= f.select :student, options_for_select(Student.order(name: :asc).map{|s|[s.name, s.id]}, @timeline.student_id), {}, class: 'form-control', style: 'width: 100% !important;' %>
 
   <%= f.label 'Título' %>
   <%= f.text_field :title, class: 'form-control' %>
   <%= f.label @timeline.errors[:title].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @timeline.errors.has_key? :title %>
 
   <%= f.label 'Orientadores' %>
-  <%= f.select :teachers, options_for_select(Teacher.where.not(role: Role.find_by(name: "Professor responsável")).map{|t|[t.name, t.id]}, @timeline.teacher_ids), {}, {class: 'form-control', multiple: true, style: 'width: 100% !important;'} %>
+  <%= f.select :teachers, options_for_select(Teacher.where.not(role: Role.where(name: ["Professor responsável", "Professor de TCC 1"])).order(name: :asc).map{|t|[t.name, t.id]}, @timeline.teacher_ids), {}, {class: 'form-control', multiple: true, style: 'width: 100% !important;'} %>
   <%= f.label @timeline.errors[:teachers].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @timeline.errors.has_key? :teachers %>
   <br><br>
   <%= f.submit 'Cadastrar', class: 'btn btn-primary' %>
