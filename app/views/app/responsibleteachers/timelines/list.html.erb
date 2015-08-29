@@ -10,14 +10,17 @@
     <th>Orientador(es)</th>
     <th>Tema</th>
     <th>Ver timeline</th>
-    <th>Excluir timeline</th>
+    <th>Ações</th>
     <% @timelines.each do |timeline| %>
     <tr>
       <td><%= timeline.student.name %></td>
       <td><%= timeline.teachers.map { |t| t.name }.join(', ') %></td>
       <td><%= timeline.title %></td>
       <td><%= link_to glyph(:list) + ' Ver',  responsible_teacher_timeline_path(timeline), class: 'btn btn-xs btn-success', remote: true %></td>
-      <td><%= link_to glyph(:trash) + ' Excluir',  responsible_teacher_timeline_path(timeline), class: 'btn btn-xs btn-danger', method: 'delete' %></td>
+      <td>
+        <%= link_to glyph(:pencil) + ' Editar', edit_responsible_teacher_timeline_path(timeline), class: 'label label-warning', remote: true %>
+        <%= link_to glyph(:trash) + ' Excluir',  responsible_teacher_timeline_path(timeline), class: 'btn btn-xs btn-danger', method: 'delete' %>
+      </td>
     </tr>
     <% end %>
   </table>

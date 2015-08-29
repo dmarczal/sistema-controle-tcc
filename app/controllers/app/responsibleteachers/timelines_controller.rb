@@ -22,9 +22,28 @@ class App::Responsibleteachers::TimelinesController < App::Responsibleteachers::
     end
   end
 
+  def update
+    @timeline = Timeline.find(params[:id])
+    teachers = Array.new
+    params[:timeline][:teachers].each do |teacher_id|
+      teachers.push Teacher.find(teacher_id) if Teacher.exists?(teacher_id)
+    end
+    if @timeline.update teachers: teachers, title: params[:timeline][:title]
+      flash[:success] = t('controllers.save')
+      render :partial => 'success.js.erb'
+    else
+      render :partial => 'new.js.erb'
+    end
+  end
+
   def new
     @timeline = Timeline.new
     render :partial => 'new.js.erb'
+  end
+
+  def edit
+    @timeline = Timeline.find(params[:id])
+    render :partial => 'edit.js.erb'
   end
 
   def index

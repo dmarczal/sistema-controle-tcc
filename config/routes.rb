@@ -26,7 +26,7 @@ Rails.application.routes.draw do
         get 'calendarios/:year/:half/:tcc/timeline' => 'responsibleteachers/calendars#timeline', module: 'app'
         post 'calendarios/:id/timeline/save' => 'responsibleteachers/calendars#save_timeline', module: 'app'
 
-        resources :timelines, module: 'responsibleteachers', only: [:index, :show, :new, :create, :destroy]
+        resources :timelines, module: 'responsibleteachers', only: [:index, :show, :new, :create, :destroy, :edit, :update]
         get 'timelines/:year/:half/:tcc' => 'responsibleteachers/timelines#list', module: 'responsibleteachers'
 
         resources :banks, module: 'responsibleteachers', only: [:index, :show, :new, :create, :destroy, :edit, :update], path: 'bancas'
