@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   def login_post
     user = connect(params[:user])
 
-    user = {"email" => "ericodias1@gmail.com"}
+    # user = {"email" => "ericodias1@gmail.com"}
 
     roles = Role.where(name: ["Professor responsável", "Professor de TCC 1"]).ids
     if Teacher.exists?(login: params[:user][:login], role_id: [roles])
@@ -22,11 +22,11 @@ class ApplicationController < ActionController::Base
     elsif user
       if Teacher.exists?(login: params[:user][:login])
         @user = Teacher.find_by(login: params[:user][:login])
-        # @user.update! email: user["email"]
+        @user.update! email: user["email"]
         session[:resource] = 1
       elsif Student.exists?(login: params[:user][:login])
         @user = Student.find_by(login: params[:user][:login])
-        # @user.update! email: user["email"]
+        @user.update! email: user["email"]
         session[:resource] = 0
       else
         redirect_to login_path, :flash => { :danger => t('controllers.login.user_not_found') }

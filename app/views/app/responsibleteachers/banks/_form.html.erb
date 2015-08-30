@@ -1,9 +1,9 @@
 <%= form_for @bank, remote: true, url: @bank.id ? responsible_teacher_bank_path(@bank) : responsible_teacher_banks_path do |f| %>
   <%= f.label 'TCC' %>
-  <%= f.select :timeline, options_for_select(Timeline.all.map{|t|[t.to_s, t.id]}, @bank.timeline_id), {}, class: 'form-control', style: 'width: 100% !important;' %>
+  <%= f.select :timeline, options_for_select(Timeline.joins(:student).order("students.name ASC").map{|t|[t.to_s, t.id]}, @bank.timeline_id), {}, class: 'form-control', style: 'width: 100% !important;' %>
 
   <%= f.label 'Membros' %>
-  <%= f.select :teachers, options_for_select(Teacher.all.map{|t|[t.name, t.id]}, @bank.teacher_ids), {}, {class: 'form-control', multiple: true, style: 'width: 100% !important;'} %>
+  <%= f.select :teachers, options_for_select(Teacher.where.not(role: Role.where(name: ["Professor responsável", "Professor de TCC 1"])).order(name: :asc).map{|t|[t.name, t.id]}, @bank.teacher_ids), {}, {class: 'form-control', multiple: true, style: 'width: 100% !important;'} %>
   <%= f.label @bank.errors[:teachers].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @bank.errors.has_key? :teachers %>
 
   <%= f.label 'Data' %>
