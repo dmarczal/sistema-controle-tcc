@@ -52,8 +52,17 @@ class App::Responsibleteachers::TimelinesController < App::Responsibleteachers::
   end
 
   def show
-    @_calendar = Timeline.find(params[:id]).base_timeline
-    @items = @_calendar.item_base_timeline
+    timeline = Timeline.find(params[:id])
+    @_calendar = timeline.base_timeline
+    items = @_calendar.item_base_timeline
+
+    @items = Array.new
+    timeline.item_timelines.each do |item_timeline|
+      _item = item_timeline.item_base_timeline.attributes
+      _item['status'] = !item_timeline.status_item.nil? ? item_timeline.status_item.name.downcase : 'none'
+      @items.push(_item)
+    end
+
     @calendar = @_calendar.attributes
     @json = @_calendar.json
     @calendar.delete("json")
