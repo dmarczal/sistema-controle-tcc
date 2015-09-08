@@ -80,7 +80,7 @@ Rails.application.routes.draw do
 
         get 'timelines' => 'tcc1/timelines#index'
         get 'timelines/:id' => 'tcc1/timelines#show', as: :timeline
-        get 'timelines/:year/:half/:tcc' => 'tcc1/timelines#list'
+        get 'timelines/:year/:half' => 'tcc1/timelines#list'
 
         get 'entregas' => 'tcc1/items#pending', as: :pending
     end

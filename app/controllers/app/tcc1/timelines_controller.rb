@@ -3,7 +3,7 @@ class App::Tcc1::TimelinesController < App::Tcc1::BaseController
   before_filter :set_teacher
   def index
     half = Date.today.strftime("%m").to_i < 6 ? 1 : 2
-    redirect_to "/tcc1/timelines/#{Time.now.year.to_s}/#{half.to_s}/1"
+    redirect_to "/tcc1/timelines/#{Time.now.year.to_s}/#{half.to_s}"
   end
 
   def show
