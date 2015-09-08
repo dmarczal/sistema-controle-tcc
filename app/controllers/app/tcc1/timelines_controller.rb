@@ -26,6 +26,6 @@ class App::Tcc1::TimelinesController < App::Tcc1::BaseController
   end
 
   def list
-    @timelines = Timeline.joins(:base_timeline).joins(:teacher_timelines).where(base_timelines: {year: params[:year], half: params[:half], tcc: 1})
+    @timelines = Timeline.joins(:base_timeline).where(base_timelines: {year: params[:year], half: params[:half], tcc: 1})
   end
 end
