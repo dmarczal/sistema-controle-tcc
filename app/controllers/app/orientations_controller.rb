@@ -82,6 +82,11 @@ class App::OrientationsController < ApplicationController
         end
     end
 
+    def show
+      @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+      @orientation = Orientation.find(params[:id])
+    end
+
     private
     def set_teacher
         # enquanto não tem o login

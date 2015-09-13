@@ -68,6 +68,7 @@ Rails.application.routes.draw do
         get 'bancas' => 'teachers/banks#index'
         resources :orientacoes, :controller => 'orientations'
         post 'orientacoes/:id/edit' => 'orientations#editPost'
+        get 'orientacoes/:id' => 'orientations#show'
     end
 
     # rotas do módulo do professor de TCC 1

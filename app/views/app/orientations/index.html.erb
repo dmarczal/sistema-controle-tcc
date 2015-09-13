@@ -7,6 +7,7 @@
             <th>Data de criação</th>
             <th>TCC</th>
             <th>Título da orientação</th>
+            <th>Ver</th>
             <th>Editar</th>
             <th>Excluir</th>
         </tr>
@@ -15,6 +16,7 @@
             <td><%= orientation.date.strftime("%d/%m/%Y") %></td>
             <td><%= orientation.timeline.student.name+' - TCC '+orientation.timeline.base_timeline.tcc+' - '+orientation.timeline.base_timeline.year.to_s %></td>
             <td><%= orientation.title %></td>
+            <td><a href="/professor/orientacoes/<%= orientation.id %>"><span class="glyphicon glyphicon-eye-open"></a></span></td>
             <td><a href="/professor/orientacoes/<%= orientation.id %>/edit"><span class="glyphicon glyphicon-pencil"></a></span></td>
             <td><a href="/professor/orientacoes/<%= orientation.id %>" data-method="delete"><span class="glyphicon glyphicon-remove"></a></span></td>
         </tr>
