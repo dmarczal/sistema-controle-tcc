@@ -4,7 +4,7 @@ class App::OrientationsController < ApplicationController
     def index
         teacher_id = @teacher.id
         timeline_ids = Timeline.joins(:teacher_timelines).where(teacher_timelines: {:teacher_id => teacher_id}).ids
-        @orientations = Orientation.where(timeline_id: timeline_ids)
+        @orientations = Orientation.where(timeline_id: timeline_ids).order(date: :desc)
     end
 
     def edit

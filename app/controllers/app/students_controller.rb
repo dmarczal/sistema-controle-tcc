@@ -7,7 +7,7 @@ class App::StudentsController < ApplicationController
 
   def orientations
     ids = @student.timeline.ids
-    @orientations = Orientation.where(timeline_id: ids)
+    @orientations = Orientation.where(timeline_id: ids).order(date: :desc)
   end
 
   def item
