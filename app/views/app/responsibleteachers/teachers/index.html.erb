@@ -16,6 +16,9 @@
             <%= link_to glyph(:plus) + ' Novo professor', "professores/new", class: 'btn btn-sm btn-primary' %>
           </div><br><br>
         </div>
+        <div class="col-md-12">
+          <%= "Mostrando #{@teachers.size} de #{@teachers.total_entries} resultados." %>
+        </div>
         <table class="table table-hovered">
           <tr>
             <th>Nome</th>
