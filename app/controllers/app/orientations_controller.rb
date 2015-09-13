@@ -11,7 +11,11 @@ class App::OrientationsController < ApplicationController
         teacher_id = @teacher.id
         @tccs = Timeline.joins(:teacher_timelines).where(teacher_timelines: {:teacher_id => teacher_id})
         @orientation = Orientation.find params[:id]
-        render 'new'
+        if validate_edit_orientation
+          redirect_to teachers_orientacoes_path, flash: {danger: ["", "Você não pode editar uma orientação de outro semestre."]}
+        else
+          render 'new'
+        end
     end
 
     def editPost
@@ -87,5 +91,11 @@ class App::OrientationsController < ApplicationController
         if (!can? :manage, :responsible) && (!can? :manage, :teacher)
           redirect_to get_redirect_path, :flash => { :danger => t('controllers.login.forbidden') }
         end
+    end
+
+    def validate_edit_orientation
+      current_half = Date.today.month < 6 ? 1 : 2
+      orientation_half = @orientation.date.month < 6 ? 1 : 2
+      Time.now.year > @orientation.date.year || current_half < orientation_half
     end
 end
