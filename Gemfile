@@ -1,3 +1,4 @@
+# encoding: utf-8
 source 'https://rubygems.org'
 gem 'rails', '4.2.0.rc2'
 gem 'sass-rails', '~> 4.0'
@@ -27,10 +28,10 @@ gem "redcarpet"
 
 group :production do
   gem 'rails_12factor'
+  gem 'puma', '2.11.1'
 end
 
 group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
-
