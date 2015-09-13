@@ -12,7 +12,7 @@
     <td><%= orientation.timeline.to_s %></td>
     <td><%= orientation.date.strftime("%d/%m/%Y") %></td>
     <td><%= orientation.title %></td>
-    <td><a href="#" data-toggle="tooltip" title="<%= orientation.description %>"><i class="glyphicon glyphicon-list-alt"></i></a></td>
+    <td><%= link_to '<i class="glyphicon glyphicon-list-alt"></i>'.html_safe, student_show_orientation_path(orientation) %></td>
   </tr>
   <% end %>
 </table>

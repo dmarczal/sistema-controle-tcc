@@ -52,6 +52,11 @@ class App::StudentsController < ApplicationController
     render layout: false
   end
 
+  def show_orientation
+    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+    @orientation = Orientation.find(params[:id])
+  end
+
   private
   def check_permission
     if !(can? :manage, :student)
