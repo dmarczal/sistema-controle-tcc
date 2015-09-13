@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
         get '/orientacoes' => 'students#orientations'
         get '/orientacoes/:id' => 'students#show_orientation', as: :show_orientation
+        get '/orientacoes/:id/accept' => 'students#accept_orientation', as: :accept_orientation
     end
 
     # rotas do módulo do professor orientador / membro de banca

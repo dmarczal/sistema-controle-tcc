@@ -57,6 +57,12 @@ class App::StudentsController < ApplicationController
     @orientation = Orientation.find(params[:id])
   end
 
+  def accept_orientation
+    @orientation = Orientation.find(params[:id])
+    @orientation.update accept: true
+    redirect_to student_orientacoes_path, flash: {success: "Operação realizada com sucesso."}
+  end
+
   private
   def check_permission
     if !(can? :manage, :student)

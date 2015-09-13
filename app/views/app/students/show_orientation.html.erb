@@ -1,5 +1,10 @@
 <legend>Orientações</legend>
 <p>Título: <%= @orientation.title %></p>
 <p>Data: <%= @orientation.date.strftime('%d/%m/%Y') %></p>
+<% if @orientation.accept %>
+  <p>Você concordou com esta orientação.</p>
+<% else %>
+  <%= link_to "Concordar com a orientação", student_accept_orientation_path(@orientation) , class: "btn btn-success"%>
+<% end %>
 <p>Descrição: <br>
 <%= @markdown.render(@orientation.description).html_safe %></p>
