@@ -20,3 +20,6 @@
         </tr>
         <% end %>
     </table>
+    <div class="text-center">
+      <%= will_paginate @orientations, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;", renderer: BootstrapPagination::Rails %>
+    </div>

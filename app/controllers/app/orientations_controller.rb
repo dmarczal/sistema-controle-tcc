@@ -1,10 +1,11 @@
+require 'will_paginate/array'
 class App::OrientationsController < ApplicationController
     before_filter :set_teacher
     before_filter :check_permission
     def index
         teacher_id = @teacher.id
         timeline_ids = Timeline.joins(:teacher_timelines).where(teacher_timelines: {:teacher_id => teacher_id}).ids
-        @orientations = Orientation.where(timeline_id: timeline_ids).order(date: :desc)
+        @orientations = Orientation.where(timeline_id: timeline_ids).order(date: :desc).paginate(:page => params[:page])
     end
 
     def edit
