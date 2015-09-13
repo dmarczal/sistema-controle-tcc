@@ -42,7 +42,7 @@ class App::Responsibleteachers::TeachersController < App::Responsibleteachers::B
 
     private
     def teacher_params
-        params.require(:teacher).permit(:name, :lattes, :atuacao, :email, :login, :role_id)
+        params.require(:teacher).permit(:name, :lattes, :atuacao, :email, :login, :role_id, :avaliable)
     end
 
     def set_teacher

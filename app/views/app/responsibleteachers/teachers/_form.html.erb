@@ -12,7 +12,7 @@
         </div>
         <div class="form-group">
             Atuação<br>
-            <%= f.text_field :atuacao, class: 'form-control' %>
+            <%= f.text_area :atuacao, class: 'form-control', cols: 5 %>
             <%= f.label @teacher.errors[:atuacao].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @teacher.errors.has_key? :atuacao %>
         </div>
         <div class="form-group">
@@ -28,6 +28,12 @@
         <div class="form-group">
             Login<br>
             <%= f.text_field :login, class: 'form-control' %>
+            <%= f.label @teacher.errors[:login].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @teacher.errors.has_key? :login %>
+        </div>
+        <div class="form-group">
+            Disponível para orientação<br>
+            Sim&nbsp<%= f.radio_button :avaliable, "1", checked: f.object.avaliable || !f.object.persisted? ? true : false %>
+            Não&nbsp<%= f.radio_button :avaliable, "0", checked: f.object.avaliable || !f.object.persisted? ? false : true %>
             <%= f.label @teacher.errors[:login].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @teacher.errors.has_key? :login %>
         </div>
         <div class="text-center">
