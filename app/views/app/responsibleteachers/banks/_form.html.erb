@@ -7,8 +7,8 @@
   <%= f.label @bank.errors[:teachers].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @bank.errors.has_key? :teachers %>
 
   <%= f.label 'Data' %>
-  <%= f.date_field :date, class: 'form-control' %>
-  <%= f.label @bank.errors[:date].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @bank.errors.has_key? :date %>
+  <%= f.datetime_select :date, class: 'form-control' %>
+  <%= f.label @bank.errors[:date].join(', ').html_safe, class: 'col-md-12 alert alert-danger' if @bank.errors.has_key? :date %><br>
 
   <%= f.label 'Tipo' %>
   <%= f.select :_type, options_for_select({t('banks.proposta') => 'proposta',t('banks.tcc1') => 'tcc1',t('banks.tcc2') => 'tcc2'}, @bank._type), {}, {class: 'form-control', style: 'width: 100% !important;'} %>

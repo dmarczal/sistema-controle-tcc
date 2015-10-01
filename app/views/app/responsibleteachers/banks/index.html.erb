@@ -18,7 +18,7 @@
       </tr>
       <% @next_banks.each do |bank| %>
         <tr>
-          <td><%= bank.date.strftime('%d/%m/%Y') %></td>
+          <td><%= bank.date.strftime('%d/%m/%Y %H:%M') %></td>
           <td><%= bank.timeline.to_s %></td>
           <td><%= bank.teachers.map(&:name).join(', ') %></td>
           <td><%= t('banks.'+bank._type) %></td>
