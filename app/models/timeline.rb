@@ -12,6 +12,15 @@ class Timeline < ActiveRecord::Base
   validates :student, :presence => {message: 'Uma timeline precisa de um acadêmico.'}
 
   before_destroy :delete_items
+  
+  def self.search_by_student(student_name)
+    if student_name
+        students = Student.where(['lower(name) LIKE ?', "%#{student_name}%".downcase])
+        where(student: students)
+    else
+        all
+    end
+  end
 
   def delete_items
     item_timelines.destroy_all

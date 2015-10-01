@@ -1,4 +1,12 @@
 <legend>Orientações</legend>
+<div class="col-md-4 pull-left text-left">
+  <form action="<%= responsible_teacher_orientacoes_path %>" class="form-inline">
+    <p>
+      <%= text_field_tag :search, params[:search], class: 'form-control input-sm', placeholder: "Buscar acadêmico" %>
+      <%= button_tag glyph(:search), class: 'btn btn-sm btn-inverse', type: 'submit', :name => nil %>
+    </p>
+  </form>
+</div>
 <table class="table table-hovered">
     <tr>
         <th>Aluno</th>
