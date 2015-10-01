@@ -81,7 +81,7 @@ class App::Responsibleteachers::CalendarsController < App::Responsibleteachers::
         if !@calendar
             @calendar = BaseTimeline.create calendar_params
         end
-        @items = @calendar.item_base_timeline
+        @items = @calendar.item_base_timeline.order(date: :asc)
     end
 
     def set_item_link
