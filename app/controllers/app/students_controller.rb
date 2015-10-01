@@ -13,7 +13,7 @@ class App::StudentsController < ApplicationController
   def item
     @timeline = Timeline.find(params[:timeline_id])
     @item_base = ItemBaseTimeline.find(params[:id])
-    if(DateTime.now > @item_base.date)
+    if(DateTime.now.to_date > @item_base.date)
       flash[:warning] = t('controllers.expired_delivery_date')
       redirect_to student_path
     end
