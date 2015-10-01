@@ -22,7 +22,7 @@ class App::Teachers::TimelinesController < App::Teachers::BaseController
     @json = @_calendar.json
     @calendar.delete("json")
     @timeline_id = params[:id]
-    render :partial => 'show.js.erb'
+    # render :partial => 'show.js.erb'
   end
 
   def list
