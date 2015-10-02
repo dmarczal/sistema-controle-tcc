@@ -1,0 +1,54 @@
+<% site_title 'O TCC' %>
+<div class="row">
+
+<div class="col-sm-7">
+
+  <header class="page-header">
+    <h2><%= @page.title %></h2>
+  </header>
+
+  <article class="text-content">
+    <%= @markdown.render(@page.body).html_safe %>
+  </article>
+  
+  <article class="text-content">
+    <header class="page-header">
+      <h2>Próximas Bancas de TCC</h2>
+    </header>
+    
+    <table class="table table-striped fixed">
+      <tr>
+        <th>Data</th>
+        <th>TCC</th>
+        <th>Tipo</th>
+      </tr>
+      <% @banks.each do |bank| %>
+        <tr>
+          <td><%= bank.date.strftime('%d/%m/%Y %H:%M') %></td>
+          <td><%= "#{bank.timeline.student.name} - #{bank.timeline.title}" %></td>
+          <td><%= t('banks.'+bank._type) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </article>
+
+</div>  <!-- ./col -->
+
+<div class="col-sm-offset-1 col-sm-4">
+
+  <article>
+    <header class="page-header">
+      <h2>Últimas notícias do TCC</h2>
+    </header>
+  
+    <% @notices.each do |notice| %>
+      <div class="">
+        <h4><%= notice.title %></h4>
+        <p><%= @markdown.render(notice.body).html_safe %></p>
+        <p class="text-muted text-right">Publicado em  <%= notice.created_at.strftime("%d/%m/%Y") %></p>
+      </div>
+      <hr />
+    <% end %>
+  </article>
+  <%= link_to "Ver todas as notícias", site_notices_path %>
+</div>

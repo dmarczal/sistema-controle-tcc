@@ -1,0 +1,33 @@
+<% site_title 'Notícias' %>
+<div class="row">
+
+  <div class="col-sm-12">
+
+    <header class="page-header">
+      <h2>Notícias</h2>
+    </header>
+    <div class="row">
+      <div class="col-md-12">
+        <%= "Mostrando #{@notices.length} de #{@notices.total_entries} resultados." %>
+      </div>
+    </div>
+      <% @notices.each do |notice| %>
+        <article class="text-content">
+          <div class="">
+            <header class="page-header">
+              <h4><%= notice.title %></h4>
+            </header>
+            <%= @markdown.render(notice.body).html_safe %>
+            <p class="text-muted text-right">Publicado em  <%= notice.created_at.strftime("%d/%m/%Y") %></p>
+          </div>
+          <hr />
+        </article>
+      <% end %>
+      
+      <div class="text-center">
+        <%= will_paginate @notices, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;", renderer: BootstrapPagination::Rails %>
+      </div>
+
+  </div> 
+
+</div>

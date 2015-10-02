@@ -1,0 +1,16 @@
+<% site_title @page.title %>
+<div class="row">
+
+  <div class="col-sm-12">
+
+    <header class="page-header">
+      <h2><%= @page.title %></h2>
+    </header>
+
+    <article class="text-content">
+      <%= @markdown.render(@page.body).html_safe %>
+    </article>
+
+  </div> 
+
+</div>

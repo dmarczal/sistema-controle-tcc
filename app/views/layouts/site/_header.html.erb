@@ -6,7 +6,6 @@
     </div>
   </div>
 </div>
-
 <nav id="main-menu" class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -20,13 +19,22 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
       <ul class="nav navbar-nav">
-        <li> <a href="/">O TCC</a></li>
-        <li> <a href="/fluxo-de-atividades/">Fluxo de Atividades</a></li>
-        <li> <a href="/professores-areas-de-pesquisa/">Professores e Áreas de Pesquisa</a></li>
-        <li> <a href="/tccs-aprovados/">TCCs Aprovados</a></li>
-        <li> <a href="/tccs-em-andamento/">TCCs em Andamento</a></li>
-        <li> <a href="/documentos-do-tcc/">Documentos do TCC</a></li>
-        <li> <a href="/ajuda/">Ajuda</a></li>
+        <li> <%= link_to "O TCC", site_root_path %></li>
+        <li> <%= link_to "Fluxo de Atividades", site_activities_path %></li>
+        <li> <%= link_to "Professores e Áreas de Pesquisa", site_teachers_path %></li>
+        <li> <%= link_to "TCCs Aprovados", site_approveds_path %></li>
+        <li> <%= link_to "TCCs em Andamento", site_in_progress_path %></li>
+        <li> <%= link_to "Documentos do TCC", site_pages_path("documentos-do-tcc") %></li>
+        <li>
+          <a href="#" class=" dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> 
+            Mais<span class="caret"></span>
+          </a>
+    
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <% @other_pages.each do |page| %>
+            <li><%= link_to page.title, site_pages_path(page.slug) %></li>
+          <% end %>
+        </ul> </li>
       </ul>
     </div>
   </div>

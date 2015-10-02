@@ -1,0 +1,40 @@
+<% site_title 'TCCs Aprovados' %>
+<div class="row">
+
+  <div class="col-sm-12">
+
+    <header class="page-header">
+      <h2>TCCs Aprovados</h2>
+    </header>
+    <div class="row">
+      <div class="col-md-12">
+        <%= "Mostrando #{@approveds.length} de #{@approveds.total_entries} resultados." %>
+      </div>
+    </div>
+      
+      <% @approveds.each do |approval| %>
+      <article class="text-content">
+
+        <div class="text-content">
+          <h4>Ano: <%= approval.bank.date.year %></h4>
+          <p>
+            <a href="https://drive.google.com/file/d/0B2_vcPBwSN6CTHFkNWNMNkJqOXM/view?usp=sharing" target="_blank">
+              <%= approval.bank.timeline.title %>
+            </a>
+            <br />
+            <%= type_bank(approval.bank) %>
+            <br />
+          <strong>Acadêmico: </strong><%= approval.bank.timeline.student.name %><br />
+          <strong>Orientador (es): </strong> <%= approval.bank.timeline.teachers.map { |t| t.name }.join(', ') %><br />
+          </p>
+        </div>
+      </article>
+      <% end %>
+
+      <div class="text-center">
+        <%= will_paginate @approveds, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;", renderer: BootstrapPagination::Rails %>
+      </div>
+
+  </div> 
+
+</div>

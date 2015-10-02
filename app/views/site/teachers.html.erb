@@ -1,0 +1,43 @@
+<% site_title 'Professores e Áreas de Pesquisa' %>
+<div class="row">
+
+  <div class="col-sm-12">
+
+    <header class="page-header">
+      <h2>Professores e Áreas de Pesquisa</h2>
+    </header>
+
+    <article class="text-content">
+      <div class="row">
+        <div class="col-md-12">
+          <%= "Mostrando #{@teachers.length} de #{@teachers.total_entries} resultados." %>
+        </div>
+      </div>
+      
+      <table class="table table-hovered">
+        <tr>
+          <th>Nome</th>
+          <th>Atuação</th>
+          <th>Lattes</th>
+          <th>E-mail</th>
+          <th>Disp. para orientação</th>
+        </tr>
+        <% @teachers.each do |teacher| %>
+        <tr>
+          <td><%= teacher.name %></td>
+          <td><%= teacher.atuacao %></td>
+          <td><%= link_to "Clique aqui", teacher.lattes, target: :_blank %></td>
+          <td><%= teacher.email %></td>
+          <td><%= teacher.avaliable? ? "Sim" : "Não" %></td>
+        </tr>
+        <% end %>
+      </table>
+
+      <div class="text-center">
+        <%= will_paginate @teachers, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;", renderer: BootstrapPagination::Rails %>
+      </div>
+    </article>
+
+  </div> 
+
+</div>

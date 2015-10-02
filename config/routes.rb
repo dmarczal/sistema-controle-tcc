@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
     # rotas do site
     scope 'site' do
-        get '/' => 'site#home'
+        get '/' => 'site#home', as: :site_root
+        get '/paginas/:slug' => 'site#page', as: :site_pages
+        get '/fluxo-de-atividades' => 'site#activities', as: :site_activities
+        get '/professores' => 'site#teachers', as: :site_teachers
+        get '/aprovados' => 'site#approveds', as: :site_approveds
+        get '/em-andamento' => 'site#in_progress', as: :site_in_progress
+        get '/timeline/:tcc' => 'site#timeline', as: :site_timeline
+        
+        # to do
+        get '/paginas' => 'site#pages', as: :site_list_pages
+        get '/noticias' => 'site#notices', as: :site_notices
     end
 
     # rotas gerais da aplicação

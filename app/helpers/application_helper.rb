@@ -16,4 +16,19 @@ module ApplicationHelper
     tcc_half = tcc.base_timeline.half.to_i
     !(Time.now.year >= tcc.base_timeline.year.to_i || current_half > tcc_half)
   end
+  
+  def type_bank(bank)
+    case bank._type
+    when "proposta"
+      "Proposta de TCC 1"
+    when "tcc1"
+      "Projeto de TCC 1"
+    when "tcc2"
+      "Monografia de TCC 2"
+    end
+  end
+  
+  def site_title(*parts)
+    content_for(:title) { (parts << "TCC - TSI").join(' - ') } unless parts.empty?
+  end
 end

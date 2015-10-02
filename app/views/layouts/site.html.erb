@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>TCC TSI - O TCC</title>
+    <title><%= content_for?(:title) ? yield(:title) : "TCC TSI" %></title>
     <meta name="generator" content="nanoc 3.6.11">
     <%= favicon_link_tag 'favicon.ico', media: 'all', 'data-turbolinks-track' => true %>
 
@@ -46,125 +46,9 @@
       <!-- Begin page content -->
       <div id="main">
         <section>
-
-          <div class="row">
-
-            <div class="col-sm-7">
-
-              <header class="page-header">
-                <h2>Trabalho de Conclusão de Curso de TSI</h2>
-              </header>
-
-              <article class="text-content">
-                <p>
-                  O Trabalho de Conclusão de Curso (TCC) é uma atividade obrigatória,
-                  constituída por disciplinas/unidades curriculares dos currículos dos cursos
-                  de Graduação da UTFPR e tem como objetivos:
-                </p>
-                <ol style="list-style-type: lower-roman;">
-                  <li>Desenvolver a capacidade de aplicação dos conceitos e teorias adquiridas durante o curso de forma integrada, por meio da execução de um projeto de pesquisa;</li>
-                  <li>Desenvolver a capacidade de planejamento e disciplina para resolver problemas dentro das diversas áreas de formação;</li>
-                  <li>Despertar o interesse pela pesquisa como meio para a resolução de problemas;</li>
-                  <li>Estimular o espírito empreendedor, por meio da execução de projetos que levem ao desenvolvimento de produtos, os quais possam ser patenteados e/ou comercializados;</li>
-                  <li>Intensificar a extensão universitária, por intermédio da resolução de problemas existentes nos diversos setores da sociedade;</li>
-                  <li>Estimular a construção do conhecimento coletivo;</li>
-                  <li>Estimular a interdisciplinaridade;</li>
-                  <li>Estimular a inovação tecnológica;</li>
-                  <li>Estimular o espírito crítico e reflexivo no meio social onde está inserido;</li>
-                  <li>Estimular a formação continuada.</li>
-                </ol>
-              </article>
-
-              <article class="text-content" >
-                <header class="page-header">
-                  <h2>Leitura Obrigatória</h2>
-                </header>
-                <p>É obrigatório que o aluno tenha ciência dos seguintes documentos:</p>
-                <ul>
-                  <li><a href="https://drive.google.com/file/d/0B2_vcPBwSN6CTGlLd3pLay1BRHM/view?usp=sharing" target="_blank">Regulamento do Trabalho de Conclusão de Curso da UTFPR</a>; e</li>
-                  <li><a href="https://drive.google.com/file/d/0B2_vcPBwSN6CMmlMZk9YckE5MFE/view?usp=sharing" target="_blank">Normas Operacionais Complementares do TCC do Curso de TSI</a>.</li>
-                </ul>
-              </article>
-
-            </div>  <!-- ./col -->
-
-            <div class="col-sm-offset-1 col-sm-4">
-
-              <article>
-              <header class="page-header">
-                <h2>Últimas notícias do TCC</h2>
-              </header>
-
-              <div class="">
-                <h4>Cronograma de Atividades de TCC 2 - 2015/2</h4>
-                <p>Verifique o <a href="https://drive.google.com/file/d/0B2_vcPBwSN6CZ29va2s3cnVLTzA/view?usp=sharing" target="_blank">
-                   cronograma de atividades de TCC 2</a></p>
-                <p class="text-muted text-right">Publicado em 13/08/2015</p>
-              </div>
-
-              <hr />
-              <div class="">
-                <h4>Cronograma de Atividades de TCC 1 - 2015/1</span></h4>
-                <p>Verifique o <a href="https://drive.google.com/file/d/0B2_vcPBwSN6CQlJ4VVVCN09QWDA/view?usp=sharing" target="_blank">
-                   cronograma de atividades de TCC 1</a></p>
-                <p class="text-muted text-right">Publicado em 13/08/2015</p>
-              </div>
-
-              <hr />
-              <!-- -->
-
-              <div class="">
-                <h4>Datas e Horários das Defesas de Projetos de TCC 1 - 2015/1</h4>
-                <p><a href="https://drive.google.com/file/d/0B2_vcPBwSN6CMmh1X1FpS05DWmc/view?usp=sharing" target="_blank">
-                  EDITAL Nº 004/2015 – PRTCC-COINT-GP</a></p>
-                <p class="text-muted text-right">publicado em 18/06/2015</p>
-              </div>
-
-              <hr />
-
-             <div class="">
-                <h4>Data e Horário de Defesa de Monografia de TCC 2 - 2015/1</h4>
-                <p><a href="https://drive.google.com/file/d/0b2_vcpbwsn6cwlzirndpltdilu0/view?usp=sharing" target="_blank">
-                  EDITAL Nº 003/2015 – PRTCC-COINT-GP</a></p>
-                <p class="text-muted text-right">publicado em 10/06/2015</p>
-              </div>
-
-              <hr />
-
-             <div class="">
-                <h4>Data e Horários da Defesa da Proposta de TCC - 2015/1</h4>
-                <p><a href="https://drive.google.com/file/d/0B2_vcPBwSN6CZVdTSjdhOVJOZFk/view?usp=sharing" target="_blank">
-                  EDITAL Nº 002/2015 – PRTCC-COINT-GP</a></p>
-                <p class="text-muted text-right">Publicado em 13/04/2015</p>
-              </div>
-
-              <hr />
-              <div class="">
-                <h4>Atribuição Orientador a Orientando - 2015/1</h4>
-                <p><a href="https://drive.google.com/file/d/0B2_vcPBwSN6CWEtpbXJnSjBvOG8/view?usp=sharing" target="_blank">
-                  EDITAL Nº 001/2015 – PRTCC-COINT-GP</a></p>
-                <p class="text-muted text-right">Publicado em 09/03/2015</p>
-              </div>
-
-              <hr />
-              <div class="">
-                <h4>Cronograma de Atividades de TCC 1 - 2015/1</h4>
-                <p>Verifique o <a href="https://drive.google.com/file/d/0B2_vcPBwSN6CNF9QSXFDbEl6SUU/view?usp=sharing" target="_blank">
-                   cronograma de atividades de TCC 1</a></p>
-                <p class="text-muted text-right">Publicado em 23/02/2015</p>
-              </div>
-
-              <hr />
-              <div class="">
-                <h4>Cronograma de Atividades de TCC 2 - 2015/1</span></h4>
-                <p>Verifique o <a href="https://drive.google.com/file/d/0B2_vcPBwSN6CT0JVVGxZT3NxWjQ/view?usp=sharing" target="_blank">
-                   cronograma de atividades de TCC 2</a></p>
-                <p class="text-muted text-right">Publicado em 23/02/2015</p>
-              </div>
-              </article>
-
-            </div>
-
+          
+          <%= yield %>
+          
         </section>
       </div>
     </div>
