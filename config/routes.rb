@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
     # rotas do site
-    scope 'site' do
+    # scope 'site' do
         get '/' => 'site#home', as: :site_root
         get '/paginas/:slug' => 'site#page', as: :site_pages
         get '/fluxo-de-atividades' => 'site#activities', as: :site_activities
@@ -12,13 +12,13 @@ Rails.application.routes.draw do
         # to do
         get '/paginas' => 'site#pages', as: :site_list_pages
         get '/noticias' => 'site#notices', as: :site_notices
-    end
+    # end
 
     # rotas gerais da aplicação
     get 'login' => 'application#login', as: :login
     post 'login' => 'application#login_post', as: :login_post
     get 'logout' => 'application#logout'
-    root 'application#login'
+    # root 'application#login'
 
     # download de arquivos do dropbox
     get "files/get/:id" => "files#get", :as => "download"
