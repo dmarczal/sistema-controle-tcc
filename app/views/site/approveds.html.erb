@@ -18,9 +18,7 @@
         <div class="text-content">
           <h4>Ano: <%= approval.bank.date.year %></h4>
           <p>
-            <a href="https://drive.google.com/file/d/0B2_vcPBwSN6CTHFkNWNMNkJqOXM/view?usp=sharing" target="_blank">
-              <%= approval.bank.timeline.title %>
-            </a>
+            <%= link_to approval.bank.timeline.title, approval.file.url, target: '_blank' %>
             <br />
             <%= type_bank(approval.bank) %>
             <br />
