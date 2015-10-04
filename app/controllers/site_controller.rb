@@ -23,7 +23,12 @@ class SiteController < ActionController::Base
   end
   
   def approveds
-    @approveds = Approval.order(created_at: :desc).paginate(page: params[:page])
+    @_approveds = Approval.order(created_at: :desc).paginate(page: params[:page])
+    @year_approveds = {}
+    @_approveds.each do |approval|
+      @year_approveds[approval.bank.timeline.base_timeline.year.to_s.to_sym] ||= []
+      @year_approveds[approval.bank.timeline.base_timeline.year.to_s.to_sym].push approval
+    end
   end
   
   def in_progress
