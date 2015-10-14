@@ -19,7 +19,7 @@ class SiteController < ActionController::Base
   
   def teachers
     role = Role.find_by name: "Professor"
-    @teachers = Teacher.where(role: role).paginate(:page => params[:page])
+    @teachers = Teacher.where(role: role).paginate(:page => params[:page], per_page: 25)
   end
   
   def approveds

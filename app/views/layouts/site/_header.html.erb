@@ -1,5 +1,10 @@
 <div id="main-header">
   <div class="conteiner">
+    <div class="row">
+      <div class="col-md-4 pull-right text-right">
+        <%= link_to "Login no sistema", login_path, class: "btn btn-xs btn-success" %>
+      </div>
+    </div>
     <div class="clearfix">
       <%= image_tag 'logo.png', class: "pull-left img-responsive img-logo" %>
        <h1 class="text-muted">Guia para elaboração do TCC do curso de TSI</h1>
@@ -19,12 +24,12 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
       <ul class="nav navbar-nav">
-        <li> <%= link_to "O TCC", site_root_path %></li>
-        <li> <%= link_to "Fluxo de Atividades", site_activities_path %></li>
-        <li> <%= link_to "Professores e Áreas de Pesquisa", site_teachers_path %></li>
-        <li> <%= link_to "TCCs Aprovados", site_approveds_path %></li>
-        <li> <%= link_to "TCCs em Andamento", site_in_progress_path %></li>
-        <li> <%= link_to "Documentos do TCC", site_pages_path("documentos-do-tcc") %></li>
+        <li class="<%= (action_name == "page" || action_name == "home") && @page.slug == "o-tcc" ? "active" : "" %>"> <%= link_to "O TCC", site_root_path %></li>
+        <li class="<%= action_name == "activities" ? "active" : "" %>"> <%= link_to "Fluxo de Atividades", site_activities_path %></li>
+        <li class="<%= action_name == "teachers" ? "active" : "" %>"> <%= link_to "Professores e Áreas de Pesquisa", site_teachers_path %></li>
+        <li class="<%= action_name == "approveds" ? "active" : "" %>"> <%= link_to "TCCs Aprovados", site_approveds_path %></li>
+        <li class="<%= action_name == "in_progress" ? "active" : "" %>"> <%= link_to "TCCs em Andamento", site_in_progress_path %></li>
+        <li class="<%= action_name == "page" && @page.slug == "documentos-do-tcc" ? "active" : "" %>"> <%= link_to "Documentos do TCC", site_pages_path("documentos-do-tcc") %></li>
         <li>
           <a href="#" class=" dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> 
             Mais<span class="caret"></span>
