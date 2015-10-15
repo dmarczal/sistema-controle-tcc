@@ -1,3 +1,10 @@
+<%= javascript_include_tag 'app/teacher/tcc1', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'timeline/fabric.min', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'timeline/helpers', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'timeline/view/pattern', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'timeline/header', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'timeline/view/body', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'timeline/view/events', 'data-turbolinks-track' => true %>
 <%= render 'header' %>
 <% if @timelines.size > 0 %>
   <table class="table table-hovered">
@@ -8,7 +15,7 @@
     <tr>
       <td><%= timeline.student.name %></td>
       <td><%= timeline.teachers.map { |t| t.name }.join(', ') %></td>
-      <td><%= link_to glyph(:list) + ' Ver',  tcc1_timeline_path(timeline), class: 'btn btn-xs btn-success', remote: true %></td>
+      <td><%= link_to glyph(:list) + ' Ver',  tcc1_timeline_path(timeline), class: 'btn btn-xs btn-success', remote: false %></td>
     </tr>
     <% end %>
   </table>
