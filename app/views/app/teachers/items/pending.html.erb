@@ -1,6 +1,7 @@
 <table class="table table-hovered">
     <tr>
         <th>TCC</th>
+        <th>Título</th>
         <th>Anexo</th>
         <th>Aprovar</th>
         <th>Reprovar</th>
@@ -8,9 +9,10 @@
     <% @items.each do |item| %>
     <tr>
         <td><%= item.timeline.to_s %></td>
+        <td><%= item.item_base_timeline.title %></td>
         <td>
             <% if item.file? %>
-                <%= link_to item.file_file_name, item.file.url, target: '_blank' %>
+                <%= link_to "Anexo", item.file.url, target: '_blank' %>
             <% end %>
         </td>
         <% if item.status_item.id == 3 %>
