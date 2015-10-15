@@ -6,7 +6,7 @@ class App::Responsibleteachers::OrientationsController < App::Responsibleteacher
   end
 
   def orientations_by_timeline
-    @orientations = Orientation.joins(:timeline).where(:timelines => {:id => params[:timeline]}).order(date: :desc).paginate(:page => params[:page])
+    @orientations = Orientation.joins(:timeline).where(:timelines => {:id => params[:timeline]}).order(date: :desc).paginate(:page => params[:page], per_page: 25)
   end
 
   def orientation
