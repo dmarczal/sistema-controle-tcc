@@ -1,5 +1,13 @@
 <h1>Salvar página</h1>
 
+<div class="col-md-8 col-md-offset-2 text-right">
+  <% if @page.persisted? %>
+    <span class="label label-warning">
+      <%= link_to "Visualizar página", site_pages_path(@page.slug), target: :_blank %>
+    </span>
+  <% end %>  
+</div>
+
 <%= form_for [:responsible_teacher, @page], html: {class: "col-md-8 col-md-offset-2"} do |f| %>
   <div class="form-group">
     <label>Título</label>

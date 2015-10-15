@@ -66,7 +66,9 @@ class App::Responsibleteachers::TimelinesController < App::Responsibleteachers::
     @calendar = @_calendar.attributes
     @json = @_calendar.json
     @calendar.delete("json")
-    render :partial => 'show.js.erb'
+    @timeline_id = params[:id]
+    
+    # render :partial => 'show.js.erb'
   end
 
   def list
