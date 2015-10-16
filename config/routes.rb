@@ -79,6 +79,7 @@ Rails.application.routes.draw do
 
         get 'bancas' => 'teachers/banks#index'
         resources :orientacoes, :controller => 'orientations'
+        get 'orientacoes/timeline/:timeline_id' => 'orientations#index_by_timeline'
         post 'orientacoes/:id/edit' => 'orientations#editPost'
         get 'orientacoes/:id' => 'orientations#show'
     end

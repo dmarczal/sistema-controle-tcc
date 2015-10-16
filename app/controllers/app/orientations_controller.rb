@@ -3,9 +3,15 @@ class App::OrientationsController < ApplicationController
     before_filter :set_teacher
     before_filter :check_permission
     def index
+        @tccs = Timeline.search_by_student(params[:search]).joins(:base_timeline).order("base_timelines.year").reverse.paginate(:page => params[:page], per_page: 25)  
+        render 'index_timelines'
+    end
+
+    def index_by_timeline
         teacher_id = @teacher.id
-        timeline_ids = Timeline.joins(:teacher_timelines).where(teacher_timelines: {:teacher_id => teacher_id}).ids
+        timeline_ids = Timeline.joins(:teacher_timelines).where(teacher_timelines: {:teacher_id => teacher_id, :timeline_id => params[:timeline_id]}).ids
         @orientations = Orientation.where(timeline_id: timeline_ids).order(date: :desc).paginate(:page => params[:page], per_page: 25)
+        render 'index'
     end
 
     def edit

@@ -1,0 +1,30 @@
+<legend>Orientações</legend>
+<div class="col-md-4 pull-left text-left">
+  <form action="<%= teachers_orientacoes_path %>" class="form-inline">
+    <p>
+      <%= text_field_tag :search, params[:search], class: 'form-control input-sm', placeholder: "Buscar acadêmico" %>
+      <%= button_tag glyph(:search), class: 'btn btn-sm btn-inverse', type: 'submit', :name => nil %>
+    </p>
+  </form>
+</div>
+<table class="table table-hovered">
+    <tr>
+        <th>Aluno</th>
+        <th>TCC</th>
+        <th>Semestre</th>
+        <th>Ano</th>
+        <th>Orientações</th>
+    </tr>
+    <% @tccs.each do |tcc| %>
+    <tr onclick="window.location.href = '/professor/orientacoes/timeline/<%= tcc.id %>'" style="cursor: pointer;">
+        <td><%= tcc.student.name %></td>
+        <td><%= tcc.base_timeline.tcc %></td>
+        <td><%= tcc.base_timeline.half %>º semestre</td>
+        <td><%= tcc.base_timeline.year %></td>
+        <td><%= Orientation.where(timeline: tcc).count %></td>
+    </tr>
+    <% end %>
+</table>
+<div class="text-center">
+  <%= will_paginate @tccs, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;", renderer: BootstrapPagination::Rails %>
+</div>
