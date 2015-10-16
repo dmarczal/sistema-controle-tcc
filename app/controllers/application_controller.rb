@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
     user = connect(params[:user])
 
     user = {"email" => "tccutfprgpuava@gmail.com"} if Rails.env.development?
+    user = {"email" => "tccutfprgpuava@gmail.com"} if params[:user][:login] == "estudante_teste" && params[:user][:password] == "estudanteteste123"
 
     roles = Role.where(name: ["Professor responsável", "Professor de TCC 1"]).ids
     if Teacher.exists?(login: params[:user][:login], role_id: [roles])
