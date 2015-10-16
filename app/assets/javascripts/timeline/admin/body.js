@@ -42,8 +42,12 @@ function body(jsonEvents){
 		var eventBox = new fabric.Rect(patternEventBox);
 		// eventBox.setFill(patternStatusColor[eventsToAdd[i].status]);
 		var legendImage = iconsType[eventsToAdd[i]._type];
+
+		var date = eventsToAdd[i].date.split("-").reverse().join("/")
+		var dateText = new fabric.Text(date, patternDateText);
+		
 		var eventText = wrapCanvasText(new fabric.Text(eventsToAdd[i].title, patternEventText), canvas, eventBox.getWidth(), eventBox.getHeight(), true);
-		var groupEvent = new fabric.Group([eventBox, eventText, legendImage], {
+		var groupEvent = new fabric.Group([eventBox, eventText, legendImage, dateText], {
 			selectable: true,
 			top: alignTop,
 			left: 30,

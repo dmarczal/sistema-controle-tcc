@@ -16,6 +16,13 @@ patternEventText = {
 	fontSize: 15,
 }
 
+patternDateText = {
+	left: 45,
+	top: 15,
+	fontFamily: 'Arial',
+	fontSize: 10,
+}
+
 patternStatusColor = {
 	none: '#DCDCDC',
 	success: '#00FF7F',
