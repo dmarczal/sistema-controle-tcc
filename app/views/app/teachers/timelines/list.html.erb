@@ -8,7 +8,7 @@
     <tr>
       <td><%= timeline.student.name %></td>
       <td><%= timeline.teachers.map { |t| t.name }.join(', ') %></td>
-      <td><%= link_to glyph(:list) + ' Ver',  teachers_timeline_path(timeline), class: 'btn btn-xs btn-success', "data-no-turbolink": true %></td>
+      <td><%= link_to glyph(:list) + ' Ver',  teachers_timeline_path(timeline), class: 'btn btn-xs btn-success', "data-no-turbolink" => true %></td>
     </tr>
     <% end %>
   </table>
