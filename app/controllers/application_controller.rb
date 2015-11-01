@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
 
   def login_post
     user = connect(params[:user])
-
-    user = {"email" => "tccutfprgpuava@gmail.com"} if Rails.env.development?
+    binding.pry
+    user = {"email" => "tccutfprgpuava@gmail.com"} if Rails.env.development? || request.url.index("tcc-app-presentation")
     user = {"email" => "tccutfprgpuava@gmail.com"} if params[:user][:login] == "estudante_teste" && params[:user][:password] == "estudanteteste123"
 
     roles = Role.where(name: ["Professor responsável", "Professor de TCC 1"]).ids
