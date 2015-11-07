@@ -28,7 +28,12 @@ function set_timeline(timeline_id){
     if(items[i].link != '#'){
       items[i].link = items[i].link.replace('academico', 'professor/timeline/'+timeline_id);
     }else{
-      items[i].link = "http://erico-dias-tcc.herokuapp.com/professor/timeline/"+timeline_id+"/item/"+items[i].id;
+      if(document.location.hostname == "tcc-app-presentation.herokuapp.com"){
+        var base_url = "http://tcc-app-presentation.herokuapp.com"
+      }else{
+        var base_url = "http://erico-dias-tcc.herokuapp.com"
+      }
+      items[i].link = base_url+"/professor/timeline/"+timeline_id+"/item/"+items[i].id;
     }
   }
   header(json, items, calendar.half, function(){
