@@ -10,8 +10,8 @@ default: &default
   pool: 5
   host: localhost
   port: 5432
-  username: postgres
-  password: postgres
+  username: <%= ENV["TCC_DB_USERNAME"] %>
+  password: <%= ENV["TCC_DB_PASSWORD"] %>
 
 development:
   <<: *default

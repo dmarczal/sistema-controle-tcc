@@ -5,4 +5,4 @@ test:
   root_url: localhost:3000
 
 production:
-  root_url: tcc-app-presentation.herokuapp.com
+  root_url: tcc.tsi.gp.utfpr.edu.br
