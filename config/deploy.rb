@@ -6,7 +6,7 @@ set :application, "tcc.tsi.gp.educacional.mat.br"
 
 set :scm, :git
 set :branch, "deploy"
-set :repo_url, 'git@bitbucket.org:farma-reborned/farma.git'
+set :repo_url, 'git@github.com:dmarczal/sistema-controle-tcc.git'
 set :keep_releases, 3
 
 set :format, :pretty
