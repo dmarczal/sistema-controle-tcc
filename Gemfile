@@ -1,5 +1,7 @@
 # encoding: utf-8
+ruby '2.2.3'
 source 'https://rubygems.org'
+
 gem 'rails', '4.2.0.rc2'
 gem 'sass-rails', '~> 4.0'
 gem 'uglifier', '>= 1.3.0'
@@ -9,12 +11,11 @@ gem 'angularjs-rails', '~> 1.3.14'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+
 gem 'devise'
 gem 'pg'
 gem 'bootstrap-sass', '~> 3.3.1.0'
 gem 'responders'
-gem 'faker'
-gem 'populator'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem "cancan"
@@ -26,12 +27,23 @@ gem "rest-client"
 gem "friendly_id"
 gem "redcarpet"
 
-group :production do
-  gem 'rails_12factor'
-  gem 'puma', '2.11.1'
+group :development do
+  gem 'faker'
+  gem 'populator'
+
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-passenger', require: false
 end
 
 group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
+
+#group :production do
+#  gem 'rails_12factor'
+#  gem 'puma', '2.11.1'
+#end
