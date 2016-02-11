@@ -1,6 +1,6 @@
-app_key: "s0wsjinh3k2496j"
-app_secret: "tf8djk8hoby7j89"
-access_token: "lqm9gf6ornurko2n"
-access_token_secret: "mblflle2gkpt71e"
-user_id: "439755211"
+app_key: <%= ENV["TCC_DROPBOX_APP_KEY"] %>
+app_secret: <%= ENV["TCC_DROPBOX_APP_SECRET"] %>
+access_token: <%= ENV["TCC_DROPBOX_ACCESS_TOKEN"] %>
+access_token_secret: <%= ENV["TCC_DROPBOX_TOKEN_SECRET"] %>
+user_id: <%= ENV["TCC_DROPBOX_USER_ID"] %>
 access_type: "app_folder"

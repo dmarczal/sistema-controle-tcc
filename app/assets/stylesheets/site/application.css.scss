@@ -96,6 +96,42 @@ body {
   border: 1px solid $background-primary-color;
   margin-bottom: 20px;
 }
+
+
+ul#flowchart_tcc_label {
+  
+ padding-left: 0; 
+ margin-top: 0;
+ margin-bottom: 10px;
+ list-style: none;
+
+ li {
+   padding: 18px 80px;
+   padding-left: 100px;
+   margin: 15px;
+ }
+
+ li.attention {
+   background: image-url("tcc_tsi_flowchart-icons.png") 0 0 no-repeat;
+ }
+
+ li.deliver {
+   background: image-url("tcc_tsi_flowchart-icons.png") 0 -63px no-repeat;
+ }
+
+ li.advisor {
+   background: image-url("tcc_tsi_flowchart-icons.png") 0 -125px no-repeat;
+ }
+
+ li.presentation {
+   background: image-url("tcc_tsi_flowchart-icons.png") 0 -188px no-repeat;
+ }
+
+ li.dvd {
+   background: image-url("tcc_tsi_flowchart-icons.png") 0 -257px no-repeat;
+ }
+}
+
 /* Page Flowchart
 -------------------------------------------------- */
 .popover {

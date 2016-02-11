@@ -31,4 +31,11 @@ module ApplicationHelper
   def site_title(*parts)
     content_for(:title) { (parts << "TCC - TSI").join(' - ') } unless parts.empty?
   end
+
+  def inline_svg(path)
+    File.open("app/assets/images/#{path}", "rb") do |file|
+      raw file.read.to_s.force_encoding("UTF-8")
+    end
+  end
+
 end

@@ -1,25 +1,44 @@
 <% site_title 'Fluxo de Atividades' %>
-<div class="row">
 
+<div class="row">
   <div class="col-sm-12">
 
-    <header class="page-header">
-      <h2>Fluxo de atividades</h2>
-    </header>      
-    
-    <article class="text-content">
-      <header class="page-header">
-        <h3>TCC 1</h3>
-      </header>
-      <iframe src="<%= site_timeline_path(1) %>" style="width: 100%; height: 600px; border: 1px solid #F0F0F0;" scrolling="no"> </iframe>
-    </article>
-    
-    <article class="text-content">
-      <header class="page-header">
-        <h3>TCC 2</h3>
-      </header>
-      <iframe src="<%= site_timeline_path(2) %>" style="width: 100%; height: 600px; border: 1px solid #F0F0F0;" scrolling="no"></iframe>
-    </article>
-  </div> 
+    <section >
+      <article class="text-content">
+        <header class="page-header">
+          <h2>Fluxo de Atividades do TCC</h2>
+        </header>
+        <p>
+          O fluxo de atividades abaixo visa apresentar ao estudantes as principais
+          etapas para realização do TCC no curso de Tecnologia em Sistemas para Internet.
+        </p>
+      </article>
 
+      <article id="flowchart"class="">
+        <%= inline_svg('tcc_tsi_fluxograma.svg') %>
+      </article>
+
+    </section>
+
+    <section>
+      <header>
+        <h2>Legenda</h2>
+      </header>
+
+      <ul id="flowchart_tcc_label">
+        <li class="attention"> Atividades de máxima atenção.</li>
+        <li class="deliver"> Entrega de documento.</li>
+        <li class="advisor"> Atividade que deve ser realizada com o orientador.</li>
+        <li class="presentation"> Apresentação/Defesa </li>
+        <li class="dvd"> Entrega de DVD virgem para armazenamento do TCC na biblioteca
+            <a href="https://drive.google.com/file/d/0B2_vcPBwSN6CMUhDN0MyNFZFczg/view?usp=sharing" target="_blank">
+            de acordo com o modelo.
+          </a>
+        </li>
+      </ul>
+    </section>
+
+  </div>
 </div>
+
+<%= javascript_include_tag 'site/flowchart.js', 'data-turbolinks-track' => true %>
