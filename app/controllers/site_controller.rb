@@ -1,6 +1,6 @@
 class SiteController < ActionController::Base
+  #caches_page :in_progress, :approveds
   before_action :set_menu_pages
-  caches_page :in_progress, :approveds
 
   def home
     @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
@@ -25,12 +25,12 @@ class SiteController < ActionController::Base
   end
   
   def approveds
-    response.headers['Cache-Control'] = 'public, max-age=300'
+    #cache_page_time
     @approveds = Approval.tccs
   end
   
   def in_progress
-    response.headers['Cache-Control'] = 'public, max-age=300'
+    #cache_page_time
     @proposals = Approval.proposals
     @projects = Approval.projects
   end
@@ -48,6 +48,11 @@ class SiteController < ActionController::Base
   end
   
   private
+  # TODO: Check if really works
+  def cache_page_time
+    response.headers['Cache-Control'] = 'public, max-age=300'
+  end
+
   def tcc_calendar(tcc)
     @calendar = BaseTimeline.find_by calendar_params(tcc)
     unless @calendar

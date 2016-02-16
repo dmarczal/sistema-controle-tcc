@@ -4,7 +4,7 @@
         <div class="col-md-2">
             <label>Ano: </label>
             <select class="form-control" name="year">
-              <% (2015..2025).each do |n| %>
+              <% (2013..2025).each do |n| %>
                 <option <%= params[:year] == n.to_s ? 'selected' : '' %>><%= n %></option>
               <% end %>
             </select>

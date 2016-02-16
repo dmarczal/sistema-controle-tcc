@@ -8,7 +8,9 @@
       <h2>TCCs Aprovados</h2>
     </header>
 
-    <% @approveds.keys.sort.each do |year| %>
+
+    <% cache 'approveds_tccs', skip_digest: true do %>
+    <% @approveds.keys.sort.reverse.each do |year| %>
 
       <article class="text-content">
       <header class="page-header">
@@ -17,39 +19,39 @@
 
       <% @approveds[year].each do |approval| %>
         <div class="text-content">
-          <ul class="tcc-approved">
-            <li>
-              <%= link_to approval.bank.timeline.title, approval.file.url, target: '_blank' %>
-            </li>
-            <li>
-              <strong>Acadêmico: </strong><%= approval.bank.student.name %>
-            </li>
-            <li>
-              <strong>Orientador (es): </strong> <%= approval.bank.advisors %>
-            </li>
-            <li>
-              <span>Baixar:&nbsp;</span>
-              <ul>
-                <%= link_to_if_exists approval.student.final_proposal,
-                    'Proposta', approval.student.final_proposal, target: '_blank' %>
+        <ul class="tcc-approved">
+          <li>
+            <%= link_to approval.bank.timeline.title, approval.file.url, target: '_blank' %>
+          </li>
+          <li>
+            <strong>Acadêmico: </strong><%= approval.bank.student.name %>
+        </li>
+          <li>
+            <strong>Orientador (es): </strong> <%= approval.bank.advisors %>
+        </li>
+          <li>
+            <span>Baixar:&nbsp;</span>
+            <ul>
+              <%= link_to_if_exists approval.student.final_proposal,
+                'Proposta', approval.student.final_proposal, target: '_blank' %>
 
-                <%= link_to_if_exists approval.student.final_project,
-                    'Projeto', approval.student.final_project, target: '_blank' %>
+              <%= link_to_if_exists approval.student.final_project,
+                'Projeto', approval.student.final_project, target: '_blank' %>
 
-                <%= link_to_if_exists approval.file_file_name,
-                    'Monografia', approval, target: '_blank' %>
+              <%= link_to_if_exists approval.file_file_name,
+                'Monografia', approval, target: '_blank' %>
 
-                <%= link_to_if_exists approval.complementary_file_file_name,
-                    'Arquivos complementares', approval, target: '_blank' %>
-               </ul>
+              <%= link_to_if_exists approval.complementary_file_file_name,
+                'Arquivos complementares', approval, target: '_blank' %>
+            </ul>
             </li>
           </ul>
         </div>
       <% end %>
 
-    </article>
-  <% end %>
+      </article>
+    <% end %>
+    <% end %>
 
-  </div> 
-
+   </div> 
 </div>

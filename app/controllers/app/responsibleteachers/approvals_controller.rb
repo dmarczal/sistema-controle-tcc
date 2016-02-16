@@ -35,10 +35,9 @@ class App::Responsibleteachers::ApprovalsController < App::Responsibleteachers::
 
   private
   def expire_caches
-    expire_page controller: '/site', action: :in_progress
-    expire_page controller: '/site', action: :approveds
-    expire_fragment 'aprovados'
-    expire_fragment 'em-andamento'
+    expire_fragment 'approved_proposals_tcc_one'
+    expire_fragment 'approved_projects_tcc_one'
+    expire_fragment 'approveds_tccs'
   end
 
   def set_approval

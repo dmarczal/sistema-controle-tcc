@@ -12,7 +12,9 @@
         <h3>Propostas de TCC</h3>
       </header>
 
-      <%= render 'site/approved_tcc_one', approveds: @proposals, type: 'Proposta' %>
+      <% cache 'approved_proposals_tcc_one', skip_digest: true do %>
+        <%= render 'site/approved_tcc_one', approveds: @proposals, type: 'Proposta' %>
+      <% end %>
     </section>
 
     <section>
@@ -21,7 +23,9 @@
         <h3>Projetos de TCC</h3>
       </header>
 
-      <%= render 'site/approved_tcc_one', approveds: @projects, type: 'Projeto' %>
+      <% cache 'approved_projects_tcc_one', skip_digest: true do %>
+        <%= render 'site/approved_tcc_one', approveds: @projects, type: 'Projeto' %>
+      <% end %>
     </section>
 
   </div>

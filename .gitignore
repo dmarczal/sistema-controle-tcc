@@ -21,6 +21,7 @@
 public/uploads
 public/assets
 public/caches
+public/system
 temp
 tmp
 logs
