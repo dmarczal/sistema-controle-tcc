@@ -20,6 +20,7 @@
 .ruby-version
 public/uploads
 public/assets
+public/deploy/*
 temp
 tmp
 logs
