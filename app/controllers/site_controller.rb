@@ -1,5 +1,8 @@
 class SiteController < ActionController::Base
   before_action :set_menu_pages
+
+  caches_page :in_progress, :approveds
+
   def home
     @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     @page = Page.find_by title: "O TCC"
@@ -23,17 +26,21 @@ class SiteController < ActionController::Base
   end
   
   def approveds
-    @_approveds = Approval.order(created_at: :desc).paginate(page: params[:page])
-    @year_approveds = {}
-    @_approveds.each do |approval|
-      @year_approveds[approval.bank.timeline.base_timeline.year.to_s.to_sym] ||= []
-      @year_approveds[approval.bank.timeline.base_timeline.year.to_s.to_sym].push approval
-    end
+    @approveds = Approval.tccs
+    #@_approveds = Approval.order(created_at: :desc).paginate(page: params[:page])
+    #@year_approveds = {}
+    #@_approveds.each do |approval|
+    #  @year_approveds[approval.bank.timeline.base_timeline.year.to_s.to_sym] ||= []
+    #  @year_approveds[approval.bank.timeline.base_timeline.year.to_s.to_sym].push approval
+    #end
   end
   
   def in_progress
-    current_half = Date.today.month < 6 ? 1 : 2
-    @tccs = Timeline.joins(:base_timeline).where(base_timelines: {year: Time.now.year, half: current_half, tcc: 1}).paginate(:page => params[:page], per_page: 10)
+    @proposals = Approval.proposals
+    @projects = Approval.projects
+
+    #current_half = Date.today.month < 6 ? 1 : 2
+    #@tccs = Timeline.joins(:base_timeline).where(base_timelines: {year: Time.now.year, half: current_half, tcc: 1}).paginate(:page => params[:page], per_page: 10)
   end
   
   def activities

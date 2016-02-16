@@ -4,9 +4,17 @@ class Bank < ActiveRecord::Base
     has_and_belongs_to_many :teachers
     belongs_to :timeline
     has_one :approval
-    belongs_to :bank_status
+    belongs_to :bank_status # TODO: REMOVE, NOT USED!
     validates_presence_of :date
     validates_presence_of :_type
+
+    def advisors
+      timeline.teachers.map { |t| t.name }.join(', ')
+    end
+
+    def student
+      @student ||= timeline.student
+    end
 
     def serialize
         ob = self.attributes.to_hash
@@ -32,4 +40,5 @@ class Bank < ActiveRecord::Base
     def self.prev_banks
         where('date < ?', Date.today)
     end
+
 end

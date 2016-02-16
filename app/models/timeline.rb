@@ -1,12 +1,13 @@
 class Timeline < ActiveRecord::Base
   has_many :item_timelines
-  has_one :bank
   has_many :orientations
   has_many :teachers, through: :teacher_timelines
   has_many :teacher_timelines
   belongs_to :student
-  belongs_to :bank
   belongs_to :base_timeline
+  #belongs_to :bank REMOVE
+  #has_one :bank  REMOVE
+  has_many :banks
 
   validates :base_timeline, :presence => {message: 'Ainda não foi referenciado um calendário para esse TCC.'}
   validates :student, :presence => {message: 'Uma timeline precisa de um acadêmico.'}

@@ -12,6 +12,22 @@ class Student < ActiveRecord::Base
 
   after_create :create_default_password
 
+  def banks
+    @banks ||= Bank.where(timeline_id: timeline)
+  end
+
+  def final_proposal
+    banks.where(_type: 'proposta').last.try(:approval)
+  end
+
+  def final_project
+    banks.where(_type: 'tcc1').last.try(:approval)
+  end
+
+  def final_monograph
+    banks.where(_type: 'tcc2').last.try(:approval)
+  end
+
   def self.search(search)
     if search
         where(['lower(name) LIKE ?', "%#{search}%".downcase])

@@ -1,4 +1,5 @@
 <% site_title 'TCCs Aprovados' %>
+
 <div class="row">
 
   <div class="col-sm-12">
@@ -6,36 +7,48 @@
     <header class="page-header">
       <h2>TCCs Aprovados</h2>
     </header>
-    <div class="row">
-      <div class="col-md-12">
-        <%= "Mostrando #{@_approveds.length} de #{@_approveds.total_entries} resultados." %>
-      </div>
-    </div>
-      
-      <% @year_approveds.each do |approvals| %>
-      <article class="text-content">
-          <header class="page-header">
-            <h3><%= approvals[0].to_s %></h3>
-          </header>	
-          <% approvals[1].each do |approval| %>
-          <div class="text-content">
-            <p>
-              <%= link_to approval.bank.timeline.title, approval.file.url, target: '_blank' %>
-              <br />
-              <%= type_bank(approval.bank) %>
-              <br />
-            <strong>Acadêmico: </strong><%= approval.bank.timeline.student.name %><br />
-            <strong>Orientador (es): </strong> <%= approval.bank.timeline.teachers.map { |t| t.name }.join(', ') %><br />
-            </p>
-          </div>
-          <% end %>
 
-        </article>
+    <% @approveds.keys.sort.each do |year| %>
+
+      <article class="text-content">
+      <header class="page-header">
+        <h3><%= year %></h3>
+      </header>	
+
+      <% @approveds[year].each do |approval| %>
+        <div class="text-content">
+          <ul class="tcc-approved">
+            <li>
+              <%= link_to approval.bank.timeline.title, approval.file.url, target: '_blank' %>
+            </li>
+            <li>
+              <strong>Acadêmico: </strong><%= approval.bank.student.name %>
+            </li>
+            <li>
+              <strong>Orientador (es): </strong> <%= approval.bank.advisors %>
+            </li>
+            <li>
+              <span>Baixar:&nbsp;</span>
+              <ul>
+                <%= link_to_if_exists approval.student.final_proposal,
+                    'Proposta', approval.student.final_proposal, target: '_blank' %>
+
+                <%= link_to_if_exists approval.student.final_project,
+                    'Projeto', approval.student.final_project, target: '_blank' %>
+
+                <%= link_to_if_exists approval.file_file_name,
+                    'Monografia', approval, target: '_blank' %>
+
+                <%= link_to_if_exists approval.complementary_file_file_name,
+                    'Arquivos complementares', approval, target: '_blank' %>
+               </ul>
+            </li>
+          </ul>
+        </div>
       <% end %>
 
-      <div class="text-center">
-        <%= will_paginate @_approveds, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;", renderer: BootstrapPagination::Rails %>
-      </div>
+    </article>
+  <% end %>
 
   </div> 
 

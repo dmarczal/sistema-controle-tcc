@@ -26,9 +26,9 @@ gem "paperclip-dropbox", ">= 1.1.7"
 gem "rest-client"
 gem "friendly_id"
 gem "redcarpet"
+gem 'actionpack-page_caching'
 
 group :development do
-  gem 'faker'
   gem 'populator'
 
   gem 'capistrano',         require: false
@@ -36,12 +36,28 @@ group :development do
   gem 'capistrano-rails',   require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-passenger', require: false
+
+  gem 'terminal-notifier-guard'
 end
 
 group :development, :test do
-  gem 'web-console', '~> 2.0'
+  gem 'faker'
   gem 'spring'
+  gem 'web-console', '~> 2.0'
+  gem 'byebug',         '4.0.0'
+  gem 'pry-byebug',     '3.1.0'
+
+  gem 'better_errors'
 end
+
+group :test do
+  gem 'guard-minitest',     '2.3.1'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'minitest-reporters', '1.0.5'
+  gem 'mini_backtrace',     '0.1.3'
+  gem 'simplecov'
+end
+
 
 #group :production do
 #  gem 'rails_12factor'

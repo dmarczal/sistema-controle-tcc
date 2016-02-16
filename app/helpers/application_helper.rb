@@ -38,4 +38,12 @@ module ApplicationHelper
     end
   end
 
+  def link_to_if_exists(condition, name, file, options)
+    return '' if condition.nil?
+    
+    content_tag(:li) do
+      link_to name, file.file.url, options
+    end
+  end
+
 end

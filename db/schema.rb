@@ -11,21 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001183944) do
+ActiveRecord::Schema.define(version: 20160216100315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "approvals", force: true do |t|
     t.integer  "type_approval_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "bank_id"
     t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.string   "dropbox_file"
+    t.string   "complementary_file_file_name"
+    t.string   "complementary_file_content_type"
+    t.integer  "complementary_file_file_size"
+    t.datetime "complementary_file_updated_at"
   end
 
   create_table "bank_notes", force: true do |t|
@@ -52,6 +56,8 @@ ActiveRecord::Schema.define(version: 20151001183944) do
     t.integer  "bank_status_id"
   end
 
+  add_index "banks", ["_type"], name: "banks_type_idx", using: :btree
+  add_index "banks", ["date"], name: "banks_date_idx", using: :btree
   add_index "banks", ["timeline_id"], name: "banks_timeline_idx", using: :btree
 
   create_table "banks_teachers", id: false, force: true do |t|

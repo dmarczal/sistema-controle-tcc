@@ -1,11 +1,11 @@
 require 'test_helper'
 
 class BankTest < ActiveSupport::TestCase
-  test "new" do
-    b = Bank.new
-    b.date = Date.new 2015, 04, 20
-    b.timeline = Timeline.first
-    b.teachers.push Teacher.first
-    assert b.save, 'Não salvou '+b.inspect
+  
+  test "create a valid bank" do
+    assert_difference 'Bank.count' do
+      bank = create(:bank_proposta)
+    end
   end
+
 end

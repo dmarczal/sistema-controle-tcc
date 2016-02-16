@@ -14,6 +14,9 @@ class App::Responsibleteachers::ApprovalsController < App::Responsibleteachers::
   def create
     @approval = Approval.new approval_params
     if @approval.save
+      expire_page controller: 'site', action: :in_progress
+      expire_page controller: 'site', action: :approveds
+
       flash[:success] = t('controllers.save')
     else
       flash[:danger] = 'Ops, algum erro ocorreu. Verifique a extensão do arquivo, são aceitas extensões .jpg e .pdf.'
@@ -24,6 +27,9 @@ class App::Responsibleteachers::ApprovalsController < App::Responsibleteachers::
   def update
     @approval.attributes = approval_params
     if @approval.save
+      expire_page controller: 'site', action: :in_progress
+      expire_page controller: 'site', action: :approveds
+
       flash[:success] = t('controllers.save')
     else
       flash[:danger] = 'Ops, algum erro ocorreu. Verifique a extensão do arquivo, são aceitas extensões .jpg e .pdf.'
@@ -37,6 +43,6 @@ class App::Responsibleteachers::ApprovalsController < App::Responsibleteachers::
   end
 
   def approval_params
-    params.require(:approval).permit(:bank_id, :type_approval_id, :file)
+    params.require(:approval).permit(:bank_id, :type_approval_id, :file, :complementary_file)
   end
 end

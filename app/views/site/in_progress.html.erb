@@ -1,31 +1,28 @@
 <% site_title 'TCCs em Andamento' %>
-<div class="row">
 
+<div class="row">
   <div class="col-sm-12">
 
     <header class="page-header">
       <h2>TCCs em andamento</h2>
     </header>
-    <div class="row">
-      <div class="col-md-12">
-        <%= "Mostrando #{@tccs.length} de #{@tccs.total_entries} resultados." %>
-      </div>
-    </div>
-      
-      <% @tccs.each do |tcc| %>
-        <article class="text-content">
-          <%= tcc.title %>
-          <br />
-          <strong>Acadêmico: </strong><%= tcc.student.name %><br />
-          <strong>Orientador (es): </strong> <%= tcc.teachers.map { |t| t.name }.join(', ') %><br />
-        </article>
-        <br />
-      <% end %>
 
-      <div class="text-center">
-        <%= will_paginate @tccs, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;", renderer: BootstrapPagination::Rails %>
-      </div>
+    <section>
+      <header class="page-header">
+        <h3>Propostas de TCC</h3>
+      </header>
 
-  </div> 
+      <%= render 'site/approved_tcc_one', approveds: @proposals, type: 'Proposta' %>
+    </section>
 
+    <section>
+
+      <header class="page-header">
+        <h3>Projetos de TCC</h3>
+      </header>
+
+      <%= render 'site/approved_tcc_one', approveds: @projects, type: 'Projeto' %>
+    </section>
+
+  </div>
 </div>
