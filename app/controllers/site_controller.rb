@@ -5,7 +5,7 @@ class SiteController < ActionController::Base
   def home
     @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     @page = Page.find_by title: "O TCC"
-    @notices = Notice.limit(5)
+    @notices = Notice.order(created_at: :desc).limit(5)
     @banks = Bank.next_banks
   end
   
