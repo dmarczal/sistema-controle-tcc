@@ -6,6 +6,8 @@
   </header>	
 
   <% approveds[year].each do |approval| %>
+    <% # TODO: todo with a better way %>
+    <% next unless approval.student.final_monograph.nil? %>
     <div class="text-content">
       <ul class="tcc-approved">
         <li>
