@@ -28,6 +28,7 @@ require 'capistrano/rails'
 require 'capistrano/rvm'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
+require "whenever/capistrano"
 
 set :rvm_type, :user
 set :rvm_ruby_version, '2.2.3'
