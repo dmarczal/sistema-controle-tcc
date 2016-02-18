@@ -16,6 +16,10 @@ class Bank < ActiveRecord::Base
       @student ||= timeline.student
     end
 
+    def tcc1?
+      self._type == 'tcc1' || self._type == 'proposta'
+    end
+
     def serialize
         ob = self.attributes.to_hash
         ob['teacher_ids'] = self.teacher_ids

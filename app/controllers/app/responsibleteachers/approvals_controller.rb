@@ -34,10 +34,13 @@ class App::Responsibleteachers::ApprovalsController < App::Responsibleteachers::
   end
 
   private
-  def expire_caches
-    expire_fragment 'approved_proposals_tcc_one'
-    expire_fragment 'approved_projects_tcc_one'
-    expire_fragment 'approveds_tccs'
+  def expire_caches 
+    if @approval.bank.tcc1?
+      expire_fragment 'approved_proposals_tcc_one'
+      expire_fragment 'approved_projects_tcc_one'
+    else
+      expire_fragment 'approveds_tccs'
+    end
   end
 
   def set_approval
