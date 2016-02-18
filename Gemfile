@@ -27,6 +27,7 @@ gem "rest-client"
 gem "friendly_id"
 gem "redcarpet"
 gem 'actionpack-page_caching'
+gem "bootsy"
 
 group :development do
   gem 'populator'
