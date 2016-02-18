@@ -1,6 +1,6 @@
 <legend>Orientações</legend>
-<div class="col-md-4 pull-left text-left">
-  <form action="<%= responsible_teacher_orientacoes_path %>" class="form-inline">
+<div class="col-md-6 pull-right text-right">
+  <form action="<%= responsible_teacher_orientacoes_path %>" class="form-inline search-form">
     <p>
       <%= text_field_tag :search, params[:search], class: 'form-control input-sm', placeholder: "Buscar acadêmico" %>
       <%= button_tag glyph(:search), class: 'btn btn-sm btn-inverse', type: 'submit', :name => nil %>

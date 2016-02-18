@@ -1,11 +1,13 @@
-<legend>Orientações</legend>
-<div class="col-md-4 pull-left text-left">
-  <form action="<%= teachers_orientacoes_path %>" class="form-inline">
-    <p>
+<h2>Orientações</h2>
+<div class="row">
+  <div class="col-md-6 pull-right text-right">  
+  <p>
+    <form action="<%= teachers_orientacoes_path %>" class="form-inline search-form">
       <%= text_field_tag :search, params[:search], class: 'form-control input-sm', placeholder: "Buscar acadêmico" %>
       <%= button_tag glyph(:search), class: 'btn btn-sm btn-inverse', type: 'submit', :name => nil %>
+    </form>
     </p>
-  </form>
+  </div>
 </div>
 <table class="table table-hovered">
     <tr>
@@ -25,6 +27,11 @@
     </tr>
     <% end %>
 </table>
-<div class="text-center">
-  <%= will_paginate @tccs, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;", renderer: BootstrapPagination::Rails %>
+<div class="row">
+  <div class="col-md-4">
+    <%= "Mostrando #{@tccs.length} de #{@tccs.total_entries} resultados." %>
+  </div>
+  <div class="col-md-8 pull-right text-right">
+    <%= will_paginate @tccs, :previous_label => "&laquo; Anterior", :next_label => "Próxima &raquo;", renderer: BootstrapPagination::Rails %>
+  </div>
 </div>

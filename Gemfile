@@ -28,6 +28,7 @@ gem "friendly_id"
 gem "redcarpet"
 gem 'actionpack-page_caching'
 gem "bootsy"
+gem "breadcrumbs_on_rails"
 
 group :development do
   gem 'populator'
