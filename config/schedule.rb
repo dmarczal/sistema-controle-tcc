@@ -18,6 +18,8 @@
 
 # Learn more: http://github.com/javan/whenever
 
+set :output, "#{path}/log/cron.log"
+
 every 1.day, :at => '00:01 am' do
   rake "update_items_timeline"
 end
