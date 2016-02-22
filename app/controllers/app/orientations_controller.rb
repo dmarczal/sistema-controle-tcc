@@ -2,12 +2,18 @@ require 'will_paginate/array'
 class App::OrientationsController < ApplicationController
     before_filter :set_teacher
     before_filter :check_permission
+    before_filter :set_breadcrumb, only: [:edit, :editPost, :show]
     def index
-        @tccs = Timeline.search_by_student(params[:search]).joins(:base_timeline).order("base_timelines.year").reverse.paginate(:page => params[:page], per_page: 25)  
+        if current_user.role == Role.teacher
+            @tccs = Timeline.by_teacher_and_student(current_user, params[:search]).joins(:base_timeline).order("base_timelines.year").reverse.paginate(:page => params[:page], per_page: 25)  
+        else
+            @tccs = Timeline.search_by_student(params[:search]).joins(:base_timeline).order("base_timelines.year").reverse.paginate(:page => params[:page], per_page: 25)  
+        end
         render 'index_timelines'
     end
 
     def index_by_timeline
+        add_breadcrumb "Todas as orientações", teachers_orientacoes_path
         teacher_id = @teacher.id
         timeline_ids = Timeline.joins(:teacher_timelines).where(teacher_timelines: {:teacher_id => teacher_id, :timeline_id => params[:timeline_id]}).ids
         @orientations = Orientation.where(timeline_id: timeline_ids).order(date: :desc).paginate(:page => params[:page], per_page: 25)
@@ -37,7 +43,7 @@ class App::OrientationsController < ApplicationController
             orientation.assign_attributes(orientationHash)
             if orientation.save
                 flash[:success] = ['','Orientação cadastrada com sucesso.']
-                redirect_to '/professor/orientacoes'
+                redirect_to "/professor/orientacoes/timeline/#{params[:tcc]}"
             else
                 flash[:danger] = orientation.errors.first
                 redirect_to '/professor/orientacoes/new'
@@ -81,7 +87,7 @@ class App::OrientationsController < ApplicationController
         orientation = Orientation.new orientationHash
         if orientation.save
             flash[:success] = ['','Orientação cadastrada com sucesso.']
-            redirect_to '/professor/orientacoes'
+            redirect_to "/professor/orientacoes/timeline/#{params[:tcc]}"
         else
             flash[:danger] = orientation.errors.first
             redirect_to '/professor/orientacoes/new'
@@ -94,6 +100,12 @@ class App::OrientationsController < ApplicationController
     end
 
     private
+    def set_breadcrumb
+        add_breadcrumb "Todas as orientações", teachers_orientacoes_path
+        @orientation = Orientation.find(params[:id])
+        add_breadcrumb @orientation.timeline.student.name, "/professor/orientacoes/timeline/#{@orientation.timeline.id}"
+    end
+
     def set_teacher
         # enquanto não tem o login
         @teacher = current_user

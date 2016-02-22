@@ -16,10 +16,19 @@ class Timeline < ActiveRecord::Base
   
   def self.search_by_student(student_name)
     if student_name
-        students = Student.where(['lower(name) LIKE ?', "%#{student_name}%".downcase])
+        students = Student.where(['lower(name) LIKE ?', "%#{student_name}%".mb_chars.downcase])
         where(student: students)
     else
         all
+    end
+  end
+
+  def self.by_teacher_and_student(teacher, student_name)
+    if student_name
+      students = Student.where(['lower(name) LIKE ?', "%#{student_name}%".mb_chars.downcase])
+      teacher.timelines.where(student: students)
+    else
+      teacher.timelines
     end
   end
 
