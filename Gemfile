@@ -28,6 +28,8 @@ gem "friendly_id"
 gem "redcarpet"
 gem 'actionpack-page_caching'
 gem 'whenever', :require => false
+gem "bootsy"
+gem "breadcrumbs_on_rails"
 
 group :development do
   gem 'populator'

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
     # rotas do site
     # scope 'site' do
         get '/' => 'site#home', as: :site_root
