@@ -23,6 +23,7 @@ class Approval < ActiveRecord::Base
 
 
   def self.tccs
+    #includes(bank: [ timeline: [:student, :teachers] ]).where('banks._type' => 'tcc2').group_by do |ap|
     includes(bank: [ timeline: [:student, :teachers] ]).where('banks._type' => 'tcc2').group_by do |ap|
       ap.bank.date.strftime('%Y')
     end
