@@ -19,7 +19,7 @@ set :use_sudo,        false
 set :deploy_to, "/home/#{fetch(:user)}/apps/rails/#{fetch(:application)}"
 
 set :linked_files, %w{config/database.yml config/dropbox.yml}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/attachments}
 
 namespace :deploy do
 
