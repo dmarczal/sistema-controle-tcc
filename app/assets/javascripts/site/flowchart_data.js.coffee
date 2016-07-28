@@ -14,7 +14,7 @@ popover_data =
   "g5905": "
      <strong>Etapa 3:</strong>
      O acadêmico deve procurar os professores de TSI para conhecer suas linhas de
-     pesquisas, projetos, áreas de interesse, etc. Isso com o propósito de
+     pesquisas, projetos, áreas de interesse, etc. Com o propósito de
      encontrar o orientador e tema para o seu TCC."
 
   "g3834-0-6-5": "
@@ -49,8 +49,8 @@ popover_data =
           indicações do professor da disciplina de TCC 1.
         </li>
         <li>
-           Registrar no sistema do TCC todas as reuniões com seu orientador, o mínimo de reuniões por semestre é 4,
-           casam sejam feitas menos de 4 reuniões, o acadêmico não poderá realizar a defesa do TCC.
+           Registrar no sistema do TCC todas as reuniões com seu orientador, o mínimo de reuniões por semestre é 4, sendo
+           registradas em meses distintos. Caso sejam feitas menos de 4 reuniões, o acadêmico não poderá realizar a defesa do projeto de TCC.
         </li>
       </ul>"
 
@@ -64,14 +64,14 @@ popover_data =
       <p>Nesta etapa o acadêmico deve:</p>
       <ul>
         <li>
-           Entregar a proposta de TCC digital no sistema do TCC e encadernada ao professor de
+           Entregar a proposta de TCC digital via sistema do TCC, conforme a orientação professor de
            TCC 1, para que seja encaminhado para avaliação dos professores que
            participarão da banca de defesa de proposta.
         </li>
         <li>
           Acompanhado do projeto, o acadêmico deve entregar a 
-          <a target='_blank' href='https://drive.google.com/file/d/0B2_vcPBwSN6CM2dyY1RoLXJhazA/view?usp=sharing'>
-          Ficha de Autorização para Realização da Defesa de TCC</a> assinada pelo seu orientador.
+          <a target='_blank' href='https://drive.google.com/open?id=0B2_vcPBwSN6CTXB5ZC1NdWluRTg'>
+          Ficha de Encaminhamento de TCC para Banca Avaliadora</a> devidamente assinada pelo seu orientador.
         </li>
       </ul>"
 
@@ -82,7 +82,7 @@ popover_data =
   "g10110": "
       <strong>Etapa 10:</strong>
       <p>
-        O acadêmico deve realizar uma apresentação de no máximo 15 minutos para
+        O acadêmico deve realizar uma apresentação de no máximo 10 minutos para
         defender sua proposta de TCC. Esta será avaliada por uma banca composta de 3
         professores.
       </p>"
@@ -114,7 +114,7 @@ popover_data =
       <p>
         O acadêmico deve entregar para o seu
         orientador o projeto de TCC para correção, de acordo
-        com o <a href='https://drive.google.com/file/d/0B2_vcPBwSN6CRkN6aHV3MDlaNlU/view?usp=sharing' target='_blank'>Modelo de Projeto de TCC</a>.
+        com o <a href='https://drive.google.com/open?id=0B2_vcPBwSN6CbWNqRTZPUmdHWFk' target='_blank'>Modelo de Projeto de TCC</a>.
         Atente-se para que ele tenha tempo hábil para correção antes da entrega para avaliação.
       </p>"
 
@@ -123,14 +123,14 @@ popover_data =
       <p>Nesta etapa o acadêmico deve:</p>
       <ul>
         <li>
-           O acadêmico deve entregar projeto de TCC, encadernado, ao professor
-           de TCC 1, para que seja encaminhada para avaliação dos professores
+           O acadêmico deve entregar projeto de TCC ao professor
+           de TCC 1 conforme sua orientação, para que seja encaminhada para avaliação dos professores
            que participarão da banca de defesa de projeto de TCC.
         </li>
         <li>
            Acompanhado do projeto, o acadêmico deve entregar a 
-           <a target='_blank' href='https://drive.google.com/file/d/0B2_vcPBwSN6CM2dyY1RoLXJhazA/view?usp=sharing'>
-           Ficha de Autorização para Realização da Defesa de TCC</a> assinada pelo seu orientador.
+           <a target='_blank' href='https://drive.google.com/open?id=0B2_vcPBwSN6CTXB5ZC1NdWluRTg'>
+           Ficha de Encaminhamento de TCC para Banca Avaliadora</a> assinada pelo seu orientador.
         </li>
         <li>
            Para que o acadêmico possa realizar a defesa, todas reuniões devem estar registradas
@@ -141,7 +141,7 @@ popover_data =
   "g6502": "
       <strong>Etapa 16:</strong>
       <p>
-        O acadêmico deve apresentar um prévia de sua defesa para o professor orientador.
+        O acadêmico deve apresentar um prévia de sua defesa do projeto para seu professor orientador.
       </p>"
 
   "g3834-0-6-5-9-8-8-4-6-6-6": "
@@ -166,7 +166,7 @@ popover_data =
       <p>Nesta etapa o acadêmico deve:</p>
       <ul>
         <li>
-          Entregar, via sistema do TCC, a versão corrigida do seu projeto.
+          Entregar, via sistema do TCC, ou conforme orientação do professor de TCC 1 a versão corrigida do seu projeto.
         </li>
       </ul>"
 
@@ -187,14 +187,14 @@ popover_data =
          Realizar o desenvolvimento do seu TCC. 
         </li>
         <li>
-          Manter pelo menos um reuniões semanais, devidamente
+          Manter reuniões semanais, devidamente
           registrada no sistema do TCC, com o seu orientador.
         </li>
       </ul>"
 
   "g3834-0-6-5-9-8-8-4-6-8-4":"
       <strong>Etapa 22:</strong>
-      <p>Desenvolver a escrita do projeto de TCC conforme o 
+      <p>Desenvolver a escrita da monografia de TCC conforme o 
       <a target='_blank' href='https://drive.google.com/file/d/0B2_vcPBwSN6CaVdPSTkwb2tjbzQ/view?usp=sharing'>Modelo de
       Monografia de TCC 2</a>.</p>"
 
@@ -211,15 +211,17 @@ popover_data =
       <p>Nesta etapa o acadêmico deve:</p>
       <ul>
         <li>
-          O acadêmico deve entregar 3 cópias encadernadas da monografia final
+          O acadêmico deve entregar a monografia 
           ao professor responsável pelo TCC, para que seja encaminhada para
           avaliação dos professores que participarão da banca de TCC 2.
         </li>
         <li>
-          Acompanhado da monografia, o acadêmico deve entregar a <a
-            href='https://drive.google.com/file/d/0B2_vcPBwSN6CTXB5ZC1NdWluRTg/view?usp=sharing' target='_blank'>Ficha
-            de Encaminhamento de TCC para Banca Avaliadora</a> assinada pelo
-            seu orientador.
+          Acompanhado da monografia,
+          o acadêmico deve entregar a
+          <a target='_blank' href='https://drive.google.com/open?id=0B2_vcPBwSN6CTXB5ZC1NdWluRTg'>
+           Ficha de Encaminhamento de TCC para Banca Avaliadora</a>
+           devidamente assinada pelo
+           seu orientador.
         </li>
         <li>
           Adicionalmente, todas reuniões devem estar devidamente registradas no sistema
@@ -229,7 +231,7 @@ popover_data =
 
   "g3834-0-6-5-9-8-8-4-6-0":"
      <strong>Etapa 25:</strong>
-     <p>O acadêmico deve apresentar um prévia de sua defesa o professor
+     <p>O acadêmico deve apresentar um prévia de sua defesa de monografia a seu professor
      orientador.</p>"
 
   "g3834-0-6-5-9-8-8-4-6-0-7":"
@@ -258,9 +260,9 @@ popover_data =
 
   "g3834-0-6-5-9-8-7-3":"
      <strong>Etapa 28:</strong>
-     <p>Após as correções solicitadas pela banca o aluno deve entregar a
-        versão final do TCC  para o professor responsável juntamente com a
-        ficha de encaminhamento da versão final do TCC, nas datas divulgadas
+     <p>Após as correções solicitadas pela banca o acadêmico deve entregar a
+        versão final do TCC para o professor responsável juntamente com a
+        <a href='https://drive.google.com/open?id=0B2_vcPBwSN6CV25wTWZ0cmFJcjQ' target='_blank'>Ficha de Encaminhamento de Entrega da Versão Final do TCC</a>, nas datas divulgadas
         em cada semestre.
      </p>"
 
@@ -268,18 +270,12 @@ popover_data =
      <strong>Etapa 29:</strong>
      <p>Nesta etapa o acadêmico deve:</p>
      <ul>
-       <li>
-         Versão final da proposta apresentada em TCC 1, com devidas correções;
-       </li>
-       <li>
-         Versão final do projeto apresentado no final da disciplina de TCC 1, com devidas correções;
-       </li>
-       <li>
+      <li>
         Versão final da monografia com as correções sugeridas pela banca,
         juntamente com a cópia da ata de defesa anexada logo após a contra-capa;
        </li>
        <li>
-         Código fonte, executável referentes ao trabalho se existirem;
+         Código fonte, com as devidas instruções de execução, se existirem;
        </li>
        <li>
          Documentos referentes ao depósito do trabalho na biblioteca;
