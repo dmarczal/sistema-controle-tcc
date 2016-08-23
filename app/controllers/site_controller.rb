@@ -15,7 +15,7 @@ class SiteController < ActionController::Base
   end
   
   def page
-    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, :fenced_code_blocks => true)
     @page = Page.friendly.find(params[:slug])
   end
   
