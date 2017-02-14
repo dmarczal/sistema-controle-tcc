@@ -173,10 +173,7 @@ popover_data =
   "g3834-0-6-5-0": "
       <strong>Etapa 20:</strong>
       <p>
-        O  acadêmico aprovado em TCC 1, deverá solicitar sua mátricula em TCC
-        2 ao professor responsável via protocolo, no prazo de 50
-        (cinquenta) dias antes do final do semestre, devendo continuar com
-        o mesmo orientador.
+        A matrícula em TCC 2 somente poderá ser efetuada após a aprovaçãoo em TCC 1. O acadêmico aprovado em TCC 1, deverá realizar sua matrícula em TCC 2 via sistema acadêmico durante o período de matrículas de cada semestre. Caso TCC 2 seja a única disciplina pendente, ele será automaticamente matriculado.
       </p>"
 
   "g3834-0-6-5-9-8-8-4-6-8-5-2-6": "
