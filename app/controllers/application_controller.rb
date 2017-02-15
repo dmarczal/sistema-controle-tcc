@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def login_post
     # Temporay disable ldap authentication
-    # user = connect(params[:user])
+    #user = connect(params[:user])
 
     #user = {"email" => "tccutfprgpuava@gmail.com"} if Rails.env.development? || request.url.index("tcc-app-presentation")
     #user = {"email" => "tccutfprgpuava@gmail.com"} if params[:user][:login] == "estudante_teste" && params[:user][:password] == "estudanteteste123"
@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
     user = params[:user]
 
     roles = Role.where(name: ["Professor responsável", "Professor de TCC 1"]).ids
+
     if Teacher.exists?(login: params[:user][:login], role_id: [roles])
       user = Teacher.find_by(login: params[:user][:login])
       if user.password.check?(params[:user][:password])
@@ -23,7 +24,7 @@ class ApplicationController < ActionController::Base
       else
         redirect_to login_path, :flash => { :danger => t('controllers.login.incorrect_password') }
       end
-    elsif user
+    elsif (user = connect(params[:user]))
       if Teacher.exists?(login: params[:user][:login])
         @user = Teacher.find_by(login: params[:user][:login])
         # Temporay disable ldap authentication
@@ -55,7 +56,7 @@ class ApplicationController < ActionController::Base
 
   private
   def connect(user)
-    response = RestClient.post 'http://tsi.gp.utfpr.edu.br/ldap/',
+    response = RestClient.post 'http://webservices.tsi.pro.br/ldap.php',
       { user: { user_name: user[:login], password: user[:password]} }.to_json,
       {
         authorization: 'Token token="6e89e720147952ced8ebf25d2977316c9a798a78"',
